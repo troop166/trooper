@@ -19,3 +19,13 @@ class MemberChangeForm(UserChangeForm):
 
 class MemberAuthenticationForm(AuthenticationForm):
     pass
+
+
+class MemberSignupForm(MemberCreationForm):
+    class Meta:
+        model = Member
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+        )

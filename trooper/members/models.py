@@ -47,24 +47,19 @@ class Member(AbstractUser):
         super().clean()
         if self.email:
             model_class = self.__class__
-            model_class_pk = self._get_pk_val(model_class._meta)
+            model_class_pk = self._get_pk_val()
             field = model_class._meta.get_field("email")
             qs = model_class._default_manager.filter(email__icontains=self.email)
 
-            params = {
-                "model": self,
-                "model_class": model_class,
-                "model_name": capfirst(model_class._meta.verbose_name),
-                "unique_chedk": (model_class, ("email",)),
-                "field_label": capfirst(field.verbose_name),
-            }
             if not self._state.adding and model_class_pk is not None:
                 qs = qs.exclude(pk=model_class_pk)
             if qs.exists():
                 raise ValidationError(
-                    message=field.error_messages["unique"],
-                    code="unique",
-                    params=params,
+                    {
+                        "email": ValidationError(
+                            field.error_messages["unique"], code="unique"
+                        )
+                    }
                 )
 
     @classmethod
