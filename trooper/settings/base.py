@@ -131,7 +131,7 @@ PASSWORD_HASHERS = [
 # https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model
 
 AUTH_USER_MODEL = "members.Member"
-LOGIN_URL = "members:login"
+LOGIN_URL = "auth:login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
