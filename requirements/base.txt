@@ -1,6 +1,6 @@
-django[argon2]
-django-environ
-django-widget-tweaks
-docutils
-pillow
-whitenoise[brotli]
+django[argon2]       ~=3.2
+django-environ       ~=0.9
+django-widget-tweaks ~=1.4
+docutils             ~=0.19
+pillow               ~=9.2
+whitenoise[brotli]   ~=6.2

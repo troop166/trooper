@@ -1,8 +1,8 @@
 -r base.txt
 
-black
-flake8
-isort
-pre-commit
-django-extensions
-django-debug-toolbar
+black                ~=22.0
+flake8               ~=5.0
+isort                ~=5.10
+pre-commit           ~=2.20
+django-extensions    ~=3.2
+django-debug-toolbar ~=3.7
