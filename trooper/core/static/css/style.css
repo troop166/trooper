@@ -1,8 +1,115 @@
+:root {
+  /* BSA Primary Colors */
+  --scouting-red: #ce1126;
+  --scouting-red-rgb: 206, 17, 38;
+  --scouting-blue: #003f87;
+  --scouting-blue-rgb: 0, 63, 135;
+  --scouting-tan: #d6cebd;
+  --scouting-tan-rgb: 214, 206, 189;
+  --scouting-warm-gray: #515354;
+  --scouting-warm-gray-rgb: 81, 83, 84;
+  --scouting-olive: #243e2c;
+  --scouting-olive-rgb: 36, 62, 44;
+  --scouting-gold: #fdc116;
+  --scouting-gold-rgb: 252, 209, 22;
+
+  /* BSA Secondary Colors */
+  --scouting-dark-red: #860d1a;
+  --scouting-dark-red-rgb: 134, 13, 26;
+  --scouting-light-red: #c54250;
+  --scouting-light-red-rgb: 197, 66, 80;
+  --scouting-pale-blue: #9ab3d5;
+  --scouting-pale-blue-rgb: 154, 179, 213;
+  --scouting-dark-blue: #003366;
+  --scouting-dark-blue-rgb: 0, 51, 102;
+  --scouting-light-tan: #e9e9e4;
+  --scouting-light-tan-rgb: 233, 233, 228;
+  --scouting-dark-tan: #ad9d7b;
+  --scouting-dark-tan-rgb: 173, 157, 123;
+  --scouting-pale-gray: #858787;
+  --scouting-pale-gray-rgb: 133, 135, 135;
+  --scouting-dark-gray: #232528;
+  --scouting-dark-gray-rgb: 35, 37, 40;
+
+  /* BSA Web Colors */
+  --informative-blue: #067eeb;
+  --informative-blue-rgb: 6, 126, 235;
+  --gray-10: #1a1a1a;
+  --gray-10-rgb: 26, 26, 26;
+  --gray-9: #333333;
+  --gray-9-rgb: 51, 51, 51;
+  --gray-8: #4d4d4d;
+  --gray-8-rgb: 77, 77, 77;
+  --gray-7: #666666;
+  --gray-7-rgb: 102, 102, 102;
+  --gray-6: #808080;
+  --gray-6-rgb: 128, 128, 128;
+  --gray-5: #999999;
+  --gray-5-rgb: 153, 153, 153;
+  --gray-4: #b3b3b3;
+  --gray-4-rgb: 179, 179, 179;
+  --gray-3: #cccccc;
+  --gray-3-rgb: 204, 204, 204;
+  --gray-2: #e6e6e6;
+  --gray-2-rgb: 230, 230, 230;
+  --gray-1: #f2f2f2;
+  --gray-1-rgb: 242, 242, 242;
+  --matrix-yellow: #ffb225;
+  --matrix-yellow-rgb: 255, 178, 37;
+  --matrix-green: #039b03;
+  --matrix-green-rgb: 3, 155, 3;
+  --matrix-orange: #ff6200;
+  --matrix-orange-rgb: 255, 98, 0;
+  --dark-teal: #00303c;
+  --dark-teal-rgb: 0, 48, 60;
+  --alert-red: #dd0000;
+  --alert-red-rgb: 221, 0, 0;
+
+  /* Bootstrap Overrides */
+  --bs-primary: var(--scouting-blue);
+  --bs-primary-rgb: var(--scouting-blue-rgb);
+  --bs-secondary: var(--scouting-warm-gray);
+  --bs-secondary-rgb: var(--scouting-warm-gray-rgb);
+  --bs-success: var(--matrix-green);
+  --bs-success-rgb: var(--matrix-green-rgb);
+  --bs-info: var(--informative-blue);
+  --bs-info-rgb: var(--informative-blue-rgb);
+  --bs-danger: var(--alert-red);
+  --bs-danger-rgb: var(--alert-red-rgb);
+  --bs-warning: var(--matrix-yellow);
+  --bs-warning-rgb: var(--matrix-yellow-rgb);
+  --bs-light: var(--scouting-light-tan);
+  --bs-light-rgb: var(--scouting-light-tan-rgb);
+  --bs-dark: var(--scouting-dark-gray);
+  --bs-dark-rgb: var(--scouting-dark-gray-rgb);
+}
+
 body {
   min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--scouting-blue);
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 700;
+}
+
+h5 {
+  color: var(--scouting-blue);
+}
+
+h6 {
+  color: var(--scouting-blue);
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
 }
 
 main.container {
