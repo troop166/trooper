@@ -69,18 +69,20 @@ form.is-submitting button[type=submit] {
   padding: 1rem 0.25rem;
 }
 
-#navbar-signout {
+#navbar-logout {
   padding: 0;
 }
 
-#navbar-signout button[type=submit] {
-  padding: 0.25rem 1rem;
+#navbar-logout button[type=submit] {
+  display: flex;
+  align-items: center;
   background-color: transparent;
   border: none;
   width: 100%;
-  text-align: left;
+  padding: 0.25rem 1rem;
 }
 
+.navbar-brand,
 .navbar-nav>.nav-item {
   margin-right: 1.5rem;
 }
