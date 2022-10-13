@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% translate 'About' %} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <main class="container">
+      <h1>{% translate 'About' %}</h1>
+      <p>
+        {% translate "So you want to know a bit more about who we are?" %}
+      </p>
+    </main>
+{% endblock content %}

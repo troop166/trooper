@@ -1,0 +1,29 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bs-gray-300);
+}
+
+#wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--bs-black-rgb), 0.3);
+}
+
+main {
+  background-color: var(--bs-body-bg);
+  border-radius: var(--bs-border-radius-sm);
+  text-align: center;
+  padding: 3rem;
+}

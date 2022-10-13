@@ -1,0 +1,28 @@
+[project]
+name = "Trooper"
+description = "Simple BSA Troop management application."
+version = "0.1.0"
+authors = [
+  "John Lawrence <john@cjvn.net>",
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.9"
+
+[tool.black]
+extend-exclude = "migrations/"
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+extend_skip = "migrations"
+known_django = "django"
+known_first_party = "trooper"
+sections = [
+  "FUTURE",
+  "STDLIB",
+  "DJANGO",
+  "THIRDPARTY",
+  "FIRSTPARTY",
+  "LOCALFOLDER"
+]

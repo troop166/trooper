@@ -1,0 +1,8 @@
+-r base.txt
+
+black
+flake8
+isort
+pre-commit
+django-extensions
+django-debug-toolbar

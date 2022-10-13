@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load i18n static %}
+
+{% block title %}{% translate 'Bad Request' %}{% endblock title %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock css %}
+
+{# Delete the navbar #}
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+  <div id="wrapper">
+    <main class="container">
+      <h1 class="text-danger"><i class="bi bi-exclamation-circle-fill"></i> {% translate 'Bad Request' %}</h1>
+      <p>
+        {% if exception %}
+          {{ exception }}
+        {% else %}
+          {% translate "Something went wrong with our connection." %}
+        {% endif %}
+      </p>
+    </main>
+  </div>
+{% endblock content %}

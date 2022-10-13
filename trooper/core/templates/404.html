@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load i18n static %}
+
+{% block title %}{% translate 'Page not found (404)' %} | {{ block.super }}{% endblock title %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock css %}
+
+{% block content %}
+  <div id="wrapper">
+    <main class="container">
+      <h1><i class="bi bi-question-circle-fill"></i> {% translate 'Page not found' %}</h1>
+      <p>
+        {% if exception %}
+          {{ exception }}
+        {% else %}
+          {% translate "This is not the page you're looking for" %}
+        {% endif %}
+      </p>
+    </main>
+  </div>
+{% endblock content %}

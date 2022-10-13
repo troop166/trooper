@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if messages %}
+  <!-- Begin messages section -->
+  {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }} {% endif %}alert-dismissible fade show rounded-0" role="alert">
+      <div class="container">
+        {{ message|safe }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label={% translate 'Dismiss' %}></button>
+      </div>
+    </div>
+  {% endfor %}
+{% endif %}

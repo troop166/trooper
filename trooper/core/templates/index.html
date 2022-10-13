@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+    <main class="container">
+      <h1>{% translate 'Home' %}</h1>
+      <p>
+        {% translate "Welcome to our home on the World Wide Web." %}
+      </p>
+    </main>
+{% endblock content %}

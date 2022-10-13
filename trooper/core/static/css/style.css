@@ -1,0 +1,86 @@
+body {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main.container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+form.is-submitting button[type=submit] {
+  color: var(--bs-btn-disabled-color);
+  pointer-events: none;
+  background-color: var(--bs-btn-disabled-bg);
+  border-color: var(--bs-btn-disabled-border-color);
+  opacity: var(--bs-btn-disabled-opacity);
+}
+
+.message {
+  border-radius: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+}
+
+.login-form .form-floating:focus-within {
+  z-index: 2;
+}
+
+.login-form input[autocomplete="username"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.login-form input[autocomplete="current-password"] {
+  margin-bottom: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#navbar-signin {
+  color: var(--bs-gray-500);
+  min-width: 32ch;
+  padding-top: 1rem;
+  padding-right: 1.5rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.logout-form {
+  padding: 0;
+}
+
+.logout-form button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  padding: 1rem 0.25rem;
+}
+
+#navbar-signout {
+  padding: 0;
+}
+
+#navbar-signout button[type=submit] {
+  padding: 0.25rem 1rem;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.navbar-nav>.nav-item {
+  margin-right: 1.5rem;
+}

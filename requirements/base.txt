@@ -1,0 +1,6 @@
+django[argon2]
+django-environ
+django-widget-tweaks
+docutils
+pillow
+whitenoise[brotli]

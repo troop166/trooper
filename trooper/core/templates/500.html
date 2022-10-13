@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load i18n static %}
+
+{% block title %}{% translate 'Server Error' %}{% endblock title %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock css %}
+
+{# Delete the navbar #}
+{% block navbar %}{% endblock navbar %}
+
+{% block content %}
+  <div id="wrapper">
+    <main class="container">
+      <h1 class="text-danger"><i class="bi bi-x-circle-fill"></i> {% translate 'Oops!!! 500' %}</h1>
+
+      <h2>{% translate 'Looks like something went wrong!' %}</h2>
+
+      <p>
+        {% blocktranslate %}
+          We track errors like these automatically, but if the problem persists feel free to
+          contact us. In the meantime, try refreshing the page.
+        {% endblocktranslate %}
+      </p>
+    </main>
+  </div>
+{% endblock content %}

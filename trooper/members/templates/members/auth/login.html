@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% translate 'Login' %} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+  <main class="container d-flex justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-body">
+        {% with WIDGET_ERROR_CLASS="is_invalid" %}
+          <form method="post" class="login-form">
+            <h1 class="card-title text-center">{% translate 'Please sign in' %}</h1>
+            {% include 'partials/forms/non_field_errors.html' %}
+            <div class="form-floating">
+              {% blocktranslate asvar placeholder %}name@example.com{% endblocktranslate %}
+              {% render_field form.username placeholder=placeholder class="form-control" %}
+              <label for="{{ form.username.id_for_label }}">{% translate 'Username / Email' %}</label>
+              {% include 'partials/forms/field_errors.html' with field=form.username %}
+            </div>
+            <div class="form-floating">
+              {% render_field form.password placeholder=form.password.label class="form-control" %}
+              <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+              {% include 'partials/forms/field_errors.html' with field=form.password %}
+            </div>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="w-100 btn btn-lg btn-primary">{% translate "Sign in" %}</button>
+          </form>
+        {% endwith %}
+      </div>
+      <div class="card-footer">
+        <div class="small">
+          <a href="{% url 'auth:password_reset' %}">{% translate "Forgot your password?" %}</a> |
+          {# TODO: Put the actual URLs in here #}
+          <a href="{% url 'members:signup' %}">{% translate "Not yet a member?" %}</a>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock content %}
