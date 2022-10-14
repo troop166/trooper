@@ -2,8 +2,13 @@
 <!-- Begin site navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    {% thumbnail website.logo "x30" format="PNG" as im %}
-      <a class="navbar-brand" href="{% url 'home' %}"><img src="{{ im.url }}" alt="{{ website.name }}"></a>
+    {% thumbnail website.logo "x36" format="PNG" as img %}
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <picture>
+          <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
+          <img src="{{ img.url }}" alt="{{ website.name }}" width="{{ img.width }}" height="{{ img.height }}">
+        </picture>
+      </a>
     {% empty %}
       <a class="navbar-brand" href="{% url 'home' %}">{{ website.name }}</a>
     {% endthumbnail %}

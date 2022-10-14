@@ -184,3 +184,9 @@ ADMINS = getaddresses([env("DJANGO_ADMINS", default="")])
 MANAGERS = getaddresses([env("DJANGO_MANAGERS", default="")])
 DEFAULT_FROM_EMAIL = env("DJANGO_FROM_EMAIL", default="webmaster@localhost")
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default="root@localhost")
+
+
+# Django-phonenumber-field
+# https://github.com/stefanfoulis/django-phonenumber-field#settings
+
+PHONENUMBER_DEFAULT_REGION = env("PHONENUMBER_DEFAULT_REGION", default="US")
