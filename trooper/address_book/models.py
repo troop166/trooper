@@ -1,9 +1,19 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from localflavor.us.models import USStateField, USZipCodeField
 from phonenumber_field.modelfields import PhoneNumberField
+
+
+class AddressBookQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(is_published=True)
+
+    def subscribed(self):
+        return self.filter(is_subscribed=True)
 
 
 class Address(models.Model):
@@ -26,16 +36,26 @@ class Address(models.Model):
     city = models.CharField(_("city"), max_length=50)
     state = USStateField(_("state"))
     zipcode = USZipCodeField(_("ZIP code"))
-
     is_published = models.BooleanField(
-        _("publish in the directory"),
+        _("published in the directory"),
         default=True,
         help_text=_("Allow other members to see this address in the Troop directory."),
     )
 
+    # Mandatory fields for generic relation
+    # https://docs.djangoproject.com/en/stable/ref/contrib/contenttypes/#generic-relations
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.CharField(max_length=40)
+    content_object = GenericForeignKey()
+
+    objects = AddressBookQuerySet.as_manager()
+
     class Meta:
         verbose_name = _("Address")
         verbose_name_plural = _("Addresses")
+
+    def __str__(self):
+        return self.as_single_line
 
     @cached_property
     def as_single_line(self):
@@ -53,9 +73,8 @@ class Email(models.Model):
         _("label"), max_length=1, choices=Label.choices, blank=True
     )
     address = models.EmailField(_("email address"), unique=True)
-
     is_published = models.BooleanField(
-        _("publish in directory"),
+        _("published in directory"),
         default=True,
         help_text=_("Allow other members to see this address in the Troop directory."),
     )
@@ -64,6 +83,14 @@ class Email(models.Model):
         default=True,
         help_text=_("Receive Troop communications at this email address. "),
     )
+
+    # Mandatory fields for generic relation
+    # https://docs.djangoproject.com/en/stable/ref/contrib/contenttypes/#generic-relations
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.CharField(max_length=40)
+    content_object = GenericForeignKey()
+
+    objects = AddressBookQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Email Address")
@@ -84,12 +111,19 @@ class Phone(models.Model):
         _("label"), max_length=1, choices=Label.choices, blank=True
     )
     number = PhoneNumberField(_("phone number"))
-
     is_published = models.BooleanField(
-        _("publish in directory"),
+        _("published in directory"),
         default=True,
         help_text=_("Allow other members to see this number in the Troop directory."),
     )
+
+    # Mandatory fields for generic relation
+    # https://docs.djangoproject.com/en/stable/ref/contrib/contenttypes/#generic-relations
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.CharField(max_length=40)
+    content_object = GenericForeignKey()
+
+    objects = AddressBookQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Phone Number")

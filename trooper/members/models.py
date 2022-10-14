@@ -2,11 +2,12 @@ import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import ASCIIUsernameValidator
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
+from trooper.address_book.models import Address, Email, Phone
 from trooper.members.managers import MemberManager
 
 
@@ -36,6 +37,9 @@ class Member(AbstractUser):
             "unique": _("A member with that email already exists."),
         },
     )
+    addresses = GenericRelation(Address, related_query_name="member")
+    email_addresses = GenericRelation(Email, related_query_name="member")
+    phone_numbers = GenericRelation(Phone, related_query_name="member")
 
     objects = MemberManager()
 
