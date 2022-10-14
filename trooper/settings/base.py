@@ -33,7 +33,6 @@ if dot_env.is_file():
 
 INSTALLED_APPS = [
     "trooper.core",
-    # Django
     "django.contrib.admin",
     "django.contrib.admindocs",
     "django.contrib.auth",
@@ -42,10 +41,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Third-party
     "widget_tweaks",
-    # Trooper
     "trooper.members",
+    "trooper.website",
 ]
 
 MIDDLEWARE = [
