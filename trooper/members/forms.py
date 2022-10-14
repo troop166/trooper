@@ -3,6 +3,7 @@ from django.contrib.auth.forms import (
     UserChangeForm,
     UserCreationForm,
 )
+from django.utils.text import slugify
 
 from trooper.members.models import Member
 
@@ -29,3 +30,10 @@ class MemberSignupForm(MemberCreationForm):
             "last_name",
             "email",
         )
+
+    def save(self, commit=True):
+        member = super().save(commit=False)
+        member.username = slugify(f"{member.first_name} {member.last_name}")
+        if commit:
+            member.save()
+        return member

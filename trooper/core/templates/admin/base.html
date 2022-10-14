@@ -1,0 +1,9 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/bsa-colors.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin-colors.css' %}">
+{% endblock %}

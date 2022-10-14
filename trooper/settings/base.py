@@ -32,6 +32,7 @@ if dot_env.is_file():
 # Application definition
 
 INSTALLED_APPS = [
+    "trooper.core",
     # Django
     "django.contrib.admin",
     "django.contrib.admindocs",
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     # Third-party
     "widget_tweaks",
     # Trooper
-    "trooper.core",
     "trooper.members",
 ]
 
