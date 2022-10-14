@@ -29,10 +29,17 @@ class Configuration(models.Model):
         return self.domain
 
     def save(self, **kwargs):
+        # Ensure only one Configuration exists
         if self.__class__.objects.exists():
             self.pk = self.__class__.objects.first().pk
+        # Update the cached version
         cache.set("configuration", self)
         super().save(**kwargs)
+
+    def delete(self, **kwargs):
+        super().delete(**kwargs)
+        # Delete the cached version
+        cache.delete("configuration")
 
     @classmethod
     def current(cls):
