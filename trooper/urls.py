@@ -34,9 +34,7 @@ urlpatterns = [
     path("admindocs/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),
     # Trooper
-    path("", TemplateView.as_view(template_name="index.html"), name="home"),
     path("", include("trooper.members.auth.urls")),
-    path("about/", TemplateView.as_view(template_name="about.html"), name="about"),
     path("members/", include("trooper.members.urls")),
     path("", include("trooper.website.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
