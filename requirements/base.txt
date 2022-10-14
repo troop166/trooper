@@ -1,7 +1,9 @@
 django[argon2]       ~=3.2
-django-environ       ~=0.9
-django-widget-tweaks ~=1.4
-docutils             ~=0.19
-pillow               ~=9.2
+django-environ
+django-localflavor
+django-phonenumber-field[phonenumberslite]
+django-widget-tweaks
+docutils
+pillow
 sorl-thumbnail
-whitenoise[brotli]   ~=6.2
+whitenoise[brotli]

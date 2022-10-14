@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "sorl.thumbnail",
     "widget_tweaks",
+    "trooper.address_book",
     "trooper.members",
     "trooper.website",
 ]
