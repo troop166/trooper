@@ -51,6 +51,9 @@ class Address(models.Model):
     objects = AddressBookQuerySet.as_manager()
 
     class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
         verbose_name = _("Address")
         verbose_name_plural = _("Addresses")
 
@@ -93,6 +96,9 @@ class Email(models.Model):
     objects = AddressBookQuerySet.as_manager()
 
     class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
         verbose_name = _("Email Address")
         verbose_name_plural = _("Email Addresses")
 
@@ -126,6 +132,9 @@ class Phone(models.Model):
     objects = AddressBookQuerySet.as_manager()
 
     class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
         verbose_name = _("Phone Number")
         verbose_name_plural = _("Phone Numbers")
 
