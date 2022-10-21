@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% translate 'Members' %} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <main class="container">
+      <h1>{% translate 'Members' %}</h1>
+      <ul>
+        {% for member in member_list %}
+          <li>{{ member }}</li>
+        {% endfor %}
+      </ul>
+    </main>
+{% endblock content %}

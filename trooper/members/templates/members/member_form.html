@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load i18n widget_tweaks %}
+
+{% block title %}{% translate 'Signup' %} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+  <main class="container">
+    <div class="row justify-content-center">
+      <div class="card col-lg-6 col-md-8">
+        <div class="card-body">
+          <h1 class="card-title">{{ member }}</h1>
+          {% with WIDGET_ERROR_CLASS="is-invalid" %}
+            <form method="post" class="needs-validation" novalidate>
+              {% include 'partials/forms/non_field_errors.html' %}
+              {% for field in form %}
+                <div class="mb-4">
+                  {{ field.label_tag }}
+                  {% render_field field class="form-control rounded-end" autocapitalize="off" spellcheck="false" %}
+                  {% if field.help_text %}
+                    <div class="form-text">{{ field.help_text|safe }}</div>
+                  {% endif %}
+                  {% include 'partials/forms/field_errors.html' with field=field %}
+                </div>
+              {% endfor %}
+              {% csrf_token %}
+              <div class="submit-row text-end mt-3">
+                <button type="submit" class="btn btn-primary">{% translate 'Sign me up' %}</button>
+              </div>
+            </form>
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

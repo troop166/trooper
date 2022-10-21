@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load i18n thumbnail %}
+
+{% block title %}{% translate 'Members' %} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+  <main class="container">
+    <h1>
+      {% thumbnail member.avatar "x64" format="PNG" as img %}
+        <picture>
+          <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
+          <img src="{{ img.url }}"
+               class="rounded"
+               alt="{{ request.user }}"
+               width="{{ img.width }}"
+               height="{{ img.height }}">
+        </picture>
+      {% empty %}
+        <i class="bi-person-circle"></i>
+      {% endthumbnail %}
+      <span class="ms-3">{{ member }}</span>
+    </h1>
+  </main>
+{% endblock content %}

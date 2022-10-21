@@ -191,3 +191,9 @@ SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default="root@localhost")
 # https://github.com/stefanfoulis/django-phonenumber-field#settings
 
 PHONENUMBER_DEFAULT_REGION = env("PHONENUMBER_DEFAULT_REGION", default="US")
+
+
+# Easy-thumbnails
+# https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/
+
+THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [2, 3]

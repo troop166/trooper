@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% blocktranslate %}Delete {{ member }}{% endblocktranslate %} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <main class="container">
+      <h1>{{ member }}</h1>
+      <form method="post">
+        {% csrf_token %}
+        {% blocktranslate %}
+          <p>Are you sure you want to permanently delete {{ member }}'s member record? This action cannot be undone.</p>
+      {% endblocktranslate %}
+        <a href="#" class="btn btn-outline-primary">{% translate 'Cancel' %}</a>
+          <button type="submit" class="btn btn-danger">{% blocktranslate %}Delete {{ member }}{% endblocktranslate %}</button>
+      </form>
+    </main>
+{% endblock content %}

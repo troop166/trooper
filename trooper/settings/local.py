@@ -16,23 +16,6 @@ DEBUG = env("DJANGO_DEBUG", default=True)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
-# Django Debug Toolbar
-# https://django-debug-toolbar.readthedocs.io/en/latest/
-INSTALLED_APPS += ["debug_toolbar"]
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
-
-
-# Whitenoise
-# https://whitenoise.evans.io/en/latest/django.html#using-whitenoise-in-development
-INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS
-
-
-# Django Extensions
-# https://django-extensions.readthedocs.io/en/latest/index.html
-INSTALLED_APPS += ["django_extensions"]
-
-
 # Logging
 # https://docs.djangoproject.com/en/stable/topics/logging/
 LOGGING = {
@@ -55,3 +38,30 @@ LOGGING = {
         },
     },
 }
+
+
+# Django Debug Toolbar
+# https://django-debug-toolbar.readthedocs.io/en/latest/
+
+INSTALLED_APPS += ["debug_toolbar"]
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
+
+
+# Sorl-thumbnail
+# https://sorl-thumbnail.readthedocs.io/en/latest/reference/settings.html
+
+THUMBNAIL_DEBUG = DEBUG
+THUMBNAIL_DUMMY = DEBUG
+
+
+# Whitenoise
+# https://whitenoise.evans.io/en/latest/django.html#using-whitenoise-in-development
+
+INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS
+
+
+# Django Extensions
+# https://django-extensions.readthedocs.io/en/latest/index.html
+
+INSTALLED_APPS += ["django_extensions"]
