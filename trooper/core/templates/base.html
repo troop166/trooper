@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static thumbnail %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default_if_none:'en-us'}}">
@@ -6,8 +6,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="{{ website.description }}">
   <title>{% block title %}{{ website.name }}{% endblock title %}</title>
+  {% block meta %}
+  <meta name="description" content="{{ website.description }}">
+  {% endblock meta %}
   {% block css %}
   <!-- Begin CSS -->
   <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
@@ -17,6 +19,21 @@
   <link rel="stylesheet" href="{% static 'css/bsa-colors.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% endblock css %}
+  <!-- Begin Icons -->
+    {% thumbnail website.logo "32x32" crop="center" format="PNG" as img %}
+      <link rel="icon" href="{{ img.url }}" sizes="32x32">
+    {% empty %}
+      <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/png">
+    {% endthumbnail %}
+    {% thumbnail website.logo "128x128" crop="center" format="PNG" as img %}
+      <link rel="icon" href="{{ img.url }}" sizes="128x128">
+    {% endthumbnail %}
+    {% thumbnail website.logo "180x180" crop="center" format="PNG" as img %}
+      <link rel="icon" href="{{ img.url }}" sizes="180x180">
+    {% endthumbnail %}
+    {% thumbnail website.logo "192x192" crop="center" format="PNG" as img %}
+      <link rel="icon" href="{{ img.url }}" sizes="192x192">
+    {% endthumbnail %}
 </head>
 
 {% block body %}

@@ -9,7 +9,7 @@
       <h1>{% translate 'Members' %}</h1>
       <ul>
         {% for member in member_list %}
-          <li>{{ member }}</li>
+          <li><a href="{{ member.get_absolute_url }}">{{ member }}</a></li>
         {% endfor %}
       </ul>
     </main>

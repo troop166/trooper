@@ -9,8 +9,18 @@ class AddressInline(GenericStackedInline):
     model = Address
     extra = 0
     fieldsets = (
-        (None, {"fields": ("street", "street2", ("city", "state", "zipcode"))}),
-        (_("Metadata"), {"fields": ("label", "is_published")}),
+        (
+            None,
+            {
+                "fields": (
+                    "label",
+                    "street",
+                    "street2",
+                    ("city", "state", "zipcode"),
+                    "is_published",
+                )
+            },
+        ),
     )
     form = AddressForm
 

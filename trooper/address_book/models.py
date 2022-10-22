@@ -2,6 +2,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
 from localflavor.us.models import USStateField, USZipCodeField
@@ -19,6 +20,7 @@ class AddressBookQuerySet(models.QuerySet):
 class Address(models.Model):
     class Label(models.TextChoices):
         HOME = "H", _("Home")
+        SCHOOL = "S", _("School")
         WORK = "W", _("Work")
         PO_BOX = "B", _("P.O. Box")
         OTHER = "O", _("Other")
@@ -65,10 +67,27 @@ class Address(models.Model):
         fields = [self.street, self.street2, self.city, self.state, self.zipcode]
         return ", ".join(field.strip() for field in fields if field)
 
+    @cached_property
+    def as_multiline(self):
+        if self.street2:
+            return format_html(
+                "{}<br> {}<br> {}, {}<br> {}",
+                self.street,
+                self.street2,
+                self.city,
+                self.state,
+                self.zipcode,
+            )
+        else:
+            return format_html(
+                "{}<br> {}, {}<br> {}", self.street, self.city, self.state, self.zipcode
+            )
+
 
 class Email(models.Model):
     class Label(models.TextChoices):
         HOME = "H", _("Home")
+        SCHOOL = "S", _("School")
         WORK = "W", _("Work")
         OTHER = "O", _("Other")
 
@@ -110,6 +129,7 @@ class Phone(models.Model):
     class Label(models.TextChoices):
         HOME = "H", _("Home")
         MOBILE = "M", _("Mobile")
+        SCHOOL = "S", _("School")
         WORK = "W", _("Work")
         OTHER = "O", _("Other")
 

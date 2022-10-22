@@ -1,7 +1,16 @@
 {% load i18n thumbnail %}
 <!-- Begin site navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark" id="site-navbar">
   <div class="container">
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="{% translate 'Toggle navigation' %}">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     {% thumbnail website.logo "x36" format="PNG" as img %}
       <a class="navbar-brand" href="{% url 'home' %}">
         <picture>
@@ -12,15 +21,7 @@
     {% empty %}
       <a class="navbar-brand" href="{% url 'home' %}">{{ website.name }}</a>
     {% endthumbnail %}
-    <button class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarContent"
-            aria-controls="navbarContent"
-            aria-expanded="false"
-            aria-label="{% translate 'Toggle navigation' %}">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="d-lg-none navbar-toggler-offset"></div>
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
@@ -70,22 +71,22 @@
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu-toggle">
             {% if request.user.is_authenticated %}
               <li>
-                <a href="{{ request.user.get_absolute_url }}" class="dropdown-item d-flex align-items center">
+                <a href="{{ request.user.get_absolute_url }}" class="dropdown-item">
                   <i class="bi bi-person-fill"></i>
-                  <span class="ms-3">{% translate 'My profile' %}</span>
+                  <span>{% translate 'My profile' %}</span>
                 </a>
               </li>
               <li>
-                <a href="{% url 'auth:password_change' %}" class="dropdown-item d-flex align-items-center">
-                  <i class="bi-key-fill"></i>
-                  <span class="ms-3">{% translate 'Update password' %}</span>
+                <a href="{% url 'auth:password_change' %}" class="dropdown-item">
+                  <i class="bi bi-key-fill"></i>
+                  <span>{% translate 'Update password' %}</span>
                 </a>
               </li>
               {% if request.user.is_staff %}
                 <li>
-                  <a href="{% url 'admin:index' %}" class="dropdown-item d-flex align-items-center">
-                    <i class="bi-gear-fill"></i>
-                    <span class="ms-3">{% translate 'Administration' %}</span>
+                  <a href="{% url 'admin:index' %}" class="dropdown-item">
+                    <i class="bi bi-gear-fill"></i>
+                    <span>{% translate 'Administration' %}</span>
                   </a>
                 </li>
               {% endif %}
@@ -95,8 +96,8 @@
               <li>
                 <form action="{% url 'auth:logout' %}" method="post" class="dropdown-item" id="navbar-logout">
                   <button type="submit" class="text-danger">
-                    <i class="bi-box-arrow-right"></i>
-                    <span class="ms-3">{% translate 'Logout' %}</span>
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>{% translate 'Logout' %}</span>
                   </button>
                   {% csrf_token %}
                 </form>

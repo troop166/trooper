@@ -25,6 +25,7 @@ body {
   flex-direction: column;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
+  background-color: var(--scouting-tan);
 }
 
 h1,
@@ -57,6 +58,14 @@ form.is-submitting button[type=submit] {
   background-color: var(--bs-btn-disabled-bg);
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
+}
+
+#site-navbar {
+  background-color: var(--scouting-olive)
+}
+
+#site-navbar .navbar-toggler-offset {
+  width: 56px;
 }
 
 .message {
@@ -115,8 +124,7 @@ form.is-submitting button[type=submit] {
 }
 
 #navbar-logout button[type=submit] {
-  display: flex;
-  align-items: center;
+  text-align: left;
   background-color: transparent;
   border: none;
   width: 100%;
@@ -124,6 +132,29 @@ form.is-submitting button[type=submit] {
 }
 
 .navbar-brand,
-.navbar-nav>.nav-item {
+.navbar-nav .nav-item {
   margin-right: 1.5rem;
+}
+
+.dropdown-menu .dropdown-item .bi {
+  margin-right: 0.75rem;
+}
+
+.list-icons {
+  list-style-type: none;
+  margin-left: 2.5em;
+  padding-left: 0;
+}
+
+.list-icons > li {
+  position: relative;
+}
+
+.list-icons-icon {
+  left: calc(2em * -1);
+  position: absolute;
+  text-align: center;
+  width: 2em;
+  line-height: inherit;
+  color: var(--scouting-blue);
 }

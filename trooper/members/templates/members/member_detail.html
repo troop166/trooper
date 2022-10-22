@@ -6,20 +6,41 @@
 
 {% block content %}
   <main class="container">
-    <h1>
-      {% thumbnail member.avatar "x64" format="PNG" as img %}
-        <picture>
-          <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
-          <img src="{{ img.url }}"
-               class="rounded"
-               alt="{{ request.user }}"
-               width="{{ img.width }}"
-               height="{{ img.height }}">
-        </picture>
-      {% empty %}
-        <i class="bi-person-circle"></i>
-      {% endthumbnail %}
-      <span class="ms-3">{{ member }}</span>
-    </h1>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-4">
+            {% thumbnail member.avatar "880" format="PNG" as img %}
+              <picture>
+                <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
+                <img src="{{ img.url }}"
+                     class="rounded img-fluid mb-3"
+                     alt="{{ request.user }}"
+                     width="{{ img.width }}"
+                     height="{{ img.height }}"
+                >
+              </picture>
+            {% empty %}
+              <i class="bi-person-circle"></i>
+            {% endthumbnail %}
+            <div class="d-flex flex-column">
+              <h1 class="card-title">{{ member }}</h1>
+              <h2 class="card-subtitle fs-5 text-muted">{{ member.username }}</h2>
+            </div>
+          </div>
+          <div class="col-lg">
+            {% if member.addresses.published or member.email_addresses.published or member.phone_numbers.published %}
+              <address class="card-text">
+                <ul class="list-icons">
+                  {% include 'members/partials/addresses_list.html' %}
+                  {% include 'members/partials/email_addresses_list.html' %}
+                  {% include 'members/partials/phone_numbers_list.html' %}
+                </ul>
+              </address>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 {% endblock content %}

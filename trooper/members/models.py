@@ -67,6 +67,9 @@ class Member(AbstractUser):
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
 
+    def __str__(self):
+        return self.get_full_name()
+
     def clean(self):
         super().clean()
         if self.email:

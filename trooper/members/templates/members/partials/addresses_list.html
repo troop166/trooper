@@ -1,0 +1,22 @@
+{% load i18n %}
+{% for address in member.published_addresses %}
+  {% if forloop.first %}
+    <li>
+      <h2 class="card-title fs-6 mt-4">{% translate 'Addresses' %}</h2>
+    </li>
+  {% endif %}
+  <li class="mb-2">
+    <span class="list-icons-icon">
+      {% if address.label == address.Label.HOME %}
+        <i class="bi bi-house"></i>
+      {% elif address.label == address.Label.PO_BOX %}
+        <i class="bi bi-mailbox"></i>
+      {% elif address.label == address.Label.WORK %}
+        <i class="bi bi-building"></i>
+      {% else %}
+        <i class="bi bi-geo"></i>
+      {% endif %}
+    </span>
+    <span class="card-text">{{ address.as_multiline }}</span>
+  </li>
+{% endfor %}

@@ -27,6 +27,10 @@ class MemberDetailView(DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.with_published_contact_info()
+
 
 class MemberUpdateView(UpdateView):
     model = Member
