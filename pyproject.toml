@@ -33,16 +33,18 @@ django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.0.0"}
 django-widget-tweaks = "^1.4.12"
 docutils = "^0.19"
 pillow = "^9.2.0"
-whitenoise = {extras = ["brotli"], version = "^6.2.0"}
+pip = "^22.3"
+setuptools = "^65.5.0"
 sorl-thumbnail = "^12.9.0"
+whitenoise = {extras = ["brotli"], version = "^6.2.0"}
 
 [tool.poetry.group.dev.dependencies]
+django-debug-toolbar = "^3.7.0"
+django-extensions = "^3.2.1"
 black = "^22.10.0"
 flake8 = "^5.0.4"
 isort = "^5.10.1"
 pre-commit = "^2.20.0"
-django-extensions = "^3.2.1"
-django-debug-toolbar = "^3.7.0"
 
 [build-system]
 requires = ["poetry-core"]
