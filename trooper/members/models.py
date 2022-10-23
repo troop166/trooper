@@ -111,6 +111,13 @@ class Family(models.Model):
         Member, through="FamilyMember", related_name="families"
     )
 
+    class Meta:
+        verbose_name = _("Family")
+        verbose_name_plural = _("Families")
+
+    def __str__(self):
+        return _("Unknown Family")
+
 
 class FamilyMember(models.Model):
     class Role(models.TextChoices):
@@ -126,4 +133,4 @@ class FamilyMember(models.Model):
         verbose_name_plural = _("Family Members")
 
     def __str__(self):
-        return self.member
+        return self.member.__str__()
