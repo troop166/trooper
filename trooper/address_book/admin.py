@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabularInline
-from django.utils.translation import gettext as _
 
 from trooper.address_book.forms import AddressForm
 from trooper.address_book.models import Address, Email, Phone

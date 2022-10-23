@@ -1,7 +1,3 @@
-import contextlib
-
-from django.core.exceptions import ImproperlyConfigured
-
 from .base import *
 
 # SECURITY WARNING: keep the secret key used in production secret!

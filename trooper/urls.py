@@ -20,7 +20,6 @@ from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import include, path
 from django.views import defaults
-from django.views.generic import TemplateView
 
 
 def ping(*args):
