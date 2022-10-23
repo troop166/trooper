@@ -4,7 +4,12 @@ from django.utils.translation import gettext as _
 
 from trooper.address_book.admin import AddressInline, EmailInline, PhoneInline
 from trooper.members.forms import MemberChangeForm, MemberCreationForm
-from trooper.members.models import Member
+from trooper.members.models import FamilyMember, Member
+
+
+class FamilyMemberInline(admin.TabularInline):
+    model = FamilyMember
+    extra = 0
 
 
 @admin.register(Member)
@@ -31,4 +36,4 @@ class MemberAdmin(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    inlines = [AddressInline, EmailInline, PhoneInline]
+    inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
