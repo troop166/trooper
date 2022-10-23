@@ -1,13 +1,10 @@
-[project]
-name = "Trooper"
-description = "Simple BSA Troop management application."
+[tool.poetry]
+name = "trooper"
 version = "0.1.0"
-authors = [
-  "John Lawrence <john@cjvn.net>",
-]
 license = "MIT"
+description = "Simple BSA Troop management application."
+authors = ["John Lawrence <thirdjal@users.noreply.github.com>"]
 readme = "README.md"
-requires-python = ">=3.9"
 
 [tool.black]
 extend-exclude = "migrations/"
@@ -26,3 +23,27 @@ sections = [
   "FIRSTPARTY",
   "LOCALFOLDER"
 ]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = {version = ">=3.2,<4.0", extras = ["argon2"]}
+django-environ = "^0.9.0"
+django-localflavor = "^3.1"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.0.0"}
+django-widget-tweaks = "^1.4.12"
+docutils = "^0.19"
+pillow = "^9.2.0"
+whitenoise = {extras = ["brotli"], version = "^6.2.0"}
+sorl-thumbnail = "^12.9.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+flake8 = "^5.0.4"
+isort = "^5.10.1"
+pre-commit = "^2.20.0"
+django-extensions = "^3.2.1"
+django-debug-toolbar = "^3.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
