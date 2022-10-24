@@ -1,6 +1,6 @@
 /* VARIABLE DEFINITIONS */
 :root {
-  --primary: var(--scouting-pale-blue);
+  --primary: var(--scouting-olive);
   --secondary: var(--scouting-blue);
   --accent: var(--scouting-gold);
   --primary-fg: var(--scouting-white);
@@ -12,7 +12,7 @@
 
   --header-color: var(--scouting-pale-blue);
   --header-branding-color: var(--accent);
-  --header-bg: var(--secondary);
+  --header-bg: var(--primary);
   --header-link-color: var(--primary-fg);
 
   --breadcrumbs-fg: #c4dce8;
@@ -53,7 +53,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #264b5d;
+    --primary: var(--scouting-olive);
     --primary-fg: #f7f7f7;
 
     --body-fg: #eeeeee;
