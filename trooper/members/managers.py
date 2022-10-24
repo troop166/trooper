@@ -1,6 +1,11 @@
 from django.contrib.auth.models import UserManager
 from django.db import models
-from django.db.models import Prefetch, Q
+from django.db.models import Count, Prefetch, Q
+
+
+class FamilyQuerySet(models.QuerySet):
+    def count_members(self):
+        return self.annotate(Count("members"))
 
 
 class MemberQuerySet(models.QuerySet):

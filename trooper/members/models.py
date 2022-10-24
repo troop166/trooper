@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from trooper.address_book.models import Address, Email, Phone
-from trooper.members.managers import MemberManager
+from trooper.members.managers import FamilyQuerySet, MemberManager
 
 
 def get_avatar_upload_to(instance, filename):
@@ -111,11 +111,20 @@ class Family(models.Model):
         Member, through="FamilyMember", related_name="families"
     )
 
+    objects = FamilyQuerySet.as_manager()
+
     class Meta:
         verbose_name = _("Family")
         verbose_name_plural = _("Families")
 
     def __str__(self):
+        if self.members.exists():
+            members = (
+                self.members.exclude(last_name="")
+                .order_by("last_name")
+                .values_list("last_name", flat=True)
+            )
+            return _("%s Family") % "/".join(set(members))
         return _("Unknown Family")
 
 
