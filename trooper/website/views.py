@@ -13,7 +13,7 @@ def favicon(request):
 
 
 class HomePageView(TemplateView):
-    template_name = "website/index.html"
+    template_name = "website/home.html"
 
 
 class AboutPageView(TemplateView):

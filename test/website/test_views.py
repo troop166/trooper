@@ -12,7 +12,7 @@ class AboutPageTests(TestCase):
     def test_get(self):
         self.assertEqual(self.response.status_code, HTTPStatus.OK)
         self.assertEqual(self.response.resolver_match.route, "about/")
-        self.assertTemplateUsed("about.html")
+        self.assertTemplateUsed(self.response, "website/about.html")
 
 
 class HomePageTests(TestCase):
@@ -23,4 +23,4 @@ class HomePageTests(TestCase):
     def test_get(self):
         self.assertEqual(self.response.status_code, HTTPStatus.OK)
         self.assertEqual(self.response.resolver_match.route, "")
-        self.assertTemplateUsed("home.html")
+        self.assertTemplateUsed(self.response, "website/home.html")
