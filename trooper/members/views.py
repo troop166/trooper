@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -17,12 +18,12 @@ class SignupView(CreateView):
     success_url = reverse_lazy("auth:login")
 
 
-class MemberListView(ListView):
+class MemberListView(LoginRequiredMixin, ListView):
     model = Member
     template_name = "members/member_list.html"
 
 
-class MemberDetailView(DetailView):
+class MemberDetailView(LoginRequiredMixin, DetailView):
     model = Member
     slug_field = "username"
     slug_url_kwarg = "username"
@@ -32,14 +33,14 @@ class MemberDetailView(DetailView):
         return queryset.with_published_contact_info()
 
 
-class MemberUpdateView(UpdateView):
+class MemberUpdateView(LoginRequiredMixin, UpdateView):
     model = Member
     form_class = MemberChangeForm
     slug_field = "username"
     slug_url_kwarg = "username"
 
 
-class MemberDeleteView(DeleteView):
+class MemberDeleteView(LoginRequiredMixin, DeleteView):
     model = Member
     slug_field = "username"
     slug_url_kwarg = "username"
