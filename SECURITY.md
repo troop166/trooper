@@ -7,7 +7,7 @@ Keeping user information safe and secure is a top priority, and we welcome the c
 If you believe you've found a security issue in software that is maintained in this repository, we encourage you to notify us.
 
 | Version | In scope           | Source code                         |
-| ------- | ------------------ | ----------------------------------- |
+|---------|--------------------|-------------------------------------|
 | latest  | :white_check_mark: | https://github.com/troop166/trooper |
 
 # How to Submit a Report
