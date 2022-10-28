@@ -32,7 +32,11 @@ if dot_env.is_file():
 # Application definition
 
 INSTALLED_APPS = [
+    "trooper.address_book",
+    "trooper.calendars",
     "trooper.core",
+    "trooper.members",
+    "trooper.website",
     "django.contrib.admin",
     "django.contrib.admindocs",
     "django.contrib.auth",
@@ -43,10 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "sorl.thumbnail",
     "widget_tweaks",
-    "trooper.address_book",
-    "trooper.calendars",
-    "trooper.members",
-    "trooper.website",
 ]
 
 MIDDLEWARE = [
