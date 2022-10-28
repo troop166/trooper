@@ -11,15 +11,13 @@
         <div class="row">
           <div class="col-lg-4">
             {% thumbnail member.avatar "880" format="PNG" as img %}
-              <picture>
-                <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
-                <img src="{{ img.url }}"
-                     class="rounded img-fluid mb-3"
-                     alt="{{ request.user }}"
-                     width="{{ img.width }}"
-                     height="{{ img.height }}"
-                >
-              </picture>
+              <img src="{{ img.url }}"
+                   class="rounded img-fluid mb-3"
+                   srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
+                   alt="{{ request.user }}"
+                   width="{{ img.width }}"
+                   height="{{ img.height }}"
+              >
             {% empty %}
               <i class="bi-person-circle"></i>
             {% endthumbnail %}
