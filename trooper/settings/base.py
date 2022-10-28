@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "widget_tweaks",
     "trooper.address_book",
+    "trooper.calendars",
     "trooper.members",
     "trooper.website",
 ]
