@@ -8,15 +8,18 @@
             data-bs-target="#navbarContent"
             aria-controls="navbarContent"
             aria-expanded="false"
-            aria-label="{% translate 'Toggle navigation' %}">
+            aria-label="{% translate 'Toggle navigation' %}"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     {% thumbnail website.logo "x36" format="PNG" as img %}
       <a class="navbar-brand" href="{% url 'home' %}">
-        <picture>
-          <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
-          <img src="{{ img.url }}" alt="{{ website.name }}" width="{{ img.width }}" height="{{ img.height }}">
-        </picture>
+        <img src="{{ img.url }}"
+             srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
+             alt="{{ website.name }}"
+             width="{{ img.width }}"
+             height="{{ img.height }}"
+        >
       </a>
     {% empty %}
       <a class="navbar-brand" href="{% url 'home' %}">{{ website.name }}</a>
@@ -49,99 +52,107 @@
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav" id="user-menu">
-        <li class="nav-item dropdown">
-          <a href="#"
-             class="nav-link dropdown-toggle{% if request.user.is_authenticated %} active{% endif %}"
-             id="user-menu-toggle"
-             role="button"
-             data-bs-toggle="dropdown"
-             aria-expanded="false"
-          >
-            {% thumbnail request.user.avatar "32x32" crop="center" format="PNG" as img %}
-              <picture>
-                <source srcset="{{ img.url|resolution:'2x' }} 2x, {{ img.url|resolution:'3x' }} 3x">
-                <img src="{{ img.url }}" class="rounded-circle" alt="{{ request.user }}" width="{{ img.width }}" height="{{ img.height }}">
-              </picture>
-            {% empty %}
-              <i class="bi-person-circle fs-5"></i>
-            {% endthumbnail %}
-            <span class="visually-hidden">{% translate 'User Menu' %}</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu-toggle">
-            {% if request.user.is_authenticated %}
-              <li>
-                <a href="{{ request.user.get_absolute_url }}" class="dropdown-item">
-                  <i class="bi bi-person-fill"></i>
-                  <span>{% translate 'My profile' %}</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url 'auth:password_change' %}" class="dropdown-item">
-                  <i class="bi bi-key-fill"></i>
-                  <span>{% translate 'Update password' %}</span>
-                </a>
-              </li>
-              {% if request.user.is_staff %}
+      {% if request.resolver_match.app_name != "auth" %}
+        <ul class="navbar-nav" id="user-menu">
+          <li class="nav-item dropdown">
+            <a href="#"
+               class="nav-link dropdown-toggle{% if request.user.is_authenticated %} active{% endif %}"
+               id="user-menu-toggle"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false"
+            >
+              {% thumbnail request.user.avatar "32x32" crop="center" format="PNG" as img %}
+                <img src="{{ img.url }}"
+                     srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
+                     class="rounded-circle"
+                     alt="{{ request.user }}"
+                     width="{{ img.width }}"
+                     height="{{ img.height }}"
+                >
+              {% empty %}
+                <i class="bi-person-circle fs-5"></i>
+              {% endthumbnail %}
+              <span class="visually-hidden">{% translate 'User Menu' %}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu-toggle">
+              {% if request.user.is_authenticated %}
                 <li>
-                  <a href="{% url 'admin:index' %}" class="dropdown-item">
-                    <i class="bi bi-gear-fill"></i>
-                    <span>{% translate 'Administration' %}</span>
+                  <a href="{{ request.user.get_absolute_url }}" class="dropdown-item">
+                    <i class="bi bi-person-fill"></i>
+                    <span>{% translate 'My profile' %}</span>
                   </a>
                 </li>
-              {% endif %}
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li>
-                <form action="{% url 'auth:logout' %}" method="post" class="dropdown-item" id="navbar-logout">
-                  <button type="submit" class="text-danger">
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>{% translate 'Logout' %}</span>
-                  </button>
+                <li>
+                  <a href="{% url 'auth:password_change' %}" class="dropdown-item">
+                    <i class="bi bi-key-fill"></i>
+                    <span>{% translate 'Update password' %}</span>
+                  </a>
+                </li>
+                {% if request.user.is_staff %}
+                  <li>
+                    <a href="{% url 'admin:index' %}" class="dropdown-item">
+                      <i class="bi bi-gear-fill"></i>
+                      <span>{% translate 'Administration' %}</span>
+                    </a>
+                  </li>
+                {% endif %}
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <form action="{% url 'auth:logout' %}" method="post" class="dropdown-item" id="navbar-logout">
+                    <button type="submit" class="text-danger">
+                      <i class="bi bi-box-arrow-right"></i>
+                      <span>{% translate 'Logout' %}</span>
+                    </button>
+                    {% csrf_token %}
+                  </form>
+                </li>
+              {% else %}
+                <form action="{% url 'auth:login' %}" method="post" class="login-form" id="navbar-signin">
+                  <fieldset>
+                    <div class="form-floating">
+                      <input type="text"
+                             name="username"
+                             autocomplete="username"
+                             class="form-control"
+                             id="id_username"
+                             placeholder="{% translate 'name@example.com' %}"
+                             autocapitalize="none"
+                             maxlength="150"
+                             required
+                      >
+                      <label for="id_username">{% translate 'Username / Email' %}</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="password"
+                             name="password"
+                             autocomplete="current-password"
+                             required
+                             class="form-control"
+                             id="id_password"
+                             placeholder="{% translate 'password' %}"
+                      >
+                      <label for="id_password">{% translate 'Password' %}</label>
+                    </div>
+                  </fieldset>
                   {% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.path }}">
+                  <button type="submit" class="btn btn-primary w-100">{% translate 'Sign in' %}</button>
                 </form>
-              </li>
-            {% else %}
-              <form action="{% url 'auth:login' %}" method="post" class="login-form" id="navbar-signin">
-                <fieldset>
-                  <div class="form-floating">
-                    <input type="text"
-                           name="username"
-                           autocomplete="username"
-                           class="form-control"
-                           id="id_username"
-                           placeholder="{% translate 'name@example.com' %}"
-                           autocapitalize="none"
-                           maxlength="150"
-                           required
-                    >
-                    <label for="id_username">{% translate 'Username / Email' %}</label>
-                  </div>
-                  <div class="form-floating">
-                    <input type="password"
-                           name="password"
-                           autocomplete="current-password"
-                           required
-                           class="form-control"
-                           id="id_password"
-                           placeholder="{% translate 'password' %}"
-                    >
-                    <label for="id_password">{% translate 'Password' %}</label>
-                  </div>
-                </fieldset>
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ request.path }}">
-                <button type="submit" class="btn btn-primary w-100">{% translate 'Sign in' %}</button>
-              </form>
-              <div class="dropdown-divider"></div>
-              <a href="{% url 'auth:password_reset' %}" class="dropdown-item px-4">
-                <small>{% translate 'Forgot your password?' %}</small>
-              </a>
-              <a href="{% url 'members:signup' %}" class="dropdown-item px-4">
-                <small>{% translate 'Need an account? Join us!' %}</small>
-              </a>
-            {% endif %}
-          </ul>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'auth:password_reset' %}" class="dropdown-item px-4">
+                  <small>{% translate 'Forgot your password?' %}</small>
+                </a>
+                <a href="{% url 'members:signup' %}" class="dropdown-item px-4">
+                  <small>{% translate 'Need an account? Join us!' %}</small>
+                </a>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+      {% endif %}
     </div>
+  </div>
 </nav>

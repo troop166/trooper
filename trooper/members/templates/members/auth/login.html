@@ -1,41 +1,53 @@
 {% extends 'base.html' %}
 
-{% load i18n static widget_tweaks %}
+{% load i18n static thumbnail widget_tweaks %}
 
 {% block title %}{% translate 'Login' %} | {{ block.super }}{% endblock title %}
 
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
-  <main class="container d-flex justify-content-center align-items-center">
-    <div class="card">
-      <div class="card-body">
-        {% with WIDGET_ERROR_CLASS="is_invalid" %}
-          <form method="post" class="login-form">
-            <h1 class="card-title text-center">{% translate 'Please sign in' %}</h1>
-            {% include 'partials/forms/non_field_errors.html' %}
-            <div class="form-floating">
-              {% blocktranslate asvar placeholder %}name@example.com{% endblocktranslate %}
-              {% render_field form.username placeholder=placeholder class="form-control" %}
-              <label for="{{ form.username.id_for_label }}">{% translate 'Username / Email' %}</label>
-              {% include 'partials/forms/field_errors.html' with field=form.username %}
-            </div>
-            <div class="form-floating">
-              {% render_field form.password placeholder=form.password.label class="form-control" %}
-              <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-              {% include 'partials/forms/field_errors.html' with field=form.password %}
-            </div>
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
-            <button type="submit" class="w-100 btn btn-lg btn-primary">{% translate "Sign in" %}</button>
-          </form>
-        {% endwith %}
-      </div>
-      <div class="card-footer">
-        <div class="small">
-          <a href="{% url 'auth:password_reset' %}">{% translate "Forgot your password?" %}</a> |
-          {# TODO: Put the actual URLs in here #}
-          <a href="{% url 'members:signup' %}">{% translate "Not yet a member?" %}</a>
+  <main>
+    {% with WIDGET_ERROR_CLASS="is_invalid" %}
+      <form method="post" class="form-signin w-100 m-auto">
+        {% thumbnail website.logo "72" format="PNG" as img %}
+          <img src="{{ img.url }}"
+               srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
+               alt="{{ website.name }}"
+               width="{{ img.width }}"
+               height="{{ img.height }}"
+               class="mb-4">
+        {% empty %}
+          <p class="fs-1 mb-4" href="{% url 'home' %}">{{ website.name }}</p>
+        {% endthumbnail %}
+        <h1 class="h3 mb-3 fw-normal">{% translate 'Please sign in' %}</h1>
+        {% include 'partials/forms/non_field_errors.html' %}
+        <div class="form-floating">
+          {% blocktranslate asvar placeholder %}name@example.com{% endblocktranslate %}
+          {% render_field form.username placeholder=placeholder class="form-control" %}
+          <label for="{{ form.username.id_for_label }}">{% translate 'Username / Email' %}</label>
+          {% include 'partials/forms/field_errors.html' with field=form.username %}
         </div>
-      </div>
-    </div>
+        <div class="form-floating mb-4">
+          {% render_field form.password placeholder=form.password.label class="form-control" %}
+          <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+          {% include 'partials/forms/field_errors.html' with field=form.password %}
+        </div>
+        <input type="hidden" name="next" value="{{ next }}">
+        {% csrf_token %}
+        <button class="btn btn-lg btn-primary w-100">{% translate 'Sign in' %}</button>
+        <div class="mt-5 list-group list-group-flush">
+          <a href="{% url 'auth:password_reset' %}" class="list-group-item list-group-item-action bg-transparent">
+            <small>{% translate 'Forgot your password?' %}</small>
+          </a>
+          <a href="{% url 'members:signup' %}" class="list-group-item list-group-item-action bg-transparent">
+            <small>{% translate 'Need an account? Join us!' %}</small>
+          </a>
+        </div>
+      </form>
+    {% endwith %}
   </main>
-{% endblock content %}
+{% endblock %}
