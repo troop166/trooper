@@ -1,3 +1,5 @@
+import contextlib
+
 from .base import *
 
 # Quick-start development settings - unsuitable for production
@@ -41,9 +43,10 @@ LOGGING = {
 # Django Debug Toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/
 
-INSTALLED_APPS += ["debug_toolbar"]
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
+with contextlib.suppress(ImportError):
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
 
 
 # Sorl-thumbnail
