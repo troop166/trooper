@@ -5,6 +5,8 @@ from trooper.website.models import Configuration
 
 @admin.register(Configuration)
 class ConfigurationAdmin(admin.ModelAdmin):
+    list_display = ("name", "domain")
+
     def get_actions(self, request):
         """Override Actions menu to remove `Delete` option."""
         return None
