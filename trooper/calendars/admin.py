@@ -29,8 +29,9 @@ class EventAdmin(admin.ModelAdmin):
     date_hierarchy = "begins_at"
     filter_horizontal = ["attachments"]
     inlines = [InviteInline]
-    list_display = ("summary", "begins_at", "ends_at", "status")
+    list_display = ("title", "begins_at", "ends_at", "status", "duration")
     list_filter = ("categories", "status", "begins_at")
+    readonly_fields = ("duration",)
     radio_fields = {"status": admin.HORIZONTAL}
     search_fields = ("name",)
 

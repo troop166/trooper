@@ -2,13 +2,16 @@ import uuid
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
+
+import recurrence.fields
 
 from trooper.members.models import Member
 
 
 def get_attachment_upload(obj, filename):
-    return f"{obj.uuid}/{filename}"
+    return f"calendars/{obj.uuid}/{filename}"
 
 
 class Attachment(models.Model):
@@ -44,9 +47,10 @@ class Event(models.Model):
         CONFIRMED = "CONFIRMED", _("Confirmed")
         CANCELLED = "CANCELLED", _("Canceled")
 
-    summary = models.CharField(_("summary"), max_length=100)
+    title = models.CharField(_("title"), max_length=100)
     begins_at = models.DateTimeField(_("begins"))
     ends_at = models.DateTimeField(_("ends"), blank=True, null=True)
+    recurrences = recurrence.fields.RecurrenceField(blank=True)
     location = models.CharField(_("location"), max_length=255, blank=True)
     description = models.TextField(_("description"), blank=True)
     categories = models.ManyToManyField(Category, related_name="events", blank=True)
@@ -77,7 +81,7 @@ class Event(models.Model):
         verbose_name_plural = _("Events")
 
     def __str__(self):
-        return self.summary
+        return self.title
 
     def clean(self):
         super().clean()
@@ -85,6 +89,14 @@ class Event(models.Model):
             raise ValidationError(
                 {"ends_at": _("An event cannot end before it begins.")}
             )
+
+    def get_absolute_url(self):
+        return reverse("calendars:detail", kwargs={"uuid": self.uuid})
+
+    @property
+    def duration(self):
+        if self.ends_at:
+            return self.ends_at - self.begins_at
 
 
 class Invite(models.Model):
@@ -121,7 +133,11 @@ class Invite(models.Model):
 
     @property
     def transparency(self):
-        if self.role == self.Role.INFORMATIONAL or self.status == self.Status.DECLINED:
+        if (
+            self.role == self.Role.INFORMATIONAL
+            or self.status == self.Status.DECLINED
+            or self.event.status == self.event.Status.CANCELLED
+        ):
             return "TRANSPARENT"
         else:
             return "OPAQUE"

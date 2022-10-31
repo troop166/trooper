@@ -34,6 +34,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # Trooper
     path("", include("trooper.members.auth.urls")),
+    path("calendars/", include("trooper.calendars.urls")),
     path("members/", include("trooper.members.urls")),
     path("", include("trooper.website.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
