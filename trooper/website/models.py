@@ -1,5 +1,6 @@
 from django.core.cache import cache
 from django.db import models
+from django.db.utils import ProgrammingError
 from django.utils.translation import gettext as _
 
 
@@ -43,11 +44,8 @@ class Configuration(models.Model):
 
     @classmethod
     def current(cls):
-        configuration = cache.get("configuration")
-        if configuration:
-            return configuration
-
-        configuration = cls.objects.first()
-        if configuration:
-            cache.set("configuration", configuration)
-        return configuration or cls()
+        try:
+            configuration = cache.get_or_set("configuration", cls.objects.first())
+            return configuration or cls()
+        except ProgrammingError:
+            return cls()
