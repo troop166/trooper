@@ -135,8 +135,8 @@ PASSWORD_HASHERS = [
 
 AUTH_USER_MODEL = "members.Member"
 LOGIN_URL = "auth:login"
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "home_page"
+LOGOUT_REDIRECT_URL = "home_page"
 
 
 # Internationalization

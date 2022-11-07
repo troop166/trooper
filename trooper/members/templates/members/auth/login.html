@@ -21,7 +21,7 @@
                height="{{ img.height }}"
                class="mb-4">
         {% empty %}
-          <p class="fs-1 mb-4" href="{% url 'home' %}">{{ website.name }}</p>
+          <p class="fs-1 mb-4">{{ website.name }}</p>
         {% endthumbnail %}
         <h1 class="h3 mb-3 fw-normal">{% translate 'Please sign in' %}</h1>
         {% include 'partials/forms/non_field_errors.html' %}

@@ -22,14 +22,28 @@
         >
       </a>
     {% empty %}
-      <a class="navbar-brand" href="{% url 'home' %}">{{ website.name }}</a>
+      <a class="navbar-brand" href="{% url 'home_page' %}">{{ website.name }}</a>
     {% endthumbnail %}
     <div class="d-lg-none navbar-toggler-offset"></div>
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav me-auto">
+        {% for page in navbar.links %}
+          <li class="nav-item">
+            <a href="{{ page.get_absolute_url }}"
+              {% if request.resolver_match.kwargs.slug == page.slug %}
+               class="nav-link active"
+               aria-current="page"
+              {% else %}
+               class="nav-link"
+              {% endif %}
+            >
+              {{ page.title }}
+            </a>
+          </li>
+        {% endfor %}
         <li class="nav-item">
-          <a href="{% url 'home' %}"
-            {% if request.resolver_match.url_name == "home" %}
+          <a href="{% url 'home_page' %}"
+            {% if request.resolver_match.url_name == "home_page" %}
              class="nav-link active"
              aria-current="page"
             {% else %}
@@ -40,8 +54,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'about' %}"
-            {% if request.resolver_match.url_name == "about" %}
+          <a href="{% url 'about_page' %}"
+            {% if request.resolver_match.url_name == "about_page" %}
              class="nav-link active"
              aria-current="page"
             {% else %}

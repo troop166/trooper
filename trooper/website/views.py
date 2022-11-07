@@ -1,8 +1,15 @@
+import logging
+
 from django.contrib.staticfiles import finders
-from django.http import FileResponse
+from django.http import FileResponse, Http404
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
-from django.views.generic import TemplateView
+from django.views.generic import DetailView, TemplateView
+
+from trooper.website.models import Page
+
+logger = logging.getLogger(__name__)
 
 
 @require_GET
@@ -15,6 +22,44 @@ def favicon(request):
 class HomePageView(TemplateView):
     template_name = "website/home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            page = Page.objects.get(is_builtin=Page.BuiltIn.HOME)
+        except Page.DoesNotExist:
+            page = Page()
+            page.title = _("Home")
+            logger.critical(
+                _("Home page was requested but does not exist in the database!")
+            )
+
+        context["page"] = page
+        return context
+
 
 class AboutPageView(TemplateView):
     template_name = "website/about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context["page"] = Page.objects.get(is_builtin=Page.BuiltIn.ABOUT)
+            return context
+        except Page.DoesNotExist as e:
+            raise Http404 from e
+
+
+class ContactPageView(TemplateView):
+    template_name = "website/contact.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context["page"] = Page.objects.get(is_builtin=Page.BuiltIn.CONTACT)
+            return context
+        except Page.DoesNotExist as e:
+            raise Http404 from e
+
+
+class PageDetailView(DetailView):
+    template_name = "website/detail.html"
