@@ -13,15 +13,57 @@
           {% with WIDGET_ERROR_CLASS="is-invalid" %}
             <form method="post" class="needs-validation" novalidate>
               {% include 'partials/forms/non_field_errors.html' %}
-              {% for field in form %}
-                <div class="mb-4">
-                  {{ field.label_tag }}
-                  {% render_field field class="form-control rounded-end" autocapitalize="off" spellcheck="false" %}
-                  {% if field.help_text %}
-                    <div class="form-text">{{ field.help_text|safe }}</div>
-                  {% endif %}
-                  {% include 'partials/forms/field_errors.html' with field=field %}
+              <fieldset>
+                <legend>{% translate 'Personal Information' %}</legend>
+                <div class="row mb-4">
+                  <div class="col">
+                    {{ form.first_name.label_tag }}
+                    {% render_field form.first_name class="form-control" %}
+                    {% if form.first_name.help_text %}
+                      <div class="form-text">{{ form.first_name.help_text|safe }}</div>
+                    {% endif %}
+                    {% include 'partials/forms/field_errors.html' with field=form.first_name %}
+                  </div>
+                  <div class="col">
+                    {{ form.last_name.label_tag }}
+                    {% render_field form.last_name class="form-control" %}
+                    {% if form.last_name.help_text %}
+                      <div class="form-text">{{ form.last_name.help_text|safe }}</div>
+                    {% endif %}
+                    {% include 'partials/forms/field_errors.html' with field=form.last_name %}
+                  </div>
                 </div>
+                <div class="mb-4">
+                  {{ form.email.label_tag }}
+                  {% render_field form.email class="form-control" %}
+                  {% if form.email.help_text %}
+                    <div class="form-text">{{ form.email.help_text|safe }}</div>
+                  {% endif %}
+                  {% include 'partials/forms/field_errors.html' with field=form.email %}
+                </div>
+                <div class="form-check mb-4">
+                  {{ form.gender.label_tag }}
+                  {% render_field form.gender class="form-check-input" %}
+                  {% if form.gender.help_text %}
+                    <div class="form-text">{{ form.gender.help_text|safe }}</div>
+                  {% endif %}
+                  {% include 'partials/forms/field_errors.html' with field=form.gender %}
+                </div>
+              </fieldset>
+              {% comment %}
+                {% for field in form %}
+                  <div class="mb-4">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-end" autocapitalize="off" spellcheck="false" %}
+                    {% if field.help_text %}
+                      <div class="form-text">{{ field.help_text|safe }}</div>
+                    {% endif %}
+                    {% include 'partials/forms/field_errors.html' with field=field %}
+                  </div>
+                {% endfor %}
+              {% endcomment %}
+              {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
               {% endfor %}
               {% csrf_token %}
               <div class="submit-row text-end mt-3">

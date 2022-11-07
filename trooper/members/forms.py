@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserChangeForm,
@@ -29,7 +30,13 @@ class MemberSignupForm(MemberCreationForm):
             "first_name",
             "last_name",
             "email",
+            "gender",
         )
+        widgets = {"gender": forms.RadioSelect(attrs={"class": "form-check-input"})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["gender"].choices = Member.Gender.choices
 
     def save(self, commit=True):
         member = super().save(commit=False)
