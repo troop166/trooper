@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load i18n static tz %}
+{% load calendars %}
+
+{% block title %}{% translate 'Calendar' %} | {{ block.super }}{% endblock title %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+{% endblock css %}
+
+{% block content %}
+  <main class="container">
+    <h1>{% translate 'Calendar' %}</h1>
+    <nav class="nav justify-content-between" role="navigation">
+      <li class="nav-item"><a href="{{ prev_month }}" class="nav-link">{% translate 'Previous month' %}</a></li>
+      {% if month != curr_month %}
+        <li class="nav-item"><a href="{% url 'calendars:list' %}" class="nav-link">{% translate 'Today' %}</a></li>
+      {% endif %}
+      <li class="nav-item"><a href="{{ next_month }}" class="nav-link">{% translate 'Next month' %}</a></li>
+    </nav>
+    {% calendar_month month %}
+  </main>
+{% endblock content %}

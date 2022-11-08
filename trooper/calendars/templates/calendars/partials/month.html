@@ -1,0 +1,32 @@
+{% load calendars %}
+<div class="card">
+  <div class="card-body p-1">
+    <table class="table calendar mb-0">
+      <thead class="bg-primary text-light">
+      <tr class="rounded-top">
+        <th colspan="7">{{ calendar.name }} {{ calendar.year }}</th>
+      </tr>
+      <tr>
+        {% for day in calendar.days_of_the_week %}
+          <th>
+            <span class="d-none d-lg-inline">{{ day.name }}</span>
+            <span class="d-inline d-lg-none">{{ day.abbr }}</span>
+          </th>
+        {% endfor %}
+      </tr>
+      </thead>
+      <tbody class="bg-light">
+      {% for week in calendar.weeks %}
+        <tr>
+          {% for day in week %}
+            <td{% if day.month != calendar.month %} class="text-muted"{% endif %}>
+              <span class="date">{{ day.day }}</span>
+              {% events_on day %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

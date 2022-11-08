@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 
 import recurrence.fields
 
+from trooper.calendars.managers import EventQuerySet
 from trooper.members.models import Member
 
 
@@ -75,6 +76,8 @@ class Event(models.Model):
     last_modified = models.DateTimeField(_("modified"), auto_now=True)
     uuid = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
 
+    objects = EventQuerySet.as_manager()
+
     class Meta:
         ordering = ["begins_at"]
         verbose_name = _("Event")
@@ -91,7 +94,7 @@ class Event(models.Model):
             )
 
     def get_absolute_url(self):
-        return reverse("calendars:detail", kwargs={"uuid": self.uuid})
+        return reverse("calendars:detail", kwargs={"pk": self.uuid})
 
     @property
     def duration(self):

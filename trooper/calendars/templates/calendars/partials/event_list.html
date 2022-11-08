@@ -1,0 +1,12 @@
+{% if events %}
+  <ul class="list-unstyled">
+    {% for event in events %}
+      <li class="text-truncate">
+        <a href="{{ event.get_absolute_url }}">
+          {% if event.begins_at|date == date|date %}<strong>{{ event.begins_at|time }}</strong>{% endif %}
+          {{ event.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
