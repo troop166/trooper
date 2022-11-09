@@ -3,10 +3,9 @@
 {% load i18n %}
 
 {% block content %}
-    <main class="container">
-      <h1>{{ page.title }}</h1>
-      <p>
-        {% translate "Welcome to our home on the World Wide Web." %}
-      </p>
-    </main>
+  <main class="container">
+    {% for content in page.visible_content %}
+      {% include 'website/partials/content.html' %}
+    {% endfor %}
+  </main>
 {% endblock content %}

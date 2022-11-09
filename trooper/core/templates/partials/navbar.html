@@ -29,7 +29,7 @@
       <ul class="navbar-nav me-auto">
         {% for page in navbar.links %}
           <li class="nav-item">
-            <a href="{{ page.get_absolute_url }}"
+            <a href="{% if not page.is_builtin %}{% url 'detail' page.slug %}{% endif %}"
               {% if request.resolver_match.kwargs.slug == page.slug %}
                class="nav-link active"
                aria-current="page"

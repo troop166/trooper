@@ -29,7 +29,7 @@ class HomePageView(TemplateView):
         except Page.DoesNotExist:
             page = Page()
             page.title = _("Home")
-            logger.critical(
+            logger.warning(
                 _("Home page was requested but does not exist in the database!")
             )
 
@@ -62,4 +62,8 @@ class ContactPageView(TemplateView):
 
 
 class PageDetailView(DetailView):
+    model = Page
     template_name = "website/detail.html"
+
+    def get_queryset(self):
+        return super().get_queryset().with_visible_content_for(self.request.user)

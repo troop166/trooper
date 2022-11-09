@@ -6,6 +6,8 @@ from django.utils.html import strip_tags
 from django.utils.text import Truncator, slugify
 from django.utils.translation import gettext as _
 
+from trooper.website.managers import ContentManager, PageQuerySet
+
 
 class Configuration(models.Model):
     name = models.CharField(_("display name"), max_length=20, default="Trooper")
@@ -111,6 +113,8 @@ class Page(models.Model):
         help_text=_("The date and time this page was last saved to the database."),
     )
 
+    objects = PageQuerySet.as_manager()
+
     class Meta:
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
@@ -129,6 +133,17 @@ class Page(models.Model):
             return reverse(f"{self.is_builtin.lower()}_page")
         else:
             return reverse("detail", kwargs={"slug": self.slug})
+
+
+class Image(models.Model):
+    image = models.ImageField(_("imgage"), upload_to="website")
+
+    class Meta:
+        verbose_name = _("Image")
+        verbose_name_plural = _("Images")
+
+    def __str__(self):
+        return self.image.name
 
 
 class Content(models.Model):
@@ -152,9 +167,12 @@ class Content(models.Model):
         help_text=_("Can be used to link directly to this content block on a webpage."),
     )
 
-    body = (
-        models.TextField(_("body"), help_text=_("The main body of this content block")),
+    body = models.TextField(
+        _("body"), help_text=_("The main body of this content block")
     )
+    images = models.ManyToManyField(Image, related_name="content", blank=True)
+
+    objects = ContentManager()
 
     class Meta:
         order_with_respect_to = "page"

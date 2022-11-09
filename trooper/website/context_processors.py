@@ -2,11 +2,9 @@ from trooper.website.models import Configuration, Page
 
 
 def website(request):
+    navbar = {"links": Page.objects.in_navbar_for(request.user)}
+
     return {
-        "navbar": {
-            "links": Page.objects.filter(in_navbar=True).values(
-                "title", "slug", "is_builtin"
-            )
-        },
+        "navbar": navbar,
         "website": Configuration.current(),
     }
