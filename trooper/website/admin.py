@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from trooper.website.models import Configuration, Content, Image, Page
 
@@ -36,11 +36,7 @@ class ImageAdmin(admin.ModelAdmin):
     readonly_fields = ["preview"]
 
     def preview(self, obj):
-        return mark_safe(  # nosec B308, B703
-            '<img src="{url}" width="100%" height="auto" />'.format(
-                url=obj.file.url,
-            )
-        )
+        return format_html('<img src="{}" width="100%" height="auto" />', obj.file.url)
 
 
 @admin.register(Page)
