@@ -35,26 +35,27 @@ class ContentManager(models.Manager):
             return self.get_queryset().private()
 
 
-def _get_content_model():
+def _content_model():
+    # Lookup the real model class from the global app registry so this
+    # manager method can be used in migrations. This is fine because
+    # managers are by definition working on the real model.
     return apps.get_model("website", "content")
 
 
 class PageQuerySet(models.QuerySet):
     def with_visible_content_for(self, user):
-        Content = _get_content_model()
         return self.prefetch_related(
             Prefetch(
                 "content",
-                queryset=Content.objects.visible_to(user),
+                queryset=_content_model().objects.visible_to(user),
                 to_attr="visible_content",
             ),
             "visible_content__images",
         )
 
     def visible_to(self, user):
-        Content = _get_content_model()
-        content = Content.objects.visible_to(user).values("pk")
-        return self.filter(Exists(content))
+        content = _content_model().objects.visible_to(user).values("pk")
+        return self.filter(content__in=content)
 
     def in_navbar_for(self, user):
         return self.visible_to(user).filter(in_navbar=True)
