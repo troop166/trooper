@@ -8,6 +8,8 @@ class ContentInline(admin.StackedInline):
     model = Content
     extra = 0
     filter_horizontal = ["images"]
+    # Affected by bug in Django < 4.1
+    # https://code.djangoproject.com/ticket/28357
     prepopulated_fields = {"bookmark": ("heading",)}
     radio_fields = {"visibility": admin.HORIZONTAL}
 
