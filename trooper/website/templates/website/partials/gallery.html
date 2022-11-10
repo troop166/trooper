@@ -1,21 +1,21 @@
 {% load i18n static %}
-<div id="{{ content.bookmark }}-gallery" class="carousel carousel-dark slide" data-bs-ride="true">
+<div id="{{ content.bookmark }}-gallery" class="carousel slide mb-5" data-bs-ride="carousel">
   <div class="carousel-indicators">
     {% for image in content.images.all %}
       <button type="button"
               data-bs-target="#{{ content.bookmark }}-gallery"
               data-bs-slide-to="{{ forloop.counter0 }}"
-              {% if forloop.first %}
+        {% if forloop.first %}
               class="active"
               aria-current="true"
-              {% endif %}
+        {% endif %}
               aria-label="{{ image.title }}"
       ></button>
     {% endfor %}
   </div>
-  <div class="carousel-inner">
+  <div class="carousel-inner rounded-top">
     {% for image in content.images.all %}
-      <div class="carousel-item{% if forloop.first %} active{% endif %}" data-bs-interval="2000">
+      <div class="carousel-item{% if forloop.first %} active{% endif %}">
         <img src="{{ image.file.url }}" class="d-block w-100" alt="{{ image.description }}">
       </div>
     {% endfor %}

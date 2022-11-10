@@ -1,7 +1,17 @@
 <div class="card mb-4 shadow-sm">
+  {% if content.images.count > 1 %}
+    {% include 'website/partials/gallery.html' %}
+  {% elif content.images.exists %}
+    {% with image=content.images.first %}
+      <img src="{{ image.file.url }}" class="card-img-top mb-5" alt="{{ image.description }}">
+    {% endwith %}
+  {% endif %}
   <div class="card-body">
-    {% if content.heading %}<h2 class="card-title"{% if content.bookmark %} id="{{ content.bookmark }}"{% endif %}>{{ content.heading }}</h2>{% endif %}
-    {% if content.images.exists %}{% include 'website/partials/gallery.html' %}{% endif %}
+    {% if content.heading %}
+      <h2 class="card-title mb-3"{% if content.bookmark %} id="{{ content.bookmark }}"{% endif %}>
+        {{ content.heading }}
+      </h2>
+    {% endif %}
     <div class="card-text">{{ content.body|linebreaks }}</div>
   </div>
 </div>
