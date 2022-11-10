@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from django.core.cache import cache
 from django.db import models
 from django.db.utils import OperationalError, ProgrammingError
@@ -136,14 +138,20 @@ class Page(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(_("imgage"), upload_to="website")
+    file = models.ImageField(_("file"), upload_to="website")
+    title = models.CharField(_("title"), max_length=150, blank=True)
+    description = models.TextField(_("description"), blank=True)
 
     class Meta:
         verbose_name = _("Image")
         verbose_name_plural = _("Images")
 
     def __str__(self):
-        return self.image.name
+        return self.title
+
+    def clean(self):
+        if not self.title:
+            self.title = Path(self.file.name).stem
 
 
 class Content(models.Model):

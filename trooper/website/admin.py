@@ -1,11 +1,13 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
-from trooper.website.models import Configuration, Content, Page
+from trooper.website.models import Configuration, Content, Image, Page
 
 
 class ContentInline(admin.StackedInline):
     model = Content
     extra = 0
+    filter_horizontal = ["images"]
     prepopulated_fields = {"bookmark": ("heading",)}
     radio_fields = {"visibility": admin.HORIZONTAL}
 
@@ -23,6 +25,22 @@ class ConfigurationAdmin(admin.ModelAdmin):
         if self.model.objects.exists():
             return False
         return super().has_add_permission(request)
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ("title", "file")
+    list_display_links = ("title", "file")
+    search_fields = ("title", "file")
+
+    readonly_fields = ["preview"]
+
+    def preview(self, obj):
+        return mark_safe(  # nosec B308, B703
+            '<img src="{url}" width="100%" height="auto" />'.format(
+                url=obj.file.url,
+            )
+        )
 
 
 @admin.register(Page)

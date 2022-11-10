@@ -1,0 +1,37 @@
+{% load i18n static %}
+<div id="{{ content.bookmark }}-gallery" class="carousel carousel-dark slide" data-bs-ride="true">
+  <div class="carousel-indicators">
+    {% for image in content.images.all %}
+      <button type="button"
+              data-bs-target="#{{ content.bookmark }}-gallery"
+              data-bs-slide-to="{{ forloop.counter0 }}"
+              {% if forloop.first %}
+              class="active"
+              aria-current="true"
+              {% endif %}
+              aria-label="{{ image.title }}"
+      ></button>
+    {% endfor %}
+  </div>
+  <div class="carousel-inner">
+    {% for image in content.images.all %}
+      <div class="carousel-item{% if forloop.first %} active{% endif %}" data-bs-interval="2000">
+        <img src="{{ image.file.url }}" class="d-block w-100" alt="{{ image.description }}">
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev"
+          type="button"
+          data-bs-target="#{{ content.bookmark }}-gallery"
+          data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">{% translate 'Previous' %}</span>
+  </button>
+  <button class="carousel-control-next"
+          type="button"
+          data-bs-target="#{{ content.bookmark }}-gallery"
+          data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">{% translate 'Next' %}</span>
+  </button>
+</div>
