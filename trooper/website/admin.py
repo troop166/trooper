@@ -44,8 +44,8 @@ class ImageAdmin(admin.ModelAdmin):
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     inlines = [ContentInline]
-    list_display = ("is_builtin", "title", "slug", "in_navbar")
-    list_display_links = ("is_builtin", "title")
-    list_filter = ("in_navbar",)
+    list_display = ("title", "is_builtin", "slug", "in_navbar")
+    list_display_links = ("title", "is_builtin", "slug")
+    list_filter = ("is_builtin", "in_navbar")
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ["title"]

@@ -84,7 +84,7 @@ class Page(models.Model):
         ),
     )
     is_builtin = models.CharField(
-        _("built-in page"),
+        _("page"),
         max_length=7,
         choices=BuiltIn.choices,
         unique=True,
