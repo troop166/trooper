@@ -12,7 +12,20 @@
 
 {% block content %}
   <main class="container">
-    <h1>{% translate 'Calendar' %}</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>{% translate 'Calendar' %}</h1>
+      {% if perms.calendar.add_event %}
+      <span>
+        <a class="btn btn-success"
+           href="{% url 'calendars:create' %}"
+           data-bs-toggle="tooltip"
+           data-bs-title="{% translate 'Add a new event' %}"
+        >
+          <i class="bi bi-calendar-plus"></i>
+        </a>
+      </span>
+      {% endif %}
+    </div>
     <nav class="nav justify-content-between" role="navigation">
       <li class="nav-item"><a href="{{ prev_month }}" class="nav-link">{% translate 'Previous month' %}</a></li>
       {% if month != curr_month %}
@@ -23,3 +36,11 @@
     {% calendar_month month %}
   </main>
 {% endblock content %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  </script>
+{% endblock %}

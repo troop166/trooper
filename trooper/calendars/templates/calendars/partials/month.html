@@ -4,11 +4,11 @@
     <table class="table calendar mb-0">
       <thead class="bg-primary text-light">
       <tr class="rounded-top">
-        <th colspan="7">{{ calendar.name }} {{ calendar.year }}</th>
+        <th colspan="7" class="month-header">{{ calendar.name }} {{ calendar.year }}</th>
       </tr>
       <tr>
         {% for day in calendar.days_of_the_week %}
-          <th>
+          <th class="day-header">
             <span class="d-none d-lg-inline">{{ day.name }}</span>
             <span class="d-inline d-lg-none">{{ day.abbr }}</span>
           </th>

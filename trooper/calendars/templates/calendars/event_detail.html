@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load i18n widget_tweaks %}
+
+{% block title %}{{ event.title }} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+  <main class="container">
+    <h1>{% translate 'Calendar' %}</h1>
+    <h2>{{ event.title }}</h2>
+  {% if event.location %}
+    <i class="bi bi-geo-fill"></i> {{ event.location }}
+  {% endif %}
+  {% if event.description %}
+    <div>{{ event.description|linebreaks }}</div>
+  {% endif %}
+  </main>
+{% endblock content %}

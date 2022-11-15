@@ -25,6 +25,10 @@ class EventCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = "calendars.add_event"
     success_message = _("<strong>%(title)s</strong> has been added to the calendar.")
 
+    def form_valid(self, form):
+        form.instance.organizer = self.request.user
+        return super().form_valid(form)
+
 
 class EventListView(LoginRequiredMixin, ListView):
     model = Event

@@ -14,3 +14,7 @@ table.calendar {
   font-size: 0.75rem;
   font-weight: 700;
 }
+
+.calendar .month-header {
+  font-size: 2rem;
+}
