@@ -1,4 +1,4 @@
-<div class="card mb-4 shadow-sm">
+<section class="card mb-4 shadow-sm">
   {% if content.images.count > 1 %}
     {% include 'website/partials/gallery.html' %}
   {% elif content.images.exists %}
@@ -14,4 +14,4 @@
     {% endif %}
     <div class="card-text">{{ content.body|linebreaks }}</div>
   </div>
-</div>
+</section>
