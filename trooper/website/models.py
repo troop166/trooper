@@ -8,10 +8,34 @@ from django.utils.html import strip_tags
 from django.utils.text import Truncator, slugify
 from django.utils.translation import gettext as _
 
+from colorfield.fields import ColorField
+
 from trooper.website.managers import ContentManager, PageQuerySet
 
 
 class Configuration(models.Model):
+
+    PRIMARY_PALETTE = [
+        ("#ce1126", _("Scouting Red")),
+        ("#003f87", _("Scouting Blue")),
+        ("#d6cebd", _("Scouting Tan")),
+        ("#515354", _("Warm Gray")),
+        ("#243e2c", _("Olive")),
+        ("#fdc116", _("Gold")),
+        ("#ffffff", _("White")),
+    ]
+    SECONDARY_PALETTE = [
+        ("#c54250", _("Light Red")),
+        ("#860d1a", _("Dark Red")),
+        ("#9ab3d5", _("Pale Blue")),
+        ("#003366", _("Dark Blue")),
+        ("#e9e9e4", _("Light Tan")),
+        ("#ad9d7b", _("Dark Tan")),
+        ("#858787", _("Pale Gray")),
+        ("#232528", _("Dark Gray")),
+    ]
+    FULL_PALETTE = PRIMARY_PALETTE + SECONDARY_PALETTE
+
     name = models.CharField(_("display name"), max_length=20, default="Trooper")
     domain = models.URLField(
         _("domain name"), help_text=_("The domain name associated with this website")
@@ -27,6 +51,16 @@ class Configuration(models.Model):
         upload_to="img",
         help_text=_("A recognizable icon to visually identify your Troop"),
         blank=True,
+    )
+    primary = ColorField(_("Primary Color"), samples=FULL_PALETTE, default="#003f87")
+    secondary = ColorField(
+        _("Secondary Color"), samples=FULL_PALETTE, default="#515354"
+    )
+    body_bg = ColorField(
+        _("Body Background Color"), samples=FULL_PALETTE, default="#d6cebd"
+    )
+    navbar_bg = ColorField(
+        _("Navbar Background Color"), samples=FULL_PALETTE, default="#243e2c"
     )
 
     class Meta:

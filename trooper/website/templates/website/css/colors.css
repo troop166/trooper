@@ -1,0 +1,7 @@
+:root {
+  /* Bootstrap Overrides */
+  --bs-primary: {{ website.primary }};
+  --bs-secondary: {{ website.secondary }};
+  --nav-color: {{ website.navbar_bg }};
+  --body-bg-color: {{ website.body_bg }};
+}
