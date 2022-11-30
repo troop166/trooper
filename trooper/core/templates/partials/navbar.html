@@ -13,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     {% thumbnail website.logo "x36" format="PNG" as img %}
-      <a class="navbar-brand" href="{% url 'home' %}">
+      <a class="navbar-brand" href="{% url 'home_page' %}">
         <img src="{{ img.url }}"
              srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
              alt="{{ website.name }}"
@@ -29,7 +29,7 @@
       <ul class="navbar-nav me-auto">
         {% for page in navbar.links %}
           <li class="nav-item">
-            <a href="{% if not page.is_builtin %}{% url 'detail' page.slug %}{% endif %}"
+            <a href="{{ page.get_absolute_url }}"
               {% if request.resolver_match.kwargs.slug == page.slug %}
                class="nav-link active"
                aria-current="page"
@@ -42,15 +42,15 @@
           </li>
         {% endfor %}
         <li class="nav-item">
-          <a href="{% url 'home_page' %}"
-            {% if request.resolver_match.url_name == "home_page" %}
+          <a href="{% url 'calendars:list' %}"
+            {% if request.resolver_match.app_name == "calendars" %}
              class="nav-link active"
              aria-current="page"
             {% else %}
              class="nav-link"
             {% endif %}
           >
-            {% translate 'Home' %}
+            {% translate 'Calendar' %}
           </a>
         </li>
         <li class="nav-item">
@@ -63,18 +63,6 @@
             {% endif %}
           >
             {% translate 'About' %}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'calendars:list' %}"
-            {% if request.resolver_match.app_name == "calendars" %}
-             class="nav-link active"
-             aria-current="page"
-            {% else %}
-             class="nav-link"
-            {% endif %}
-          >
-            {% translate 'Calendar' %}
           </a>
         </li>
       </ul>
