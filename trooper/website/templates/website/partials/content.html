@@ -1,17 +1,20 @@
-<section class="card mb-4 shadow-sm">
+<section class="card mb-5 shadow-sm"{% if content.bookmark %} id="{{ content.bookmark }}{% endif %}">
   {% if content.images.count > 1 %}
     {% include 'website/partials/gallery.html' %}
   {% elif content.images.exists %}
     {% with image=content.images.first %}
-      <img src="{{ image.file.url }}" class="card-img-top mb-5" alt="{{ image.description }}">
+      <figure class="figure">
+        <img src="{{ image.file.url }}" class="figure-img card-img-top" alt="{{ image.title }}">
+        {% if image.description %}
+          <figcaption class="figure-caption px-lg-5 px-md-4 px-3">{{ image.description|linebreaks }}</figcaption>
+        {% endif %}
+      </figure>
     {% endwith %}
   {% endif %}
-  <div class="card-body">
+  <div class="card-body p-md-4 p-lg-5">
     {% if content.heading %}
-      <h2 class="card-title mb-3"{% if content.bookmark %} id="{{ content.bookmark }}"{% endif %}>
-        {{ content.heading }}
-      </h2>
+      <h2 class="card-title mb-5">{{ content.heading }}</h2>
     {% endif %}
-    <div class="card-text">{{ content.body|linebreaks }}</div>
+    <div class="card-text">{{ content.body|linebreaks|urlize }}</div>
   </div>
 </section>

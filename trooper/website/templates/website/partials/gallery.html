@@ -1,8 +1,9 @@
 {% load i18n static %}
-<div id="{{ content.bookmark }}-gallery" class="carousel slide mb-5" data-bs-ride="carousel">
-  <div class="carousel-indicators">
+<div id="{{ content.bookmark }}-gallery" class="carousel slide {{ content.gallery_controls }}" data-bs-ride="false">
+  <nav role="tablist" class="carousel-indicators dot-indicators">
     {% for image in content.images.all %}
       <button type="button"
+              role="tab"
               data-bs-target="#{{ content.bookmark }}-gallery"
               data-bs-slide-to="{{ forloop.counter0 }}"
         {% if forloop.first %}
@@ -12,12 +13,15 @@
               aria-label="{{ image.title }}"
       ></button>
     {% endfor %}
-  </div>
+  </nav>
   <div class="carousel-inner rounded-top">
     {% for image in content.images.all %}
-      <div class="carousel-item{% if forloop.first %} active{% endif %}">
-        <img src="{{ image.file.url }}" class="d-block w-100" alt="{{ image.description }}">
-      </div>
+      <figure class="figure carousel-item{% if forloop.first %} active{% endif %}">
+        <img src="{{ image.file.url }}" class="figure-img d-block w-100" alt="{{ image.title }}">
+        {% if image.description %}
+          <figcaption class="figure-caption px-lg-5 px-md-4 px-3 mb-4">{{ image.description|linebreaks }}</figcaption>
+        {% endif %}
+      </figure>
     {% endfor %}
   </div>
   <button class="carousel-control-prev"
