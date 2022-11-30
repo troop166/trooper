@@ -1,0 +1,10 @@
+{% load i18n %}
+<footer class="container-fluid footer mt-5 py-5">
+  <div class="container">
+    <hr>
+    {% now "Y" as current_year %}
+    {% blocktranslate with name=website.name %}
+      Copyright &copy; {{ current_year }} {{ name }} All rights reserved
+    {% endblocktranslate %}
+  </div>
+</footer>
