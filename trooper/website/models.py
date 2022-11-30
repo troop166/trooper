@@ -194,6 +194,10 @@ class Content(models.Model):
         PUBLIC = "PUBLIC", _("Everyone")
         MEMBERS = "MEMBERS", _("Members Only")
 
+    class GalleryVariant(models.TextChoices):
+        DARK = "carousel-dark", _("Dark")
+        __empty__ = _("Light")
+
     page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="content")
     visibility = models.CharField(
         _("visibility"),
@@ -213,6 +217,18 @@ class Content(models.Model):
         _("body"), help_text=_("The main body of this content block")
     )
     images = models.ManyToManyField(Image, related_name="content", blank=True)
+    gallery_controls = models.CharField(
+        _("gallery controls"),
+        max_length=13,
+        choices=GalleryVariant.choices,
+        blank=True,
+        help_text=_(
+            "Choose whether the controls, indicators, and captions are "
+            "white or dark. Light controls work best when the images in "
+            "the gallery are darker and dark controls appear better "
+            "over light colors."
+        ),
+    )
 
     objects = ContentManager()
 
