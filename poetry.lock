@@ -248,6 +248,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-colorfield"
+version = "0.7.2"
+description = "simple color field for your models with a nice color-picker in the admin-interface."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Pillow = ">=5.0"
+
+[[package]]
 name = "django-debug-toolbar"
 version = "3.7.0"
 description = "A configurable set of panels that display various debug information about the current request/response."
@@ -1072,7 +1083,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "060413ea5843e497df41bcb30ceb2662e6716be6211f63f853868fd25fbc2b2f"
+content-hash = "05e05a73be8fdb64975e0c2829877728b934fdddfdf04f060ee989695ef25e22"
 
 [metadata.files]
 argon2-cffi = [
@@ -1352,6 +1363,10 @@ distlib = [
 django = [
     {file = "Django-3.2.16-py3-none-any.whl", hash = "sha256:18ba8efa36b69cfcd4b670d0fa187c6fe7506596f0ababe580e16909bcdec121"},
     {file = "Django-3.2.16.tar.gz", hash = "sha256:3adc285124244724a394fa9b9839cc8cd116faf7d159554c43ecdaa8cdf0b94d"},
+]
+django-colorfield = [
+    {file = "django-colorfield-0.7.2.tar.gz", hash = "sha256:9c2c36a7cac60bf6e57e70ca344529a3065226543358d01036e1714371f3166d"},
+    {file = "django_colorfield-0.7.2-py3-none-any.whl", hash = "sha256:29dffa09b2ce89f19504a53a120e5bfdbfe3e44621f33b3f94b0e6a572ae93c1"},
 ]
 django-debug-toolbar = [
     {file = "django-debug-toolbar-3.7.0.tar.gz", hash = "sha256:1e3acad24e3d351ba45c6fa2072e4164820307332a776b16c9f06d1f89503465"},
@@ -1715,8 +1730,6 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.9.5-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:e67b3c26e9b6d37b370c83aa790bbc121775c57bfb096c2e77eacca25fd0233b"},
     {file = "psycopg2_binary-2.9.5-cp311-cp311-musllinux_1_1_ppc64le.whl", hash = "sha256:5fc447058d083b8c6ac076fc26b446d44f0145308465d745fba93a28c14c9e32"},
     {file = "psycopg2_binary-2.9.5-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:d892bfa1d023c3781a3cab8dd5af76b626c483484d782e8bd047c180db590e4c"},
-    {file = "psycopg2_binary-2.9.5-cp311-cp311-win32.whl", hash = "sha256:2abccab84d057723d2ca8f99ff7b619285d40da6814d50366f61f0fc385c3903"},
-    {file = "psycopg2_binary-2.9.5-cp311-cp311-win_amd64.whl", hash = "sha256:bef7e3f9dc6f0c13afdd671008534be5744e0e682fb851584c8c3a025ec09720"},
     {file = "psycopg2_binary-2.9.5-cp36-cp36m-macosx_10_14_x86_64.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:6e63814ec71db9bdb42905c925639f319c80e7909fb76c3b84edc79dadef8d60"},
     {file = "psycopg2_binary-2.9.5-cp36-cp36m-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:212757ffcecb3e1a5338d4e6761bf9c04f750e7d027117e74aa3cd8a75bb6fbd"},
     {file = "psycopg2_binary-2.9.5-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6f8a9bcab7b6db2e3dbf65b214dfc795b4c6b3bb3af922901b6a67f7cb47d5f8"},

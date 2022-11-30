@@ -222,6 +222,9 @@ cryptography==38.0.4 ; python_version >= "3.8" and python_version < "4.0" and sy
 distlib==0.3.6 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46 \
     --hash=sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e
+django-colorfield==0.7.2 ; python_version >= "3.8" and python_version < "4.0" \
+    --hash=sha256:29dffa09b2ce89f19504a53a120e5bfdbfe3e44621f33b3f94b0e6a572ae93c1 \
+    --hash=sha256:9c2c36a7cac60bf6e57e70ca344529a3065226543358d01036e1714371f3166d
 django-environ==0.9.0 ; python_version >= "3.8" and python_version < "4" \
     --hash=sha256:bff5381533056328c9ac02f71790bd5bf1cea81b1beeb648f28b81c9e83e0a21 \
     --hash=sha256:f21a5ef8cc603da1870bbf9a09b7e5577ab5f6da451b843dbcc721a7bca6b3d9
