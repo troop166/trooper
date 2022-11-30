@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.db import models
-from django.db.models import Exists, Prefetch
+from django.db.models import Prefetch
 
 
 class ContentQuerySet(models.QuerySet):
@@ -58,4 +58,4 @@ class PageQuerySet(models.QuerySet):
         return self.filter(content__in=content)
 
     def in_navbar_for(self, user):
-        return self.visible_to(user).filter(in_navbar=True)
+        return self.visible_to(user).filter(in_navbar=True).distinct()
