@@ -5,10 +5,31 @@
 {% block title %}{{ page.title }} | {{ block.super }}{% endblock title %}
 
 {% block content %}
-  <main class="container">
-    <h1 class="mb-3">{{ page.title }}</h1>
-    {% for content in page.visible_content %}
-      {% include 'website/partials/content.html' %}
-    {% endfor %}
-  </main>
+  <div class="container mt-5">
+    <h1 class="mb-5">{{ page.title }}</h1>
+    <div class="row g-5">
+      {% if page.visible_content|length > 1 %}
+        <aside class="col-lg-3 order-lg-1">
+          <div class="sticky-aside">
+            <nav class="nav nav-pills flex-lg-column" id="links-aside">
+              {% for content in page.visible_content %}
+                {% if content.bookmark %}
+                  <a href="#{{ content.bookmark }}"
+                     class="nav-link"
+                  >
+                    {{ content.heading }}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </nav>
+          </div>
+        </aside>
+      {% endif %}
+      <main class="col-lg" data-bs-spy="scroll" data-bs-target="#links-aside">
+        {% for content in page.visible_content %}
+          {% include 'website/partials/content.html' %}
+        {% endfor %}
+      </main>
+    </div>
+  </div>
 {% endblock content %}
