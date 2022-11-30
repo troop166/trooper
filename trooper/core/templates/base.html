@@ -10,7 +10,7 @@
   {% block meta %}
   <meta name="description" content="{{ website.description }}">
   {% endblock meta %}
-  <meta name="theme-color" content="#243e2c">
+  <meta name="theme-color" content="{{ website.navbar_bg }}">
   {% block css %}
   <!-- Begin CSS -->
   <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="{% static '@fontsource/roboto-slab/index.css' %}">
   <link rel="stylesheet" href="{% static 'css/bsa-colors.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% url 'color_css' %}">
   {% endblock css %}
   <!-- Begin Icons -->
     {% thumbnail website.logo "32x32" crop="center" format="PNG" as img %}

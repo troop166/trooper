@@ -2,6 +2,7 @@ import logging
 
 from django.contrib.staticfiles import finders
 from django.http import FileResponse, Http404
+from django.shortcuts import render
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
@@ -17,6 +18,12 @@ logger = logging.getLogger(__name__)
 def favicon(request):
     file = finders.find("img/favicon.ico")
     return FileResponse(open(file, "rb"))
+
+
+@require_GET
+@cache_control(max_age=60 * 68 * 24, immutable=True, public=True)
+def color_css(request):
+    return render(request, "website/css/colors.css", content_type="text/css")
 
 
 class HomePageView(TemplateView):

@@ -16,6 +16,13 @@
   --bs-light-rgb: var(--scouting-light-tan-rgb);
   --bs-dark: var(--scouting-dark-gray);
   --bs-dark-rgb: var(--scouting-dark-gray-rgb);
+
+  --bs-nav-pills-link-active-bg: rgb(var(--scouting-olive-rgb));
+  --bs-nav-link-color: var(--scouting-olive-rgb);
+}
+
+html { /* body won't work ¯\_(ツ)_/¯ */
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -25,26 +32,37 @@ body {
   flex-direction: column;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  background-color: var(--scouting-tan);
+  background-color: var(--body-bg-color);
+}
+
+h1 {
+  color: var(--scouting-red);
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--scouting-blue)
 }
 
 h1,
 h2,
 h3,
 h4 {
-  color: var(--scouting-blue);
   font-family: "Roboto Slab", sans-serif;
   font-weight: 700;
 }
 
-h5 {
-  color: var(--scouting-blue);
-}
-
 h6 {
-  color: var(--scouting-blue);
   font-family: "Roboto", sans-serif;
   font-weight: 500;
+}
+
+footer {
+  background-color: var(--bs-dark);
+  color: var(--bs-light);
 }
 
 main.container {
@@ -61,7 +79,8 @@ form.is-submitting button[type=submit] {
 }
 
 #site-navbar {
-  background-color: var(--scouting-olive)
+  scroll-snap-align: start;
+  background-color: var(--nav-color);
 }
 
 #site-navbar .navbar-toggler-offset {
@@ -100,10 +119,7 @@ form.is-submitting button[type=submit] {
 #navbar-signin {
   color: var(--bs-gray-500);
   min-width: 32ch;
-  padding-top: 1rem;
-  padding-right: 1.5rem;
-  padding-bottom: 1rem;
-  padding-left: 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
 .logout-form {
@@ -131,8 +147,12 @@ form.is-submitting button[type=submit] {
   padding: 0.25rem 1rem;
 }
 
+.navbar-brand {
+  margin-right: 1.75rem;
+}
+
 .navbar-nav {
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .dropdown-menu .dropdown-item .bi {
@@ -155,5 +175,40 @@ form.is-submitting button[type=submit] {
   text-align: center;
   width: 2em;
   line-height: inherit;
-  color: var(--scouting-blue);
+  color: var(--bs-primary);
+}
+
+.sticky-aside {
+  position: sticky;
+  top: 3rem;
+}
+
+.nav-pills .nav-link {
+  color: var(--nav-color);
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--nav-color);
+}
+
+.dot-indicators [data-bs-target] {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+
+.carousel-item {
+  display: block;
+  opacity: 0;
+}
+
+.carousel-item.active {
+  opacity: 100%;
+}
+
+[data-bs-spy="scroll"] {
+}
+
+[data-bs-spy="scroll"] section {
+  scroll-snap-align: start;
 }
