@@ -33,6 +33,7 @@ if dot_env.is_file():
 
 INSTALLED_APPS = [
     "trooper.address_book",
+    "trooper.assignments",
     "trooper.calendars",
     "trooper.core",
     "trooper.members",
