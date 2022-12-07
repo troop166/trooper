@@ -12,6 +12,7 @@ from trooper.members.models import Member
 class MemberCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Member
+        fields = ("first_name", "last_name", "date_of_birth")
 
 
 class MemberChangeForm(UserChangeForm):

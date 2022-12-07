@@ -6,17 +6,13 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 from trooper.address_book.models import Address, Email, Phone
 from trooper.members.managers import FamilyQuerySet, MemberManager
-
-
-def get_avatar_upload_to(instance, filename):
-    return _("members/%(username)s/%(filename)s") % {
-        "username": instance.username,
-        "filename": filename,
-    }
+from trooper.members.utils import calculate_age, get_avatar_upload_to
+from trooper.members.validators import date_of_birth_validator
 
 
 class Member(AbstractUser):
@@ -42,6 +38,15 @@ class Member(AbstractUser):
             "unique": _("A member with that username already exists."),
         },
     )
+    first_name = models.CharField(_("first name"), max_length=100)
+    last_name = models.CharField(_("last name"), max_length=100)
+    suffix = models.CharField(_("suffix"), max_length=10, blank=True)
+    nickname = models.CharField(
+        _("nickname"),
+        max_length=100,
+        blank=True,
+        help_text=_("The name this member prefers to be known by."),
+    )
     email = models.EmailField(
         _("email address"),
         blank=True,
@@ -63,23 +68,33 @@ class Member(AbstractUser):
         ),
     )
     gender = models.CharField(_("gender"), max_length=1, choices=Gender.choices)
+    date_of_birth = models.DateField(
+        _("date of birth"), validators=[date_of_birth_validator]
+    )
     addresses = GenericRelation(Address, related_query_name="member")
     email_addresses = GenericRelation(Email, related_query_name="member")
     phone_numbers = GenericRelation(Phone, related_query_name="member")
 
     objects = MemberManager()
 
-    REQUIRED_FIELDS = ["first_name", "last_name", "gender"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "gender", "date_of_birth"]
 
     class Meta:
+        ordering = ["last_name", "nickname", "first_name"]
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
 
     def __str__(self):
         return self.get_full_name()
 
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = slugify(self.get_full_name())
+        super().save(*args, **kwargs)
+
     def clean(self):
         super().clean()
+        # Check for unique email address, case insensitively
         if self.email:
             model_class = self.__class__
             model_class_pk = self._get_pk_val()
@@ -97,13 +112,53 @@ class Member(AbstractUser):
                     }
                 )
 
+    def get_short_name(self):
+        """
+        Return either the short name for the Member.
+        """
+        return self.nickname or self.first_name
+
+    def get_full_name(self):
+        """
+        Return the full name for the Member.
+        """
+        full_name = f"{self.get_short_name()} {self.last_name} {self.suffix}"
+        return full_name.strip()
+
     def get_absolute_url(self):
+        """
+        Return the member detail page for the Member.
+        """
         return reverse("members:detail", kwargs={"username": self.username})
 
     @classmethod
     def normalize_username(cls, username):
         """Ensure username is conformant and lower case."""
         return super().normalize_username(username.lower())
+
+    @property
+    def age(self):
+        return calculate_age(self.date_of_birth)
+
+    @classmethod
+    def adult_choices(cls):
+        """
+        Provides a queryset filter that can be used in other models'
+        `ForeignKey` fields implementing `limit_choices_to`.
+
+        Returns a filter including only adult members.
+        """
+        return {"pk__in": cls.objects.adults()}
+
+    @classmethod
+    def youth_choices(cls):
+        """
+        Provides a queryset filter that can be used in other models'
+        `ForeignKey` fields implementing `limit_choices_to`.
+
+        Returns a filter including only youth members.
+        """
+        return {"pk__in": cls.objects.youths()}
 
 
 class Family(models.Model):

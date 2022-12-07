@@ -1,3 +1,5 @@
+from test.members.test_managers import _random_adult_dob
+
 from django.test import TestCase
 
 from trooper.address_book.models import Address
@@ -7,7 +9,7 @@ from trooper.members.models import Member
 class AddressCase(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.member = Member.objects.create()
+        cls.member = Member.objects.create(date_of_birth=_random_adult_dob())
 
     def test_simple_address(self):
         address = Address.objects.create(

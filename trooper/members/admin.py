@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from trooper.address_book.admin import AddressInline, EmailInline, PhoneInline
+from trooper.core.admin.utils import image_preview
 from trooper.members.forms import MemberChangeForm, MemberCreationForm
 from trooper.members.models import Family, FamilyMember, Member
 
@@ -58,7 +59,16 @@ class MemberAdmin(UserAdmin):
         (None, {"fields": ("username", "password")}),
         (
             _("Personal info"),
-            {"fields": ("first_name", "last_name", "email", "avatar")},
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "suffix",
+                    "nickname",
+                    "email",
+                    ("avatar", "preview"),
+                )
+            },
         ),
         (
             _("Permissions"),
@@ -72,9 +82,32 @@ class MemberAdmin(UserAdmin):
                 ),
             },
         ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+        (
+            _("Important dates"),
+            {"fields": ("date_of_birth", "age", "last_login", "date_joined")},
+        ),
     )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    ("first_name", "last_name", "suffix"),
+                    "nickname",
+                    "date_of_birth",
+                    ("password1", "password2"),
+                ),
+            },
+        ),
+    )
+    list_display = ("short_name", "last_name", "suffix", "is_staff")
+    list_display_links = ("short_name", "last_name")
     inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
+    readonly_fields = ("age", "last_login", "preview")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).with_name()
 
     def get_inlines(self, request, obj):
         if obj:
@@ -82,3 +115,12 @@ class MemberAdmin(UserAdmin):
         else:
             inlines = []
         return inlines
+
+    @admin.display(description=_("name"), ordering="short_name")
+    def short_name(self, obj):
+        return obj.short_name
+
+    @staticmethod
+    @admin.display(description=_("current"))
+    def preview(obj):
+        return image_preview(obj.avatar.url)

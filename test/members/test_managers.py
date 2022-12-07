@@ -1,14 +1,28 @@
+import random
+
 from django.contrib.auth import authenticate, get_user_model
 from django.db.utils import IntegrityError
 from django.test import TestCase
+from django.utils import timezone
 
 User = get_user_model()
+
+
+def _random_adult_dob():
+    now = timezone.now()
+    random.seed(now)
+    age = random.randint(20, 100)
+    return now.replace(year=now.year - age)
 
 
 class MemberManagersTest(TestCase):
     def test_create_member(self):
         user = User.objects.create_user(
-            username="user", email="user@example.com", password="foo"
+            username="user",
+            email="user@example.com",
+            password="foo",
+            gender="M",
+            date_of_birth=_random_adult_dob(),
         )
 
         self.assertEqual(user.username, "user")
@@ -23,10 +37,16 @@ class MemberManagersTest(TestCase):
             User.objects.create_user(username="")
         with self.assertRaises(ValueError):
             User.objects.create_user(username="", password="foo")
+        with self.assertRaises(IntegrityError):
+            User.objects.create_user(username="forgot_birthday")
 
     def test_create_superuser(self):
         admin = User.objects.create_superuser(
-            username="admin", email="admin@example.com", password="bar"
+            username="admin",
+            email="admin@example.com",
+            password="bar",
+            gender="M",
+            date_of_birth=_random_adult_dob(),
         )
 
         self.assertEqual(admin.username, "admin")
@@ -47,16 +67,33 @@ class MemberManagersTest(TestCase):
                 email="admin@example.com",
                 password="foo",
                 is_superuser=False,
+                gender="M",
+                date_of_birth=_random_adult_dob(),
             )
 
     def test_create_member_with_case_insensitive_duplicate_username(self):
-        User.objects.create_user(username="user", password="foo")
+        User.objects.create_user(
+            username="user",
+            password="foo",
+            gender="M",
+            date_of_birth=_random_adult_dob(),
+        )
 
         with self.assertRaises(IntegrityError):
-            User.objects.create_user(username="User", password="bar")
+            User.objects.create_user(
+                username="User",
+                password="bar",
+                gender="M",
+                date_of_birth=_random_adult_dob(),
+            )
 
     def test_user_can_authenticate_case_insensitive(self):
-        User.objects.create_user(username="User", password="foo")
+        User.objects.create_user(
+            username="User",
+            password="foo",
+            gender="M",
+            date_of_birth=_random_adult_dob(),
+        )
 
         lower_case = authenticate(username="user", password="foo")
         upper_case = authenticate(username="USER", password="foo")
