@@ -68,6 +68,7 @@ footer {
 main.container {
   margin-top: 3rem;
   margin-bottom: 3rem;
+  flex-grow: 1;
 }
 
 form.is-submitting button[type=submit] {
