@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.utils.html import format_html
 
+from trooper.core.admin.utils import image_preview
 from trooper.website.models import Configuration, Content, Image, Page
 
 
@@ -37,8 +37,9 @@ class ImageAdmin(admin.ModelAdmin):
 
     readonly_fields = ["preview"]
 
-    def preview(self, obj):
-        return format_html('<img src="{}" width="100%" height="auto" />', obj.file.url)
+    @staticmethod
+    def preview(obj):
+        return image_preview(obj.file.url)
 
 
 @admin.register(Page)
