@@ -22,6 +22,8 @@
 }
 
 html { /* body won't work ¯\_(ツ)_/¯ */
+  scroll-behavior: smooth;
+  scroll-padding-top: 0.75em;
   scroll-snap-type: y proximity;
 }
 
@@ -181,7 +183,7 @@ form.is-submitting button[type=submit] {
 
 .sticky-aside {
   position: sticky;
-  top: 3rem;
+  top: 0.75em;
 }
 
 .nav-pills .nav-link {

@@ -1,0 +1,20 @@
+{% if page.visible_content|length > 1 %}
+  <aside class="col-lg-3 order-lg-1">
+    <nav class="nav nav-pills flex-lg-column sticky-aside" id="link-sidebar">
+        <a href="#" class="nav-link active">
+          <strong>{{ page.title }}</strong>
+        </a>
+      <nav class="nav nav-pills flex-column">
+        {% for content in page.visible_content %}
+          {% if content.bookmark %}
+              <a href="#{{ content.bookmark }}"
+                 class="nav-link ps-4 my-1"
+              >
+                {{ content.heading }}
+              </a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+    </nav>
+  </aside>
+{% endif %}
