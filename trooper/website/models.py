@@ -52,6 +52,9 @@ class Configuration(models.Model):
         help_text=_("A recognizable icon to visually identify your Troop"),
         blank=True,
     )
+    footer_text = models.TextField(_("footer"), blank=True)
+
+    # Colors
     primary = ColorField(_("Primary Color"), samples=FULL_PALETTE, default="#003f87")
     secondary = ColorField(
         _("Secondary Color"), samples=FULL_PALETTE, default="#515354"

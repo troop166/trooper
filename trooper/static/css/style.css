@@ -62,9 +62,12 @@ h6 {
   font-weight: 500;
 }
 
-footer {
+.footer {
   background-color: var(--bs-dark);
   color: var(--bs-light);
+  margin-top: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 main.container {
