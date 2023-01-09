@@ -32,12 +32,6 @@ if dot_env.is_file():
 # Application definition
 
 INSTALLED_APPS = [
-    "trooper.address_book",
-    "trooper.assignments",
-    "trooper.calendars",
-    "trooper.core",
-    "trooper.members",
-    "trooper.website",
     "django.contrib.admin",
     "django.contrib.admindocs",
     "django.contrib.auth",
@@ -50,6 +44,12 @@ INSTALLED_APPS = [
     "recurrence",
     "sorl.thumbnail",
     "widget_tweaks",
+    "trooper.address_book",
+    "trooper.assignments",
+    "trooper.calendars",
+    "trooper.core",
+    "trooper.members",
+    "trooper.website",
 ]
 
 MIDDLEWARE = [
@@ -69,7 +69,7 @@ ROOT_URLCONF = "trooper.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [APP_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -163,7 +163,7 @@ USE_TZ = True
 STATIC_HOST = env("DJANGO_STATIC_HOST", default="")
 STATIC_ROOT = env("DJANGO_STATIC_ROOT", default=BASE_DIR / "static_files")
 STATIC_URL = f"{STATIC_HOST}/static/"
-STATICFILES_DIRS = [BASE_DIR / "node_modules"]
+STATICFILES_DIRS = [APP_DIR / "static"]
 # https://whitenoise.evans.io/en/latest/django.html#add-compression-and-caching-support
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
