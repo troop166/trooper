@@ -17,6 +17,17 @@ class FamilyQuerySet(models.QuerySet):
 
 
 class MemberQuerySet(models.QuerySet):
+    def search(self, query):
+        lookups = (
+            Q(first_name__icontains=query)
+            | Q(middle_name__icontains=query)
+            | Q(last_name__icontains=query)
+            | Q(nickname__icontains=query)
+            | Q(email_addresses__address__icontains=query)
+            | Q(phone_number__number__contains=query)
+        )
+        return self.filter(**lookups)
+
     def with_name(self):
         return self.annotate(
             short_name=Coalesce(
@@ -58,6 +69,9 @@ class MemberQuerySet(models.QuerySet):
 class MemberManager(UserManager):
     def get_queryset(self):
         return MemberQuerySet(self.model, using=self._db)
+
+    def search(self, query):
+        return self.get_queryset().search(query)
 
     def with_name(self):
         return self.get_queryset().with_name()
