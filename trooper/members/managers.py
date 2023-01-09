@@ -82,7 +82,7 @@ class MemberManager(UserManager):
     def get_by_natural_key(self, username):
         return self.get(
             Q(**{f"{self.model.USERNAME_FIELD}__iexact": username})
-            | Q(**{f"{self.model.EMAIL_FIELD}__iexact": username})
+            | Q(email_addresses__address__iexact=username)
         )
 
     def adults(self):

@@ -30,7 +30,6 @@ class MemberSignupForm(MemberCreationForm):
         fields = (
             "first_name",
             "last_name",
-            "email",
             "gender",
         )
         widgets = {"gender": forms.RadioSelect(attrs={"class": "form-check-input"})}

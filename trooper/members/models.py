@@ -47,14 +47,6 @@ class Member(AbstractUser):
         blank=True,
         help_text=_("The name this member prefers to be known by."),
     )
-    email = models.EmailField(
-        _("email address"),
-        blank=True,
-        null=True,
-        error_messages={
-            "unique": _("A member with that email already exists."),
-        },
-    )
     avatar = models.ImageField(
         _("profile picture"),
         upload_to=get_avatar_upload_to,
@@ -131,6 +123,10 @@ class Member(AbstractUser):
         """
         return reverse("members:detail", kwargs={"username": self.username})
 
+    @property
+    def email(self):
+        return self.email_addresses.first() or ""
+
     @classmethod
     def normalize_username(cls, username):
         """Ensure username is conformant and lower case."""
@@ -173,14 +169,14 @@ class Family(models.Model):
         verbose_name_plural = _("Families")
 
     def __str__(self):
-        if self.members.exists():
-            members = (
-                self.members.exclude(last_name="")
-                .order_by("last_name")
-                .values_list("last_name", flat=True)
-            )
-            return _("%s Family") % "/".join(set(members))
-        return _("Unknown Family")
+        members = (
+            self.members.exclude(last_name="")
+            .order_by("last_name")
+            .values_list("last_name", flat=True)
+        )
+        return (
+            _("%s Family") % "/".join(set(members)) if members else _("Unknown Family")
+        )
 
 
 class FamilyMember(models.Model):

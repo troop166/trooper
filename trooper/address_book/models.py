@@ -98,12 +98,12 @@ class Email(models.Model):
     is_published = models.BooleanField(
         _("published in directory"),
         default=True,
-        help_text=_("Allow other members to see this address in the Troop directory."),
+        help_text=_("Allow others to see this address in the member directory."),
     )
     is_subscribed = models.BooleanField(
         _("subscribed to mailing lists"),
         default=True,
-        help_text=_("Receive Troop communications at this email address. "),
+        help_text=_("Receive periodic email communications at this address."),
     )
 
     # Mandatory fields for generic relation
