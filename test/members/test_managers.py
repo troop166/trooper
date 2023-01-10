@@ -19,14 +19,12 @@ class MemberManagersTest(TestCase):
     def test_create_member(self):
         user = User.objects.create_user(
             username="user",
-            email="user@example.com",
             password="foo",
             gender="M",
             date_of_birth=_random_adult_dob(),
         )
 
         self.assertEqual(user.username, "user")
-        self.assertEqual(user.email, "user@example.com")
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
@@ -43,14 +41,12 @@ class MemberManagersTest(TestCase):
     def test_create_superuser(self):
         admin = User.objects.create_superuser(
             username="admin",
-            email="admin@example.com",
             password="bar",
             gender="M",
             date_of_birth=_random_adult_dob(),
         )
 
         self.assertEqual(admin.username, "admin")
-        self.assertEqual(admin.email, "admin@example.com")
         self.assertTrue(admin.is_active)
         self.assertTrue(admin.is_staff)
         self.assertTrue(admin.is_superuser)
@@ -64,7 +60,6 @@ class MemberManagersTest(TestCase):
         with self.assertRaises(ValueError):
             User.objects.create_superuser(
                 username="admin",
-                email="admin@example.com",
                 password="foo",
                 is_superuser=False,
                 gender="M",
