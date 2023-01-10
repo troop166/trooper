@@ -1,3 +1,6 @@
+import operator
+from functools import reduce
+
 from django.contrib.auth.models import UserManager
 from django.db import models
 from django.db.models import Case, Count, Prefetch, Q, When
@@ -17,16 +20,23 @@ class FamilyQuerySet(models.QuerySet):
 
 
 class MemberQuerySet(models.QuerySet):
-    def search(self, query):
-        lookups = (
-            Q(first_name__icontains=query)
-            | Q(middle_name__icontains=query)
-            | Q(last_name__icontains=query)
-            | Q(nickname__icontains=query)
-            | Q(email_addresses__address__icontains=query)
-            | Q(phone_number__number__contains=query)
+    def search(self, query=None):
+        if not query:
+            return self.none()
+        query_words = query.split()
+        if not query_words:
+            return self.none()
+        fields = (
+            "first_name",
+            "last_name",
+            "nickname",
+            "email_addresses__address",
+            "phone_numbers__number",
         )
-        return self.filter(**lookups)
+        lookups = []
+        for word in query_words:
+            lookups.extend(Q(**{f"{field}__icontains": word}) for field in fields)
+        return self.filter(reduce(operator.or_, lookups))
 
     def with_name(self):
         return self.annotate(
