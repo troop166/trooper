@@ -32,6 +32,19 @@ class SignupView(SuccessMessageMixin, CreateView):
 class MemberListView(LoginRequiredMixin, ListView):
     model = Member
     template_name = "members/member_list.html"
+    paginate_by = 25
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get("q", default="")
+        if query:
+            return qs.search(query=query)
+        return qs
+
+    def get_template_names(self):
+        if "HX-Request" in self.request.headers:
+            return "members/partials/member_list_entries.html"
+        return self.template_name
 
 
 class MemberDetailView(LoginRequiredMixin, DetailView):
