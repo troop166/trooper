@@ -6,11 +6,18 @@
 
 {% block content %}
     <main class="container">
-      <h1>{% translate 'Members' %}</h1>
-      <ul>
-        {% for member in member_list %}
-          <li><a href="{{ member.get_absolute_url }}">{{ member }}</a></li>
-        {% endfor %}
-      </ul>
+      <div class="d-flex align-items-center justify-content-between mb-3" id="page-header">
+        <h1>{% translate 'Members' %}</h1>
+        <form action="{% url 'members:list' %}" method="get">
+          <div class="input-group">
+            <input class="form-control" type="search" name="q" id="id_query" placeholder="Search" value="{{ request.GET.q }}" hx-get="{% url 'members:list' %}" hx-trigger="keyup changed delay:500ms, search" hx-target="#member-list">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="list-group" id="member-list">
+        {% include 'members/partials/member_list_entries.html' %}
+      </div>
     </main>
 {% endblock content %}
