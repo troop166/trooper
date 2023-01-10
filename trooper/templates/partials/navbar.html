@@ -42,6 +42,18 @@
           </li>
         {% endfor %}
         <li class="nav-item">
+          <a href="{% url 'members:list' %}"
+            {% if request.resolver_match.app_name == "members" %}
+             class="nav-link active"
+             aria-current="page"
+            {% else %}
+             class="nav-link"
+            {% endif %}
+          >
+            {% translate 'Members' %}
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{% url 'calendars:list' %}"
             {% if request.resolver_match.app_name == "calendars" %}
              class="nav-link active"
