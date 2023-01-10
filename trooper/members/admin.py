@@ -65,7 +65,6 @@ class MemberAdmin(UserAdmin):
                     "last_name",
                     "suffix",
                     "nickname",
-                    "email",
                     ("avatar", "preview"),
                 )
             },
@@ -105,6 +104,7 @@ class MemberAdmin(UserAdmin):
     list_display_links = ("short_name", "last_name")
     inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
     readonly_fields = ("age", "last_login", "preview")
+    search_fields = ("first_name", "last_name", "nickname")
 
     def get_queryset(self, request):
         return super().get_queryset(request).with_name()
