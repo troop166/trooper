@@ -1,0 +1,22 @@
+{% load i18n static thumbnail %}
+{% blocktranslate asvar alt_text %}{{ member.short_name }}'s profile picture{% endblocktranslate %}
+<img alt="{{ alt_text }}"
+  {% thumbnail member.avatar "x80" format="PNG" as img %}
+     src="{{ img.url }}"
+     srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
+  {% empty %}
+    {% if member.scout %}
+     src="{% static 'img/avatar_cub_80x80.png' %}"
+    {% elif member.gender == member.Gender.MALE %}
+     src="{% static 'img/avatar_man_80x80.png' %}"
+    {% elif member.gender == member.Gender.FEMALE %}
+     src="{% static 'img/avatar_woman_80x80.png' %}"
+    {% else %}
+     src="{% static 'img/avatar_generic_80x80.png' %}"
+    {% endif %}
+  {% endthumbnail %}
+     width="80"
+     height="80"
+     class="img-fluid rounded-circle me-3"
+     alt="{{ alt_text }}"
+>
