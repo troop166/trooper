@@ -47,7 +47,7 @@ class Address(models.Model):
     # Mandatory fields for generic relation
     # https://docs.djangoproject.com/en/stable/ref/contrib/contenttypes/#generic-relations
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.CharField(max_length=40)
+    object_id = models.UUIDField()
     content_object = GenericForeignKey()
 
     objects = AddressBookQuerySet.as_manager()
@@ -109,7 +109,7 @@ class Email(models.Model):
     # Mandatory fields for generic relation
     # https://docs.djangoproject.com/en/stable/ref/contrib/contenttypes/#generic-relations
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.CharField(max_length=40)
+    object_id = models.UUIDField()
     content_object = GenericForeignKey()
 
     objects = AddressBookQuerySet.as_manager()
@@ -146,7 +146,7 @@ class Phone(models.Model):
     # Mandatory fields for generic relation
     # https://docs.djangoproject.com/en/stable/ref/contrib/contenttypes/#generic-relations
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.CharField(max_length=40)
+    object_id = models.UUIDField()
     content_object = GenericForeignKey()
 
     objects = AddressBookQuerySet.as_manager()
