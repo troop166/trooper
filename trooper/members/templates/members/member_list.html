@@ -10,9 +10,6 @@
         <h1>{% translate 'Members' %}</h1>
         {% include  'members/partials/search_form.html' %}
       </div>
-
-      <div class="list-group" id="member-list">
-        {% include 'members/partials/member_list_entries.html' %}
-      </div>
+      {% include 'members/partials/member_list.html' %}
     </main>
 {% endblock content %}

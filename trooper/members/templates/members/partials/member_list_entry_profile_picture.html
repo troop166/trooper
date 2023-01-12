@@ -5,7 +5,7 @@
      src="{{ img.url }}"
      srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
   {% empty %}
-    {% if member.scout %}
+    {% if member.age < 18 %}
      src="{% static 'img/avatar_cub_80x80.png' %}"
     {% elif member.gender == member.Gender.MALE %}
      src="{% static 'img/avatar_man_80x80.png' %}"

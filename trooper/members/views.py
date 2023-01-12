@@ -57,7 +57,7 @@ class MemberListView(LoginRequiredMixin, ListView):
 
     def get_template_names(self):
         if "HX-Request" in self.request.headers:
-            return "members/partials/member_list_entries.html"
+            return "members/partials/member_list.html"
         return self.template_name
 
 
