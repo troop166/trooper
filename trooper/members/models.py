@@ -3,7 +3,6 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.contrib.contenttypes.fields import GenericRelation
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -12,7 +11,7 @@ from django.utils.translation import gettext as _
 from trooper.address_book.models import Address, Email, Phone
 from trooper.members.managers import FamilyQuerySet, MemberManager
 from trooper.members.utils import calculate_age, get_avatar_upload_to
-from trooper.members.validators import date_of_birth_validator
+from trooper.members.validators import date_of_birth_validator, date_of_death_validator
 
 
 class Member(AbstractUser):
@@ -62,6 +61,9 @@ class Member(AbstractUser):
     gender = models.CharField(_("gender"), max_length=1, choices=Gender.choices)
     date_of_birth = models.DateField(
         _("date of birth"), validators=[date_of_birth_validator]
+    )
+    date_of_death = models.DateField(
+        _("date of death"), validators=[date_of_death_validator], blank=True, null=True
     )
     addresses = GenericRelation(Address, related_query_name="member")
     email_addresses = GenericRelation(Email, related_query_name="member")
@@ -117,7 +119,7 @@ class Member(AbstractUser):
 
     @property
     def age(self):
-        return calculate_age(self.date_of_birth)
+        return calculate_age(self.date_of_birth, on_date=self.date_of_death)
 
     @classmethod
     def adult_choices(cls):

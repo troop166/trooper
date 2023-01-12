@@ -43,3 +43,13 @@ def date_of_birth_validator(value: datetime.date):
         )
     else:
         return value
+
+
+def date_of_death_validator(value: datetime):
+    today = timezone.now().date()
+    if today <= value:
+        raise ValidationError(
+            _("We should not be able to know when a person will pass in the future."),
+            code="future_date_of_death",
+        )
+    return value
