@@ -3,7 +3,7 @@
   {% if forloop.first %}
     <li>
       <h2 class="card-title fs-6">
-        {% blocktranslate count counter=member.email_addresses|length %}
+        {% blocktranslate count counter=member.published_email_addresses|length %}
           Email Address
         {% plural %}
           Email Addresses
