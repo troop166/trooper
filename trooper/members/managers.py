@@ -22,6 +22,8 @@ class FamilyQuerySet(models.QuerySet):
 
 
 class MemberQuerySet(models.QuerySet):
+    FILTERS_AVAILABLE = ("adults", "youths")
+
     def search(self, query=None):
         if not query:
             return self.none()
@@ -79,6 +81,8 @@ class MemberQuerySet(models.QuerySet):
 
 
 class MemberManager(UserManager):
+    FILTERS_AVAILABLE = MemberQuerySet.FILTERS_AVAILABLE
+
     def get_queryset(self):
         return MemberQuerySet(self.model, using=self._db)
 
