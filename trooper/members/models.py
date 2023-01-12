@@ -85,24 +85,7 @@ class Member(AbstractUser):
         super().save(*args, **kwargs)
 
     def clean(self):
-        super().clean()
-        # Check for unique email address, case insensitively
-        if self.email:
-            model_class = self.__class__
-            model_class_pk = self._get_pk_val()
-            field = model_class._meta.get_field("email")
-            qs = model_class._default_manager.filter(email__icontains=self.email)
-
-            if not self._state.adding and model_class_pk is not None:
-                qs = qs.exclude(pk=model_class_pk)
-            if qs.exists():
-                raise ValidationError(
-                    {
-                        "email": ValidationError(
-                            field.error_messages["unique"], code="unique"
-                        )
-                    }
-                )
+        pass
 
     def get_short_name(self):
         """
