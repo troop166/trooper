@@ -2,10 +2,16 @@
 {% for email in member.published_email_addresses %}
   {% if forloop.first %}
     <li>
-      <h2 class="card-title fs-6 mt-4">{% translate 'Email Addresses' %}</h2>
+      <h2 class="card-title fs-6">
+        {% blocktranslate count counter=member.email_addresses|length %}
+          Email Address
+        {% plural %}
+          Email Addresses
+        {% endblocktranslate %}
+      </h2>
     </li>
   {% endif %}
-  <li class="mb-2">
+  <li class="{% if forloop.last %}mb-4{% else %}mb-2{% endif %}">
     <span class="list-icons-icon">
       {% if email.label == email.Label.HOME %}
         <i class="bi bi-house"></i>

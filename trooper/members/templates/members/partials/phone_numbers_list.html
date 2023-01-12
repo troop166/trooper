@@ -2,10 +2,16 @@
 {% for phone in member.published_phone_numbers %}
   {% if forloop.first %}
     <li>
-      <h2 class="card-title fs-6 mt-4">{% translate 'Phone Numbers' %}</h2>
+      <h2 class="card-title fs-6">
+        {% blocktranslate count counter=member.published_phone_numbers|length %}
+          Phone Number
+        {% plural %}
+          Phone Numbers
+        {% endblocktranslate %}
+      </h2>
     </li>
   {% endif %}
-  <li class="mb-2">
+  <li class="{% if forloop.last %}mb-4{% else %}mb-2{% endif %}">
     <span class="list-icons-icon">
       {% if phone.label == phone.Label.HOME %}
         <i class="bi bi-house"></i>
