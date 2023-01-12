@@ -33,12 +33,26 @@ class MemberListView(LoginRequiredMixin, ListView):
     model = Member
     template_name = "members/member_list.html"
     paginate_by = 25
+    VALID_FILTERS = model.objects.FILTERS_AVAILABLE
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if "filter" in self.kwargs:
+            context["filter"] = self.kwargs["filter"]
+        if self.request.GET.get("q"):
+            context["q"] = self.request.GET.get("q")
+        return context
 
     def get_queryset(self):
         qs = super().get_queryset()
+        if "filter" in self.kwargs:
+            filter_to = self.kwargs["filter"]
+            if filter_to in self.VALID_FILTERS:
+                qs_filter = getattr(qs, filter_to)
+                qs = qs_filter()
         query = self.request.GET.get("q", default="")
         if query:
-            return qs.search(query=query)
+            qs = qs.search(query=query)
         return qs
 
     def get_template_names(self):
