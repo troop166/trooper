@@ -8,12 +8,7 @@
     <main class="container">
       <div class="d-flex align-items-center justify-content-between mb-3" id="page-header">
         <h1>{% translate 'Members' %}</h1>
-        <form action="{% url 'members:list' %}" method="get">
-          <div class="input-group">
-            <input class="form-control" type="search" name="q" id="id_query" placeholder="Search" value="{{ request.GET.q }}" hx-get="{% url 'members:list' %}" hx-trigger="keyup changed delay:500ms, search" hx-target="#member-list">
-            <button type="submit" class="btn btn-outline-secondary">Search</button>
-          </div>
-        </form>
+        {% include  'members/partials/search_form.html' %}
       </div>
 
       <div class="list-group" id="member-list">

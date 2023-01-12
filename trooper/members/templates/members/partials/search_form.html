@@ -1,0 +1,21 @@
+{% load i18n %}
+{% translate "Search" as search_text %}
+<form action="." method="get">
+  <div class="input-group">
+    <input class="form-control"
+           type="search"
+           name="q"
+           id="id_query"
+           placeholder="{{ search_text }}"
+           aria-label="{{ search_text }}"
+           value="{{ q }}"
+           hx-get="."
+           hx-swap="outerHTML"
+           hx-target="#member-list"
+           hx-trigger="keyup changed delay:500ms, search"
+    >
+    <button type="submit" class="btn btn-outline-secondary" aria-label="{{ search_text }}">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+</form>
