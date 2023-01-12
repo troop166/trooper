@@ -10,17 +10,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-4">
-            {% thumbnail member.avatar "880" format="PNG" as img %}
-              <img src="{{ img.url }}"
-                   class="rounded img-fluid mb-3"
-                   srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
-                   alt="{{ request.user }}"
-                   width="{{ img.width }}"
-                   height="{{ img.height }}"
-              >
-            {% empty %}
-              <i class="bi-person-circle"></i>
-            {% endthumbnail %}
+            {% include 'members/partials/member_list_entry_profile_picture.html' %}
             <div class="d-flex flex-column">
               <h1 class="card-title">{{ member }}</h1>
               <h2 class="card-subtitle fs-5 text-muted">{{ member.username }}</h2>
