@@ -83,11 +83,19 @@ class Member(AbstractUser):
         return self.get_full_name()
 
     def save(self, *args, **kwargs):
+        """
+        Ensure all members get a username based on their preferred
+        full name.
+        """
         if not self.username:
             self.username = slugify(self.get_full_name())
         super().save(*args, **kwargs)
 
     def clean(self):
+        """
+        Override AbstractUser clean() method that tries to clean
+        the no-existent email field.
+        """
         pass
 
     def get_short_name(self):
@@ -111,6 +119,7 @@ class Member(AbstractUser):
 
     @property
     def email(self):
+        """Returns an email address if available."""
         return self.email_addresses.first() or ""
 
     @classmethod
@@ -120,6 +129,7 @@ class Member(AbstractUser):
 
     @property
     def age(self):
+        """Calculate the member's age."""
         return calculate_age(self.date_of_birth, on_date=self.date_of_death)
 
     @classmethod
@@ -155,6 +165,8 @@ class Family(models.Model):
         verbose_name_plural = _("Families")
 
     def __str__(self):
+        if not self.members.count():
+            return _("new family")
         members = (
             self.members.exclude(last_name="")
             .order_by("last_name")
