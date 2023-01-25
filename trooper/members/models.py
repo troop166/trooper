@@ -117,6 +117,9 @@ class Member(AbstractUser):
         """
         return reverse("members:detail", kwargs={"username": self.username})
 
+    def is_related_to(self, member):
+        return self.families.all().intersection(member.families.all()).exists()
+
     @property
     def email(self):
         """Returns an email address if available."""
