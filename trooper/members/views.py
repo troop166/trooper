@@ -33,7 +33,6 @@ class MemberListView(LoginRequiredMixin, ListView):
     model = Member
     template_name = "members/member_list.html"
     paginate_by = 25
-    VALID_FILTERS = model.objects.FILTERS_AVAILABLE
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -47,7 +46,7 @@ class MemberListView(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         if "filter" in self.kwargs:
             filter_to = self.kwargs["filter"]
-            if filter_to in self.VALID_FILTERS:
+            if filter_to in self.model.objects.FILTERS_AVAILABLE:
                 qs_filter = getattr(qs, filter_to)
                 qs = qs_filter()
         query = self.request.GET.get("q", default="")
