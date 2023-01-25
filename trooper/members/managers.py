@@ -40,7 +40,7 @@ class MemberQuerySet(models.QuerySet):
         lookups = []
         for word in query_words:
             lookups.extend(Q(**{f"{field}__icontains": word}) for field in fields)
-        return self.filter(reduce(operator.or_, lookups))
+        return self.filter(reduce(operator.or_, lookups)).distinct()
 
     def with_name(self):
         return self.annotate(
