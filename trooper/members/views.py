@@ -62,10 +62,12 @@ class MemberListView(LoginRequiredMixin, ListView):
         return self.template_name
 
 
-class MemberDetailView(LoginRequiredMixin, DetailView):
+class MemberDetailView(LoginRequiredMixin, UpdateView):
     model = Member
+    form_class = MemberChangeForm
     slug_field = "username"
     slug_url_kwarg = "username"
+    template_name = "members/member_detail.html"
 
     def get_queryset(self):
         queryset = super().get_queryset()
