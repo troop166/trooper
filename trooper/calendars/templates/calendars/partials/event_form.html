@@ -1,0 +1,19 @@
+{% load i18n widget_tweaks %}
+{% with WIDGET_ERROR_CLASS="is-invalid" %}
+  <form action="" method="post">
+    {% include 'partials/forms/non_field_errors.html' %}
+    {% for field in form %}
+      <div class="mb-4">
+        {{ field.label_tag }}
+        {% render_field field class="form-control" %}
+        {% if field.help_text %}
+          <div class="form-text">
+            {{ field.help_text|safe }}
+          </div>
+        {% endif %}
+        {% include 'partials/forms/field_errors.html' with field=field %}
+      </div>
+    {% endfor %}
+    {% csrf_token %}
+  </form>
+{% endwith %}

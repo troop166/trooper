@@ -18,6 +18,8 @@
       <span>
         <a class="btn btn-success"
            href="{% url 'calendars:create' %}"
+           hx-get="{% url 'calendars:create' %}"
+           hx-target="#event-form-modal-container"
            data-bs-toggle="tooltip"
            data-bs-title="{% translate 'Add a new event' %}"
         >
@@ -34,6 +36,7 @@
       <li class="nav-item"><a href="{{ next_month }}" class="nav-link">{% translate 'Next month' %}</a></li>
     </nav>
     {% calendar_month month %}
+  <div id="event-form-modal-container"></div>
   </main>
 {% endblock content %}
 

@@ -24,6 +24,13 @@ class EventCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = EventForm
     permission_required = "calendars.add_event"
     success_message = _("<strong>%(title)s</strong> has been added to the calendar.")
+    template_name = "calendars/event_form.html"
+
+    def get_template_names(self):
+        if "HX-Request" in self.request.headers:
+            return "calendars/partials/event_form_modal.html"
+        else:
+            return self.template_name
 
     def form_valid(self, form):
         form.instance.organizer = self.request.user

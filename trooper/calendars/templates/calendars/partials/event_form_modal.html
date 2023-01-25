@@ -1,0 +1,33 @@
+{% load i18n %}
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;"></div>
+<div id="event-form-modal" class="modal fade show" tabindex="-1" style="display:block;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% include 'calendars/partials/event_form_heading.html' %}
+      </div>
+      <div class="modal-body">
+        {% include 'calendars/partials/event_form.html' %}
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary" onclick="closeModal()">{% translate 'Cancel' %}</a>
+        <button class="btn btn-primary" type="submit">{% translate 'Add Event' %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function closeModal() {
+	const container = document.getElementById("event-form-modal-container")
+	const backdrop = document.getElementById("modal-backdrop")
+	const modal = document.getElementById("event-form-modal")
+
+	modal.classList.remove("show")
+	backdrop.classList.remove("show")
+
+	setTimeout(function() {
+		container.removeChild(backdrop)
+		container.removeChild(modal)
+	}, 200)
+}
+</script>
