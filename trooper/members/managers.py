@@ -9,11 +9,7 @@ from django.db.models import Case, Count, Prefetch, Q, When
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 
-
-def _eighteen_years_from(date=None):
-    if not date:
-        date = timezone.now()
-    return date.replace(year=date.year - 18)
+from trooper.members.utils import eighteen_years_from
 
 
 class FamilyQuerySet(models.QuerySet):
@@ -74,10 +70,10 @@ class MemberQuerySet(models.QuerySet):
         )
 
     def adults(self):
-        return self.filter(date_of_birth__lte=_eighteen_years_from(timezone.now()))
+        return self.filter(date_of_birth__lte=eighteen_years_from(timezone.now()))
 
     def youths(self):
-        return self.filter(date_of_birth__gt=_eighteen_years_from(timezone.now()))
+        return self.filter(date_of_birth__gt=eighteen_years_from(timezone.now()))
 
 
 class MemberManager(UserManager):

@@ -2,6 +2,12 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 
+def eighteen_years_from(date=None):
+    if not date:
+        date = timezone.now()
+    return date.replace(year=date.year - 18)
+
+
 def calculate_age(date_of_birth, on_date=None):
     """
     Calculate a Member's age on given date. If no date is provided,
