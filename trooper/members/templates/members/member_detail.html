@@ -19,11 +19,9 @@
           <div class="col-lg">
             {% if member.addresses.published or member.email_addresses.published or member.phone_numbers.published %}
               <address class="card-text">
-                <ul class="list-icons">
-                  {% include 'members/partials/addresses_list.html' %}
-                  {% include 'members/partials/email_addresses_list.html' %}
-                  {% include 'members/partials/phone_numbers_list.html' %}
-                </ul>
+                {% include 'address_book/partials/addresses_list.html' %}
+                {% include 'address_book/partials/email_addresses_list.html' %}
+                {% include 'address_book/partials/phone_numbers_list.html' %}
               </address>
             {% endif %}
           </div>
