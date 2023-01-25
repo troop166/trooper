@@ -293,12 +293,12 @@ python-dateutil==2.8.2 ; python_full_version >= "3.8.1" and python_full_version 
 python-stdnum==1.18 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:bcc763d9c49ae23da5d2b7a686d5fd1deec9d9051341160a10d1ac723a26bec0 \
     --hash=sha256:d7f2a3c7ef4635c957b9cbdd9b1993d1f6ee3a2959f03e172c45440d99f296eb
-pytz==2022.7 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
-    --hash=sha256:7ccfae7b4b2c067464a6733c6261673fdb8fd1be905460396b97a073e9fa683a \
-    --hash=sha256:93007def75ae22f7cd991c84e02d434876818661f8df9ad5df9e950ff4e52cfd
-sentry-sdk==1.13.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
-    --hash=sha256:72da0766c3069a3941eadbdfa0996f83f5a33e55902a19ba399557cfee1dddcc \
-    --hash=sha256:b7ff6318183e551145b5c4766eb65b59ad5b63ff234dffddc5fb50340cad6729
+pytz==2022.7.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:01a0681c4b9684a28304615eba55d1ab31ae00bf68ec157ec3708a8182dbbcd0 \
+    --hash=sha256:78f4f37d8198e0627c5f1143240bb0206b8691d8d7ac6d78fee88b78733f8c4a
+sentry-sdk==1.14.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:273fe05adf052b40fd19f6d4b9a5556316807246bd817e5e3482930730726bb0 \
+    --hash=sha256:72c00322217d813cf493fe76590b23a757e063ff62fec59299f4af7201dd4448
 setuptools==65.7.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:4d3c92fac8f1118bb77a22181355e29c239cabfe2b9effdaa665c66b711136d7 \
     --hash=sha256:8ab4f1dbf2b4a65f7eec5ad0c620e84c34111a68d3349833494b9088212214dd
