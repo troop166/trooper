@@ -123,11 +123,7 @@ class MemberAdmin(UserAdmin):
         return super().get_queryset(request).with_name()
 
     def get_inlines(self, request, obj):
-        if obj:
-            inlines = super().get_inlines(request, obj)
-        else:
-            inlines = []
-        return inlines
+        return super().get_inlines(request, obj) if obj else []
 
     @admin.display(description=_("name"), ordering="short_name")
     def short_name(self, obj):
