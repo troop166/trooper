@@ -73,6 +73,11 @@ class MemberDetailView(LoginRequiredMixin, UpdateView):
         queryset = super().get_queryset()
         return queryset.with_published_contact_info()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["members_are_related"] = self.object.is_related_to(self.request.user)
+        return context
+
 
 class MemberUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Member
