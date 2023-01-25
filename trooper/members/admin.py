@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.urls import reverse
-from django.utils.html import format_html_join
+from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
@@ -31,18 +31,23 @@ class FamilyAdmin(admin.ModelAdmin):
 
     @admin.display(description=_("Family Members"))
     def family_members(self, instance):
-        return format_html_join(
-            mark_safe("<br>"),  # nosec: B308
-            "<a href={}>{}</a>",
-            (
+        member_set = instance.familymember_set.all()
+        return format_html(
+            "<ul{}>\n{}\n</ul>",
+            " style=margin-left:1.5em;",
+            format_html_join(
+                "\n",
+                "<li><a href={}>{}</a></li>",
                 (
-                    reverse(
-                        f"admin:{member._meta.app_label}_{member._meta.model_name}_change",  # noqa: E501
-                        args=(member.pk,),
-                    ),
-                    member,
-                )
-                for member in instance.members.all()
+                    (
+                        reverse(
+                            f"admin:{fm.member._meta.app_label}_{fm.member._meta.model_name}_change",  # noqa: E501
+                            args=(fm.member_id,),
+                        ),
+                        fm.member.get_full_name(),
+                    )
+                    for fm in member_set
+                ),
             ),
         )
 
