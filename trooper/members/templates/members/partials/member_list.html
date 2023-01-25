@@ -1,10 +1,14 @@
+{% load i18n %}
 <div class="card" id="member-list">
   <div class="card-header">
     {% include 'members/partials/member_list_tabs.html' %}
   </div>
   <div class="card-body">
-    <div class="list-group list-group-flush">
+    <div class="list-group list-group-flush" hx-indicator=".htmx-indicator">
       {% include 'members/partials/member_list_entries.html' %}
+    </div>
+    <div class="htmx-indicator spinner-border text-primary m-5" role="status">
+      <span class="visually-hidden">{% translate 'Loading...' %}</span>
     </div>
   </div>
 </div>
