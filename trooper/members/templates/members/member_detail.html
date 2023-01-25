@@ -12,7 +12,7 @@
           <div class="col-lg-4">
             {% include 'members/partials/member_list_entry_profile_picture.html' %}
             <div class="d-flex flex-column">
-              <h1 class="card-title">{{ member }}</h1>
+              <h1 class="card-title">{{ member.get_full_name }}</h1>
               <h2 class="card-subtitle fs-5 text-muted">{{ member.username }}</h2>
             </div>
           </div>
