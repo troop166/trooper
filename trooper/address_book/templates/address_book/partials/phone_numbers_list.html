@@ -1,0 +1,29 @@
+{% load i18n %}
+<h3 class="card-title fs-6">
+  {% blocktranslate count counter=member.published_phone_numbers|length %}
+    Phone Number
+    {% plural %}
+    Phone Numbers
+  {% endblocktranslate %}
+</h3>
+<ul class="list-icons" id="phone-number-list">
+  {% for phone in member.published_phone_numbers %}
+    <li class="mb-2">
+    <span class="list-icons-icon">
+      {% if phone.label == phone.Label.HOME %}
+        <i class="bi bi-house"></i>
+      {% elif phone.label == phone.Label.MOBILE %}
+        <i class="bi bi-phone"></i>
+      {% elif phone.label == phone.Label.WORK %}
+        <i class="bi bi-building"></i>
+      {% else %}
+        <i class="bi bi-telephone"></i>
+      {% endif %}
+    </span>
+      <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">{{ phone }}</a>
+    </li>
+  {% endfor %}
+  <li class="mb-4">
+    <button class="btn btn-link btn-sm mb-3" aria-label="{% translate 'add' %}"><i class="bi bi-plus-circle-fill"></i></button>
+  </li>
+</ul>
