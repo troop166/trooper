@@ -38,6 +38,7 @@ class Member(AbstractUser):
         },
     )
     first_name = models.CharField(_("first name"), max_length=100)
+    middle_name = models.CharField(_("middle name"), max_length=100, blank=True)
     last_name = models.CharField(_("last name"), max_length=100)
     suffix = models.CharField(_("suffix"), max_length=10, blank=True)
     nickname = models.CharField(

@@ -23,7 +23,7 @@ class FamilyMemberInline(admin.TabularInline):
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
     list_display = ("__str__", "member_count")
-    search_fields = ("members__first_name", "members__last_name")
+    search_fields = ("members__first_name", "members__nickname", "members__last_name")
     readonly_fields = ("family_members",)
 
     def get_queryset(self, request):
@@ -100,8 +100,8 @@ class MemberAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ("short_name", "last_name", "suffix", "is_staff")
-    list_display_links = ("short_name", "last_name")
+    list_display = ("first_name", "middle_name", "last_name", "suffix", "is_staff")
+    list_display_links = ("first_name", "last_name")
     inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
     readonly_fields = ("age", "last_login", "preview")
     search_fields = ("first_name", "last_name", "nickname")
