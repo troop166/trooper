@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
@@ -61,6 +62,9 @@ class Address(models.Model):
 
     def __str__(self):
         return self.as_single_line
+
+    def get_absolute_url(self):
+        return reverse("address_book:address_form", args=(self.pk,))
 
     @cached_property
     def as_single_line(self):
