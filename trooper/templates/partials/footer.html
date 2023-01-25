@@ -1,8 +1,10 @@
 {% load i18n %}
 <footer class="container-fluid footer">
   <div class="container">
-    {{ website.footer_text|linebreaks }}
-    <hr>
+    {% if website.footer_text %}
+      {{ website.footer_text|linebreaks }}
+      <hr>
+    {% endif %}
     {% now "Y" as current_year %}
     {% blocktranslate with name=website.name %}
       Copyright &copy; {{ current_year }} {{ name }} All rights reserved
