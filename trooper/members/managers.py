@@ -130,9 +130,10 @@ class MemberManager(UserManager):
         return self.get_queryset().with_published_contact_info()
 
     def get_by_natural_key(self, username):
-        return self.get(
-            Q(**{f"{self.model.USERNAME_FIELD}__iexact": username})
-            | Q(email_addresses__address__iexact=username)
+        fields = ["email_addresses__address", "username"]
+        lookups = [Q(**{f"{field}__iexact": username}) for field in fields]
+        return (
+            self.get_queryset().filter(reduce(operator.or_, lookups)).distinct().get()
         )
 
     def adults(self):
