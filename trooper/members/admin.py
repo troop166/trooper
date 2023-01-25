@@ -83,7 +83,15 @@ class MemberAdmin(UserAdmin):
         ),
         (
             _("Important dates"),
-            {"fields": ("date_of_birth", "age", "last_login", "date_joined")},
+            {
+                "fields": (
+                    "date_of_birth",
+                    "date_of_death",
+                    "age",
+                    "last_login",
+                    "date_joined",
+                )
+            },
         ),
     )
     add_fieldsets = (
