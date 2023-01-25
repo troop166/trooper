@@ -34,6 +34,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # Trooper
     path("", include("trooper.members.auth.urls")),
+    path("address_book/", include("trooper.address_book.urls")),
     path("calendars/", include("trooper.calendars.urls")),
     path("members/", include("trooper.members.urls")),
     path("", include("trooper.website.urls")),

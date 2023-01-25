@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<form action="." method="post">
+  {% csrf_token %}
+  <button class="btn btn-danger">{% translate 'Delete' %}</button>
+  <a class="btn btn-outline-primary" href="">{% translate 'Cancel' %}</a>
+</form>

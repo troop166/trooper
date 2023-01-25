@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+
+{% block title %}{% blocktranslate with address=address.as_single_line|truncatewords:5 %}Delete "{{ address }}"?{% endblocktranslate %} | {{  block.super }}{% endblock %}
+
+
+{% block content %}
+  <main class="container">
+    <h1 class="text-truncate">{% blocktranslate with address=address.as_single_line %}Delete "{{ address }}"?{% endblocktranslate %}</h1>
+    {% include 'address_book/partials/address_delete_form.html' %}
+  </main>
+{% endblock content %}
