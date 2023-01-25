@@ -182,11 +182,17 @@ class FamilyMember(models.Model):
         PARENT = "P", _("Parent")
         CHILD = "C", _("Child")
 
-    family = models.ForeignKey(Family, on_delete=models.CASCADE)
+    family = models.ForeignKey(
+        Family,
+        on_delete=models.CASCADE,
+        related_name="family_members",
+        related_query_name="family_member",
+    )
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     role = models.CharField(_("role"), max_length=1, choices=Role.choices)
 
     class Meta:
+        db_table = "family_member"
         verbose_name = _("Family Member")
         verbose_name_plural = _("Family Members")
 

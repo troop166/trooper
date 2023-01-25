@@ -31,7 +31,7 @@ class FamilyAdmin(admin.ModelAdmin):
 
     @admin.display(description=_("Family Members"))
     def family_members(self, instance):
-        member_set = instance.familymember_set.all()
+        member_set = instance.family_members.all()
         return format_html(
             "<ul{}>\n{}\n</ul>",
             " style=margin-left:1.5em;",
