@@ -1,14 +1,15 @@
 {% load i18n %}
-<h3 class="card-title fs-6">
-  {% blocktranslate count counter=member.published_addresses|length %}
-    Address
-  {% plural %}
-    Addresses
-  {% endblocktranslate %}
-</h3>
-<ul class="list-icons" id="address-list">
-  {% for address in member.published_addresses %}
-    <li class="mb-2" id="address-{{ address.pk }}">
+{% if members_are_related or addresses|length %}
+  <h3 class="card-title fs-6">
+    {% blocktranslate count counter=addresses|length %}
+      Address
+      {% plural %}
+      Addresses
+    {% endblocktranslate %}
+  </h3>
+  <ul class="list-icons" id="address-list">
+    {% for address in addresses %}
+      <li class="mb-2" id="address-{{ address.pk }}">
       <span class="list-icons-icon">
         {% if address.label == address.Label.HOME %}
           <i class="bi bi-house"></i>
@@ -20,34 +21,39 @@
           <i class="bi bi-geo"></i>
         {% endif %}
       </span>
-      <div class="d-flex align-items-top">
+        <div class="d-flex align-items-top">
         <span class="card-text">
           {{ address.as_multiline }}
         </span>
-        <button class="btn btn-secondary btn-sm"
-                hx-trigger="click"
-                hx-get="{{ address.get_absolute_url }}"
-                hx-target="#address-{{ address.pk }}">
-          edit
+          {% if members_are_related %}
+            <button class="btn btn-secondary btn-sm"
+                    hx-trigger="click"
+                    hx-get="{{ address.get_absolute_url }}"
+                    hx-target="#address-{{ address.pk }}">
+              edit
+            </button>
+            <a class="btn btn-danger btn-sm"
+               href="{% url 'address_book:address_delete' address.pk %}"
+               hx-delete="{% url 'address_book:address_delete' address.pk %}"
+               hx-confirm="Are you sure you want to delete {{ address.as_single_line }}?"
+               hx-target="#address-{{ address.pk }}"
+               hx-swap="outerHTML">
+              <small>delete</small>
+            </a>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+    {% if members_are_related %}
+      <div id="address-form"></div>
+      <li class="mb-4">
+        <button class="btn btn-link btn-sm mb-3"
+                hx-get="{% url 'address_book:address_create_form' %}"
+                hx-target="#address-form"
+                aria-label="{% translate 'add' %}">
+          <i class="bi bi-plus-circle-fill"></i>
         </button>
-        <a class="btn btn-danger btn-sm"
-           href="{% url 'address_book:address_delete' address.pk %}"
-           hx-delete="{% url 'address_book:address_delete' address.pk %}"
-           hx-confirm="Are you sure you want to delete {{ address.as_single_line }}?"
-           hx-target="#address-{{ address.pk }}"
-           hx-swap="outerHTML">
-          <small>delete</small>
-        </a>
-      </div>
-    </li>
-  {% endfor %}
-  <div id="address-form"></div>
-  <li class="mb-4">
-    <button class="btn btn-link btn-sm mb-3"
-            hx-get="{% url 'address_book:address_create_form' %}"
-            hx-target="#address-form"
-            aria-label="{% translate 'add' %}">
-      <i class="bi bi-plus-circle-fill"></i>
-    </button>
-  </li>
-</ul>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

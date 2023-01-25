@@ -1,14 +1,15 @@
 {% load i18n %}
-<h3 class="card-title fs-6">
-  {% blocktranslate count counter=member.published_phone_numbers|length %}
-    Phone Number
-    {% plural %}
-    Phone Numbers
-  {% endblocktranslate %}
-</h3>
-<ul class="list-icons" id="phone-number-list">
-  {% for phone in member.published_phone_numbers %}
-    <li class="mb-2">
+{% if members_are_related or phone_numbers|length %}
+  <h3 class="card-title fs-6">
+    {% blocktranslate count counter=phone_numbers|length %}
+      Phone Number
+      {% plural %}
+      Phone Numbers
+    {% endblocktranslate %}
+  </h3>
+  <ul class="list-icons" id="phone-number-list">
+    {% for phone in phone_numbers %}
+      <li class="mb-2">
     <span class="list-icons-icon">
       {% if phone.label == phone.Label.HOME %}
         <i class="bi bi-house"></i>
@@ -20,10 +21,15 @@
         <i class="bi bi-telephone"></i>
       {% endif %}
     </span>
-      <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">{{ phone }}</a>
-    </li>
-  {% endfor %}
-  <li class="mb-4">
-    <button class="btn btn-link btn-sm mb-3" aria-label="{% translate 'add' %}"><i class="bi bi-plus-circle-fill"></i></button>
-  </li>
-</ul>
+        <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">{{ phone }}</a>
+      </li>
+    {% endfor %}
+    {% if members_are_related %}
+      <li class="mb-4">
+        <button class="btn btn-link btn-sm mb-3" aria-label="{% translate 'add' %}">
+          <i class="bi bi-plus-circle-fill"></i>
+        </button>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

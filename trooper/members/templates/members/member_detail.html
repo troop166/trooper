@@ -14,14 +14,23 @@
             <div class="d-flex flex-column">
               <h1 class="card-title">{{ member.get_full_name }}</h1>
               <h2 class="card-subtitle fs-5 text-muted">{{ member.username }}</h2>
+              {% if member.age < 18 %}
+              <p class="card-text"><i class="bi bi-calendar-heart"></i> {{ member.date_of_birth }}</p>
+              {% endif %}
             </div>
           </div>
           <div class="col-lg">
-            {% if member.addresses.published or member.email_addresses.published or member.phone_numbers.published %}
+            {% if members_are_related %}
               <address class="card-text">
-                {% include 'address_book/partials/addresses_list.html' %}
-                {% include 'address_book/partials/email_addresses_list.html' %}
-                {% include 'address_book/partials/phone_numbers_list.html' %}
+                {% include 'address_book/partials/addresses_list.html' with addresses=member.addresses.all %}
+                {% include 'address_book/partials/email_addresses_list.html' with email_addresses=member.email_addresses.all %}
+                {% include 'address_book/partials/phone_numbers_list.html' with phone_numbers=member.phone_numbers.all %}
+              </address>
+            {% elif member.published_addresses or member.published_email_addresses or member.published_phone_numbers %}
+              <address class="card-text">
+                {% include 'address_book/partials/addresses_list.html' with addresses=member.published_addresses %}
+                {% include 'address_book/partials/email_addresses_list.html' with email_addresses=member.published_email_addresses %}
+                {% include 'address_book/partials/phone_numbers_list.html' with phone_numbers=member.published_phone_numbers %}
               </address>
             {% endif %}
           </div>
