@@ -119,6 +119,8 @@ class Member(AbstractUser):
 
     def is_related_to(self, member):
         """Returns a boolean of whether two members share a family."""
+        if member == self:
+            return True
         family_model = self.families.model
         return family_model.objects.filter(members=self).filter(members=member).exists()
 
