@@ -118,7 +118,9 @@ class Member(AbstractUser):
         return reverse("members:detail", kwargs={"username": self.username})
 
     def is_related_to(self, member):
-        return self.families.all().intersection(member.families.all()).exists()
+        """Returns a boolean of whether two members share a family."""
+        family_model = self.families.model
+        return family_model.objects.filter(members=self).filter(members=member).exists()
 
     @property
     def email(self):
