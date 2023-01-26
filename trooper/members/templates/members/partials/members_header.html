@@ -1,0 +1,5 @@
+{% load i18n %}
+<div class="d-flex align-items-center justify-content-between mb-5" id="page-header">
+  <h1><a href="{% url 'members:list' %}" class="text-decoration-none">{% translate 'Members' %}</a></h1>
+  {% if show_search %}{% include  'members/partials/search_form.html' %}{% endif %}
+</div>

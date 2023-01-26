@@ -1,59 +1,62 @@
 {% load i18n %}
 {% if members_are_related or addresses|length %}
-  <h3 class="card-title fs-6">
-    {% blocktranslate count counter=addresses|length %}
-      Address
-      {% plural %}
-      Addresses
-    {% endblocktranslate %}
-  </h3>
-  <ul class="list-icons" id="address-list">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="card-title fs-6">
+      {% blocktranslate count counter=addresses|length %}
+        Address
+        {% plural %}
+        Addresses
+      {% endblocktranslate %}
+    </h3>
+    {% if members_are_related %}
+      <button class="btn btn-link btn-sm mb-3"
+              hx-get="{% url 'address_book:address_create_form' %}"
+              hx-target="#address-form"
+              aria-label="{% translate 'add' %}">
+        <i class="bi bi-plus-circle-fill"></i>
+      </button>
+    {% endif %}
+  </div>
+  <div id="address-form"></div>
+  <ul class="list-group list-group-flush list-icons mb-4" id="address-list">
     {% for address in addresses %}
-      <li class="mb-2" id="address-{{ address.pk }}">
-      <span class="list-icons-icon">
-        {% if address.label == address.Label.HOME %}
-          <i class="bi bi-house"></i>
-        {% elif address.label == address.Label.PO_BOX %}
-          <i class="bi bi-mailbox"></i>
-        {% elif address.label == address.Label.WORK %}
-          <i class="bi bi-building"></i>
-        {% else %}
-          <i class="bi bi-geo"></i>
-        {% endif %}
-      </span>
-        <div class="d-flex align-items-top">
-        <span class="card-text">
+      <li class="list-group-item  {% if not address.is_published %}list-group-item-light{% endif %} d-flex justify-content-between align-items-start"
+          id="address-{{ address.pk }}">
+        <div class="me-auto">
+          <span class="list-icons-icon">
+            {% if address.label == address.Label.HOME %}
+              <i class="bi bi-house"></i>
+            {% elif address.label == address.Label.PO_BOX %}
+              <i class="bi bi-mailbox"></i>
+            {% elif address.label == address.Label.WORK %}
+              <i class="bi bi-building"></i>
+            {% else %}
+              <i class="bi bi-geo"></i>
+            {% endif %}
+          </span>
           {{ address.as_multiline }}
-        </span>
-          {% if members_are_related %}
-            <button class="btn btn-secondary btn-sm"
+        </div>
+        {% if members_are_related %}
+          <div class="btn-group" role="group" aria-label="{% translate 'Address editing buttons' %}">
+            <button class="btn btn-outline-secondary btn-sm"
                     hx-trigger="click"
                     hx-get="{{ address.get_absolute_url }}"
-                    hx-target="#address-{{ address.pk }}">
-              edit
+                    hx-target="#address-{{ address.pk }}"
+                    aria-label="{% translate 'edit' %}">
+              <i class="bi bi-pencil-square"></i>
             </button>
-            <a class="btn btn-danger btn-sm"
+            <a class="btn btn-outline-danger btn-sm"
                href="{% url 'address_book:address_delete' address.pk %}"
                hx-delete="{% url 'address_book:address_delete' address.pk %}"
                hx-confirm="Are you sure you want to delete {{ address.as_single_line }}?"
                hx-target="#address-{{ address.pk }}"
-               hx-swap="outerHTML">
-              <small>delete</small>
+               hx-swap="outerHTML"
+              {% translate 'delete' %}>
+              <i class="bi bi-trash"></i>
             </a>
-          {% endif %}
-        </div>
+          </div>
+        {% endif %}
       </li>
     {% endfor %}
-    {% if members_are_related %}
-      <div id="address-form"></div>
-      <li class="mb-4">
-        <button class="btn btn-link btn-sm mb-3"
-                hx-get="{% url 'address_book:address_create_form' %}"
-                hx-target="#address-form"
-                aria-label="{% translate 'add' %}">
-          <i class="bi bi-plus-circle-fill"></i>
-        </button>
-      </li>
-    {% endif %}
   </ul>
 {% endif %}

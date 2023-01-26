@@ -1,36 +1,60 @@
 {% load i18n %}
 {% if members_are_related or email_addresses|length %}
-  <h3 class="card-title fs-6">
-    {% blocktranslate count counter=email_addresses|length %}
-      Email Address
-      {% plural %}
-      Email Addresses
-    {% endblocktranslate %}
-  </h3>
-  <ul class="list-icons" id="email-address-list">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="card-title fs-6">
+      {% blocktranslate count counter=email_addresses|length %}
+        Email Address
+        {% plural %}
+        Email Addresses
+      {% endblocktranslate %}
+    </h3>
+    {% if members_are_related %}
+      <button class="btn btn-link btn-sm me-2" aria-label="{% translate 'add' %}">
+        <i class="bi bi-plus-circle-fill"></i>
+      </button>
+    {% endif %}
+  </div>
+  <div id="email-address-form"></div>
+  <ul class="list-group list-group-flush list-icons mb-4" id="email-address-list">
     {% for email in email_addresses %}
-      <li class="mb-2">
-    <span class="list-icons-icon">
-      {% if email.label == email.Label.HOME %}
-        <i class="bi bi-house"></i>
-      {% elif email.label == email.Label.WORK %}
-        <i class="bi bi-briefcase"></i>
-      {% else %}
-        <i class="bi bi-envelope"></i>
-      {% endif %}
-    </span>
-        <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20"
-           class="card-link text-decoration-none">
-          {{ email }}
-        </a>
+      <li class="list-group-item {% if not email.is_published %}list-group-item-light{% endif %} d-flex justify-content-between align-items-start"
+          id="email-{{ email.pk }}">
+        <div class="me-auto">
+          <span class="list-icons-icon">
+            {% if email.label == email.Label.HOME %}
+              <i class="bi bi-house"></i>
+            {% elif email.label == email.Label.WORK %}
+              <i class="bi bi-briefcase"></i>
+            {% else %}
+              <i class="bi bi-envelope"></i>
+            {% endif %}
+          </span>
+          <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20"
+             class="card-link text-decoration-none">
+            {{ email }}
+          </a>
+        </div>
+        {% if members_are_related %}
+          <div class="btn-group" role="group" aria-label="{% translate 'Address editing buttons' %}">
+            <button class="btn btn-outline-secondary btn-sm"
+                    hx-trigger="click"
+                    hx-get=""
+                    hx-target="#email-{{ email.pk }}"
+                    aria-label="{% translate 'edit' %}">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <a class="btn btn-outline-danger btn-sm"
+               href=""
+               hx-delete=""
+               hx-confirm=""
+               hx-target="#email-{{ email.pk }}"
+               hx-swap="outerHTML"
+              {% translate 'delete' %}>
+              <i class="bi bi-trash"></i>
+            </a>
+          </div>
+        {% endif %}
       </li>
     {% endfor %}
-    {% if members_are_related %}
-      <li class="mb-4">
-        <button class="btn btn-link btn-sm mb-3" aria-label="{% translate 'add' %}">
-          <i class="bi bi-plus-circle-fill"></i>
-        </button>
-      </li>
-    {% endif %}
   </ul>
 {% endif %}

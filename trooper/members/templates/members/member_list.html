@@ -6,10 +6,7 @@
 
 {% block content %}
     <main class="container">
-      <div class="d-flex align-items-center justify-content-between mb-3" id="page-header">
-        <h1>{% translate 'Members' %}</h1>
-        {% include  'members/partials/search_form.html' %}
-      </div>
+      {% include 'members/partials/members_header.html' with show_search=True %}
       {% include 'members/partials/member_list.html' %}
     </main>
 {% endblock content %}

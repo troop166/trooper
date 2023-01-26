@@ -6,10 +6,11 @@
 
 {% block content %}
   <main class="container">
+    {% include 'members/partials/members_header.html' %}
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-7 mb-5 mb-lg-0">
             {% include 'members/partials/member_list_entry_profile_picture.html' %}
             <div class="d-flex flex-column">
               <h1 class="card-title">{{ member.get_full_name }}</h1>
