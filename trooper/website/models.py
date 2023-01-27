@@ -141,6 +141,15 @@ class Page(models.Model):
             "navigation bar."
         ),
     )
+    navbar_order = models.PositiveSmallIntegerField(
+        _("navigation order"),
+        unique=True,
+        blank=True,
+        null=True,
+        help_text=_(
+            "Specify the order this page should appear on the site's navigation bar."
+        ),
+    )
     created_at = models.DateTimeField(
         _("created"),
         auto_now_add=True,
@@ -155,6 +164,7 @@ class Page(models.Model):
     objects = PageQuerySet.as_manager()
 
     class Meta:
+        ordering = ("navbar_order",)
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
 

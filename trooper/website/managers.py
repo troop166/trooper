@@ -60,4 +60,4 @@ class PageQuerySet(models.QuerySet):
     def in_navbar_for(self, user):
         builtin_pages = self.filter(is_builtin__isnull=False, in_navbar=True)
         custom_pages = self.visible_to(user).filter(in_navbar=True).distinct()
-        return builtin_pages.union(custom_pages)
+        return builtin_pages.union(custom_pages).order_by("navbar_order")
