@@ -29,8 +29,8 @@
       <ul class="navbar-nav me-auto">
         {% for page in navbar.links %}
           <li class="nav-item">
-            <a href="{{ page.get_absolute_url }}"
-              {% if request.resolver_match.kwargs.slug == page.slug %}
+            <a href="{{ page.url }}"
+              {% if page.is_current %}
                class="nav-link active"
                aria-current="page"
               {% else %}
