@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{{ page.title }} | {{ block.super }}{% endblock title %}
+
+{% block content %}
+  <main class="container">
+    <h1 class="mb-5">{{ page.title }}</h1>
+    {% for content in page.visible_content %}
+      {% include 'website/partials/content.html' %}
+    {% endfor %}
+  </main>
+{% endblock content %}

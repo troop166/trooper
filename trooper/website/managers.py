@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.db import models
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 
 
 class ContentQuerySet(models.QuerySet):
@@ -58,4 +58,6 @@ class PageQuerySet(models.QuerySet):
         return self.filter(content__in=content)
 
     def in_navbar_for(self, user):
-        return self.visible_to(user).filter(in_navbar=True).distinct()
+        builtin_pages = self.filter(is_builtin__isnull=False, in_navbar=True)
+        custom_pages = self.visible_to(user).filter(in_navbar=True).distinct()
+        return builtin_pages.union(custom_pages)

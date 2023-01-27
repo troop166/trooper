@@ -69,6 +69,18 @@ class ContactPageView(TemplateView):
             raise Http404 from e
 
 
+class SignUpPageView(TemplateView):
+    template_name = "website/signup.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context["page"] = Page.objects.get(is_builtin=Page.BuiltIn.SIGNUP)
+            return context
+        except Page.DoesNotExist as e:
+            raise Http404 from e
+
+
 class PageDetailView(DetailView):
     model = Page
     template_name = "website/detail.html"

@@ -1,4 +1,4 @@
-{% load i18n static thumbnail %}
+{% load i18n static thumbnail website_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default_if_none:'en-us'}}">
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{% static '@fontsource/roboto-slab/index.css' %}">
   <link rel="stylesheet" href="{% static 'css/bsa-colors.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% url 'color_css' %}">
+  <link rel="stylesheet" href="{% url 'color_css' %}">
   {% endblock css %}
   <!-- Begin Icons -->
     {% thumbnail website.logo "32x32" crop="center" format="PNG" as img %}
@@ -40,7 +40,7 @@
 
 {% block body %}
 <body>
-  {% block navbar %}{% include 'partials/navbar.html' %}{% endblock navbar %}
+  {% block navbar %}{% navbar %}{% endblock navbar %}
 
   {% block messages %}{% include 'partials/messages.html' %}{% endblock messages %}
 
