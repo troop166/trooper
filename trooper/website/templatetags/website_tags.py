@@ -12,12 +12,15 @@ def navbar(context):
     context["navbar"] = {"links": []}
 
     for page in pages:
-        context["navbar"]["links"].append(
-            {
-                "title": page.title,
-                "url": page.get_absolute_url(),
-                "is_current": context["request"].path == page.get_absolute_url(),
-            }
-        )
+        url = page.get_absolute_url()
+        link = {
+            "title": page.title,
+            "url": url,
+            "is_current": context["request"].path == url,
+        }
+        if page.navbar_order:
+            context["navbar"]["links"].insert(page.navbar_order, link)
+        else:
+            context["navbar"]["links"].append(link)
 
     return context
