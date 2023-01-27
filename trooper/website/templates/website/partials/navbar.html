@@ -65,18 +65,6 @@
             {% translate 'Calendar' %}
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{% url 'about_page' %}"
-            {% if request.resolver_match.url_name == "about_page" %}
-             class="nav-link active"
-             aria-current="page"
-            {% else %}
-             class="nav-link"
-            {% endif %}
-          >
-            {% translate 'About' %}
-          </a>
-        </li>
       </ul>
       {% if request.resolver_match.app_name != "auth" %}
         <ul class="navbar-nav" id="user-menu">
