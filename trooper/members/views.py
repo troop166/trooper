@@ -49,8 +49,7 @@ class MemberListView(LoginRequiredMixin, ListView):
             if filter_to in self.model.objects.FILTERS_AVAILABLE:
                 qs_filter = getattr(qs, filter_to)
                 qs = qs_filter()
-        query = self.request.GET.get("q", default="")
-        if query:
+        if query := self.request.GET.get("q", default=""):
             qs = qs.search(query=query)
         return qs
 
