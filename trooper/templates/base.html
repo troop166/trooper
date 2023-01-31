@@ -1,31 +1,30 @@
 {% load i18n static thumbnail website_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default_if_none:'en-us'}}">
+<html lang="{{ LANGUAGE_CODE|default_if_none:'en-us' }}">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{% block title %}{{ website.name }}{% endblock title %}</title>
   {% block meta %}
-  <meta name="description" content="{{ website.description }}">
+    <meta name="description" content="{{ website.description }}">
   {% endblock meta %}
   <meta name="theme-color" content="{{ website.navbar_bg }}">
   {% block css %}
-  <!-- Begin CSS -->
-  <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}">
-  <link rel="stylesheet" href="{% static '@fontsource/roboto/index.css' %}">
-  <link rel="stylesheet" href="{% static '@fontsource/roboto-slab/index.css' %}">
-  <link rel="stylesheet" href="{% static 'css/bsa-colors.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% url 'color_css' %}">
+    <!-- Begin CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static '@fontsource/roboto/index.css' %}">
+    <link rel="stylesheet" href="{% static '@fontsource/roboto-slab/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bsa-colors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% url 'color_css' %}">
   {% endblock css %}
   <!-- Begin Icons -->
+  {% if website.logo %}
     {% thumbnail website.logo "32x32" crop="center" format="PNG" as img %}
       <link rel="icon" href="{{ img.url }}" sizes="32x32">
-    {% empty %}
-      <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/png">
     {% endthumbnail %}
     {% thumbnail website.logo "128x128" crop="center" format="PNG" as img %}
       <link rel="icon" href="{{ img.url }}" sizes="128x128">
@@ -36,10 +35,13 @@
     {% thumbnail website.logo "192x192" crop="center" format="PNG" as img %}
       <link rel="icon" href="{{ img.url }}" sizes="192x192">
     {% endthumbnail %}
+  {% else %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/png">
+  {% endif %}
 </head>
 
 {% block body %}
-<body>
+  <body>
   {% block navbar %}{% navbar %}{% endblock navbar %}
 
   {% block messages %}{% include 'partials/messages.html' %}{% endblock messages %}
@@ -49,6 +51,6 @@
   {% block footer %}{% include 'partials/footer.html' %}{% endblock footer %}
 
   {% block js %}{% include 'partials/js.html' %}{% endblock js %}
-</body>
+  </body>
 {% endblock body %}
 </html>
