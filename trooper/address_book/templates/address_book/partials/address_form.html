@@ -1,6 +1,18 @@
-<form action="." method="post" hx-post="." hx-swap="outerHTML">
+{% load i18n %}
+{% if address.pk %}
+  {% url 'address_book:address_form' member.username address.pk as form_url %}
+{% else %}
+  {% url 'address_book:address_create_form' member.username as form_url %}
+{% endif %}
+<form action="{{ form_url }}" method="post" hx-post="{{ form_url }}" hx-swap="outerHTML">
   {{ form.as_p }}
   {% csrf_token %}
-  <button class="btn btn-outline-primary btn-sm" type="submit">add</button>
+  <button class="btn btn-outline-primary btn-sm" type="submit">
+    {% if address.pk %}
+      {% translate 'update' %}
+    {% else %}
+      {% translate 'add' %}
+    {% endif %}
+  </button>
   <a class="btn btn-outline-danger btn-sm" href="#">cancel</a>
 </form>

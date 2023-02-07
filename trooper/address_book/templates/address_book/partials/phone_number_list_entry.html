@@ -1,0 +1,35 @@
+{% load i18n %}
+<div class="me-auto">
+  <span class="list-icons-icon">
+    {% if phone.label == phone.Label.HOME %}
+      <i class="bi bi-house"></i>
+    {% elif phone.label == phone.Label.MOBILE %}
+      <i class="bi bi-phone"></i>
+    {% elif phone.label == phone.Label.WORK %}
+      <i class="bi bi-building"></i>
+    {% else %}
+      <i class="bi bi-telephone"></i>
+    {% endif %}
+  </span>
+  <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">{{ phone }}</a>
+</div>
+{% if members_are_related %}
+  <div class="btn-group" role="group" aria-label="{% translate 'Phone number editing buttons' %}">
+    <button class="btn btn-outline-secondary btn-sm"
+            hx-trigger="click"
+            hx-get=""
+            hx-target="#phone-{{ phone.pk }}"
+            aria-label="{% translate 'edit' %}">
+      <i class="bi bi-pencil-square"></i>
+    </button>
+    <a class="btn btn-outline-danger btn-sm"
+       href=""
+       hx-delete=""
+       hx-confirm=""
+       hx-target="#phone-{{ phone.pk }}"
+       hx-swap="outerHTML"
+      {% translate 'delete' %}>
+      <i class="bi bi-trash"></i>
+    </a>
+  </div>
+{% endif %}

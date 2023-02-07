@@ -218,3 +218,9 @@ form.is-submitting button[type=submit] {
 [data-bs-spy="scroll"] section {
   scroll-snap-align: start;
 }
+
+form .helptext {
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: var(--bs-secondary);
+}

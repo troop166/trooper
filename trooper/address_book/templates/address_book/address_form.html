@@ -1,1 +1,7 @@
-{% include 'address_book/partials/address_form.html' %}
+{% extends 'base.html' %}
+
+{% block content %}
+  <main class="container">
+    {% include 'address_book/partials/address_form.html' %}
+  </main>
+{% endblock %}

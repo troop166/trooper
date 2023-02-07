@@ -23,15 +23,15 @@
           <div class="col-lg">
             {% if members_are_related %}
               <address class="card-text">
-                {% include 'address_book/partials/addresses_list.html' with addresses=member.addresses.all %}
-                {% include 'address_book/partials/email_addresses_list.html' with email_addresses=member.email_addresses.all %}
-                {% include 'address_book/partials/phone_numbers_list.html' with phone_numbers=member.phone_numbers.all %}
+                {% include 'address_book/partials/address_list.html' with addresses=member.addresses.all %}
+                {% include 'address_book/partials/email_address_list.html' with email_addresses=member.email_addresses.all %}
+                {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.phone_numbers.all %}
               </address>
             {% elif member.published_addresses or member.published_email_addresses or member.published_phone_numbers %}
               <address class="card-text">
-                {% include 'address_book/partials/addresses_list.html' with addresses=member.published_addresses %}
-                {% include 'address_book/partials/email_addresses_list.html' with email_addresses=member.published_email_addresses %}
-                {% include 'address_book/partials/phone_numbers_list.html' with phone_numbers=member.published_phone_numbers %}
+                {% include 'address_book/partials/address_list.html' with addresses=member.published_addresses %}
+                {% include 'address_book/partials/email_address_list.html' with email_addresses=member.published_email_addresses %}
+                {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.published_phone_numbers %}
               </address>
             {% endif %}
           </div>

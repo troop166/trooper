@@ -1,25 +1,43 @@
 from django.db import transaction
 from django.http import Http404, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from trooper.address_book.forms import AddressForm
 from trooper.address_book.models import Address
+from trooper.core.utils import check_for_htmx
+from trooper.members.models import Member
 
 
 # Create your views here.
-def address_form_view(request, pk=None):
-    form = AddressForm(request.POST or None)
-    context = {"form": form}
+def address_form_view(request, username=None, pk=None):
+    is_htmx = check_for_htmx(request)
+    address = None
+
+    if username and pk:
+        member = get_object_or_404(Member, username=username)
+        try:
+            address = member.addresses.get(pk=pk)
+        except Address.DoesNotExist:
+            raise Http404
+
+    form = AddressForm(request.POST or None, instance=address)
+    context = {"form": form, "address": address}
+    if address:
+        context["members_are_related"] = member.is_related_to(request.user)
+
     template_name = "address_book/address_form.html"
-    if "HX-Request" in request.headers:
+    if is_htmx:
         template_name = "address_book/partials/address_form.html"
 
     if form.is_valid():
         with transaction.atomic():
-            user = request.user
             address = form.save(commit=False)
-            address.content_object = user
-            address.save()
+            if not address.content_object:
+                user = request.user
+                address.content_object = user
+                address.save()
+            if is_htmx:
+                template_name = "address_book/partials/address_list_entry.html"
 
     return render(request, template_name, context)
 

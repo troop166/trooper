@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
+    PasswordResetForm,
     UserChangeForm,
     UserCreationForm,
 )
@@ -44,3 +45,12 @@ class MemberSignupForm(MemberCreationForm):
         if commit:
             member.save()
         return member
+
+
+class MemberInvitationForm(PasswordResetForm):
+    """
+    Leverage Django's built-in PasswordResetForm to allow Members to invite
+    additional family members into the Troop.
+    """
+
+    pass

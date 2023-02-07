@@ -1,0 +1,36 @@
+{% load i18n %}
+<div class="me-auto">
+  <span class="list-icons-icon">
+    {% if email.label == email.Label.HOME %}
+      <i class="bi bi-house"></i>
+    {% elif email.label == email.Label.WORK %}
+      <i class="bi bi-briefcase"></i>
+    {% else %}
+      <i class="bi bi-envelope"></i>
+    {% endif %}
+  </span>
+  <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20"
+     class="card-link text-decoration-none">
+    {{ email }}
+  </a>
+</div>
+{% if members_are_related %}
+  <div class="btn-group" role="group" aria-label="{% translate 'Address editing buttons' %}">
+    <button class="btn btn-outline-secondary btn-sm"
+            hx-trigger="click"
+            hx-get=""
+            hx-target="#email-{{ email.pk }}"
+            aria-label="{% translate 'edit' %}">
+      <i class="bi bi-pencil-square"></i>
+    </button>
+    <a class="btn btn-outline-danger btn-sm"
+       href=""
+       hx-delete=""
+       hx-confirm=""
+       hx-target="#email-{{ email.pk }}"
+       hx-swap="outerHTML"
+      {% translate 'delete' %}>
+      <i class="bi bi-trash"></i>
+    </a>
+  </div>
+{% endif %}

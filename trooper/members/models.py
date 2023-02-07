@@ -174,14 +174,12 @@ class Family(models.Model):
     def __str__(self):
         if not self.members.count():
             return _("new family")
-        members = (
+        names = (
             self.members.exclude(last_name="")
             .order_by("last_name")
             .values_list("last_name", flat=True)
         )
-        return (
-            _("%s Family") % "/".join(set(members)) if members else _("Unknown Family")
-        )
+        return _("%s Family") % "/".join(set(names)) if names else _("Unknown Family")
 
 
 class FamilyMember(models.Model):

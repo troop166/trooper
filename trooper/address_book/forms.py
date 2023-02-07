@@ -34,7 +34,5 @@ class AddressForm(forms.ModelForm):
             "zipcode": forms.TextInput(
                 attrs={"autocomplete": "postal-code", "class": "form-control"}
             ),
-            "is_published": forms.CheckboxInput(
-                attrs={"class": "form-check form-switch"}
-            ),
+            "is_published": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
