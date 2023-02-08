@@ -44,8 +44,9 @@ class AddressCreateView(
         return template_names
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.content_object = self.get_member()
+        with transaction.atomic():
+            address = form.save(commit=False)
+            address.content_object = self.get_member()
         return super().form_valid(form)
 
 
