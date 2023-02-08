@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
@@ -94,8 +95,11 @@ class AddressDeleteView(LoginRequiredMixin, MemberMixin, DeleteView):
         success URL.
         """
         self.object = self.get_object()
+        success_message = _("Address has been removed.")
+        messages.warning(request, success_message, "danger")
         success_url = self.get_success_url()
         self.object.delete()
+
         if self.request.htmx:
             headers = {"HX-Redirect": success_url}
             return HttpResponse("Success", headers=headers)
