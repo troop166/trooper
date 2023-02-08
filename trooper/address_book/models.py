@@ -63,12 +63,6 @@ class Address(models.Model):
     def __str__(self):
         return self.as_single_line
 
-    def get_absolute_url(self):
-        return reverse(
-            "address_book:address_form",
-            kwargs={"pk": self.pk, "username": self.content_object.username},
-        )
-
     @cached_property
     def as_single_line(self):
         fields = [self.street, self.street2, self.city, self.state, self.zipcode]

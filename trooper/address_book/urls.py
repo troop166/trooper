@@ -19,7 +19,7 @@ urlpatterns = [
     path(
         "<slug:username>/address/<int:pk>/",
         AddressDetailView.as_view(),
-        name="address_form",
+        name="address_detail",
     ),
     path(
         "<slug:username>/address/<int:pk>/edit",

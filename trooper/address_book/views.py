@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 
@@ -14,8 +15,10 @@ from trooper.members.models import Member
 
 class MemberMixin(SingleObjectMixin):
     def get_context_data(self, **kwargs):
+        member = self.get_member()
         context = super().get_context_data(**kwargs)
-        context["member"] = self.get_member()
+        context["member"] = member
+        context["members_are_related"] = member.is_related_to(self.request.user)
         return context
 
     def get_member(self):
@@ -29,11 +32,19 @@ class AddressCreateView(
     form_class = AddressForm
     template_name = "address_book/address_form.html"
 
+    def get_success_url(self):
+        return self.get_member().get_absolute_url()
+
     def get_template_names(self):
         template_name = self.template_name
         if check_for_htmx(self.request):
             template_name = "address_book/partials/address_form.html"
         return template_name
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.content_object = self.get_member()
+        return super().form_valid(form)
 
 
 class AddressDetailView(LoginRequiredMixin, MemberMixin, DetailView):
@@ -48,10 +59,41 @@ class AddressUpdateView(
     form_class = AddressForm
     template_name = "address_book/address_form.html"
 
+    def get_success_url(self):
+        return self.get_member().get_absolute_url()
+
+    def get_template_names(self):
+        template_name = self.template_name
+        if check_for_htmx(self.request):
+            template_name = "address_book/partials/address_form.html"
+        return template_name
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.content_object = self.get_member()
+        return super().form_valid(form)
+
 
 class AddressDeleteView(LoginRequiredMixin, MemberMixin, DeleteView):
     model = Address
     template_name = "address_book/address_delete.html"
+
+    def get_success_url(self):
+        return self.get_member().get_absolute_url()
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.delete()
+        if check_for_htmx(self.request):
+            headers = {"HX-Redirect": success_url}
+            return HttpResponse("Success", headers=headers)
+
+        return HttpResponseRedirect(success_url)
 
 
 # Create your views here.
