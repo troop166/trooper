@@ -436,6 +436,21 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-htmx"
+version = "1.13.0"
+description = "Extensions for using Django with htmx."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-htmx-1.13.0.tar.gz", hash = "sha256:848c3e195b8757656626c8a099f9be59c6d30f468f1d54e69f0f2a48f0a14928"},
+    {file = "django_htmx-1.13.0-py3-none-any.whl", hash = "sha256:781a59376d769aa28302619e73d37d481a125ab155d9fdd7fb17f10e7d25f352"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-ical"
 version = "1.8.3"
 description = "iCal feeds for Django based on Django's syndication feed framework."
@@ -1189,4 +1204,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "7747209cd2285d9984da94956df5734a385f5c1a6aaaa09ec2f4660fd263e74c"
+content-hash = "b568271e621e8e84e1fcd1b0f869a5ba41551e6e06e0dcc506010edfde422114"

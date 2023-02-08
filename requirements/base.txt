@@ -180,6 +180,9 @@ django-colorfield==0.8.0 ; python_full_version >= "3.8.1" and python_full_versio
 django-environ==0.9.0 ; python_full_version >= "3.8.1" and python_version < "4" \
     --hash=sha256:bff5381533056328c9ac02f71790bd5bf1cea81b1beeb648f28b81c9e83e0a21 \
     --hash=sha256:f21a5ef8cc603da1870bbf9a09b7e5577ab5f6da451b843dbcc721a7bca6b3d9
+django-htmx==1.13.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:781a59376d769aa28302619e73d37d481a125ab155d9fdd7fb17f10e7d25f352 \
+    --hash=sha256:848c3e195b8757656626c8a099f9be59c6d30f468f1d54e69f0f2a48f0a14928
 django-ical==1.8.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:0d5595c5bc954e401b59b27a9a86962557f0d3b965e9f5860244cd6bc450e8ab \
     --hash=sha256:d3f97d163c03ea795e0722d5031e7f3806037ac913c814b0cfee54464f06978e

@@ -27,7 +27,7 @@ class EventCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "calendars/event_form.html"
 
     def get_template_names(self):
-        if "HX-Request" in self.request.headers:
+        if self.request.htmx:
             return "calendars/partials/event_form_modal.html"
         else:
             return self.template_name

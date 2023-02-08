@@ -32,6 +32,7 @@ if dot_env.is_file():
 # Application definition
 
 INSTALLED_APPS = [
+    # Django
     "django.contrib.admin",
     "django.contrib.admindocs",
     "django.contrib.auth",
@@ -40,10 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third party
     "colorfield",
+    "django_htmx",
     "recurrence",
     "sorl.thumbnail",
     "widget_tweaks",
+    # First Party
     "trooper.address_book",
     "trooper.assignments",
     "trooper.calendars",
@@ -62,6 +66,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # https://django-htmx.readthedocs.io/en/latest/middleware.html
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "trooper.urls"
