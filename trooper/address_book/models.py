@@ -78,7 +78,7 @@ class Address(models.Model):
     def as_multiline(self):
         if self.street2:
             return format_html(
-                "{}<br> {}<br> {}, {}<br> {}",
+                "{}<br> {}<br> {}, {} {}",
                 self.street,
                 self.street2,
                 self.city,
@@ -87,7 +87,7 @@ class Address(models.Model):
             )
         else:
             return format_html(
-                "{}<br> {}, {}<br> {}", self.street, self.city, self.state, self.zipcode
+                "{}<br> {}, {} {}", self.street, self.city, self.state, self.zipcode
             )
 
 

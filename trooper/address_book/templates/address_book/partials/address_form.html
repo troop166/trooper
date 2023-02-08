@@ -2,7 +2,7 @@
 {% if address.pk %}
   {% url 'address_book:address_form' member.username address.pk as form_url %}
 {% else %}
-  {% url 'address_book:address_create_form' member.username as form_url %}
+  {% url 'address_book:address_create' member.username as form_url %}
 {% endif %}
 <form action="{{ form_url }}" method="post" hx-post="{{ form_url }}" hx-swap="outerHTML">
   {{ form.as_p }}
@@ -14,5 +14,5 @@
       {% translate 'add' %}
     {% endif %}
   </button>
-  <a class="btn btn-outline-danger btn-sm" href="#">cancel</a>
+  <a class="btn btn-outline-danger btn-sm" href="{{ member.get_absolute_url }}">cancel</a>
 </form>

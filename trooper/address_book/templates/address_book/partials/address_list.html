@@ -10,7 +10,7 @@
     </h3>
     {% if members_are_related %}
       <button class="btn btn-link btn-sm mb-3"
-              hx-get="{% url 'address_book:address_create_form' member.username %}"
+              hx-get="{% url 'address_book:address_create' member.username %}"
               hx-target="#address-form"
               aria-label="{% translate 'add' %}">
         <i class="bi bi-plus-circle-fill"></i>
