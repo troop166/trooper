@@ -3,6 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 
@@ -58,6 +59,7 @@ class AddressUpdateView(
 ):
     model = Address
     form_class = AddressForm
+    success_message = _("Address has been updated.")
     template_name = "address_book/address_form.html"
 
     def get_success_url(self):
