@@ -4,13 +4,13 @@ from trooper.address_book.views import (
     AddressCreateView,
     AddressDeleteView,
     AddressDetailView,
+    AddressListView,
     AddressUpdateView,
-    address_delete_view,
-    address_form_view,
 )
 
 app_name = "address_book"
 urlpatterns = [
+    path("<slug:username>/address/", AddressListView.as_view(), name="address_list"),
     path(
         "<slug:username>/address/add/",
         AddressCreateView.as_view(),

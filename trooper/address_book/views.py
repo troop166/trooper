@@ -4,8 +4,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 from django.views.generic.detail import SingleObjectMixin
 
 from trooper.address_book.forms import AddressForm
@@ -25,6 +32,38 @@ class MemberMixin(SingleObjectMixin):
         return get_object_or_404(Member, username=self.kwargs.get("username"))
 
 
+class AddressListView(LoginRequiredMixin, ListView):
+    model = Address
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["member"] = self.member
+        context["members_are_related"] = self.member.is_related_to(self.request.user)
+        return context
+
+    def get_queryset(self):
+        username = self.kwargs.get("username")
+        qs = super().get_queryset()
+        qs = qs.filter(member__username=username)
+
+        if not self.member.is_related_to(self.request.user):
+            qs = qs.published()
+        return qs
+
+    def get_template_names(self):
+        template_names = super().get_template_names()
+        if self.request.htmx:
+            for i, template_name in enumerate(template_names):
+                parts = template_name.split("/")
+                parts.insert(len(parts) - 1, "partials")
+                template_names[i] = "/".join(parts)
+        return template_names
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.member = get_object_or_404(Member, username=self.kwargs.get("username"))
+
+
 class AddressCreateView(
     LoginRequiredMixin, MemberMixin, SuccessMessageMixin, CreateView
 ):
@@ -33,6 +72,11 @@ class AddressCreateView(
     template_name = "address_book/address_form.html"
 
     def get_success_url(self):
+        if self.request.htmx:
+            return reverse(
+                "address_book:address_list",
+                kwargs={"username": self.kwargs.get("username")},
+            )
         return self.get_member().get_absolute_url()
 
     def get_template_names(self):
@@ -65,6 +109,11 @@ class AddressUpdateView(
     template_name = "address_book/address_form.html"
 
     def get_success_url(self):
+        if self.request.htmx:
+            return reverse(
+                "address_book:address_list",
+                kwargs={"username": self.kwargs.get("username")},
+            )
         return self.get_member().get_absolute_url()
 
     def get_template_names(self):

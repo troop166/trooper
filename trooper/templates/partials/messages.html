@@ -1,12 +1,15 @@
 {% load i18n %}
-{% if messages %}
-  <!-- Begin messages section -->
-  {% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }} {% endif %}alert-dismissible fade show message" role="alert">
-      <div class="container">
-        {{ message|safe }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label={% translate 'Dismiss' %}></button>
+<aside id="messages" hx-swap-oob="true">
+  {% if messages %}
+    <!-- Begin messages section -->
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }} {% endif %}alert-dismissible fade show message"
+           role="alert">
+        <div class="container">
+          {{ message|safe }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label={% translate 'Dismiss' %}></button>
+        </div>
       </div>
-    </div>
-  {% endfor %}
-{% endif %}
+    {% endfor %}
+  {% endif %}
+</aside>

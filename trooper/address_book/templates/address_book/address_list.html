@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% load i18n %}
+
+
+{% block title %}
+  {% blocktranslate %}{{ member.get_fullname }} Addresses{% endblocktranslate %} | {{ block.super }}
+{% endblock title %}
+
+
+{% block content %}
+  <main class="container">
+    {% include 'address_book/partials/address_list.html' %}
+  </main>
+{% endblock content %}

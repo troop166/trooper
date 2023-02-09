@@ -47,7 +47,11 @@
   <body>
   {% block navbar %}{% navbar %}{% endblock navbar %}
 
-  {% block messages %}{% include 'partials/messages.html' %}{% endblock messages %}
+  {% block messages %}
+    <aside role="alert">
+      {% include 'partials/messages.html' %}
+    </aside>
+  {% endblock messages %}
 
   {% block content %}{% endblock content %}
 
