@@ -16,7 +16,6 @@
   --bs-light-rgb: var(--scouting-light-tan-rgb);
   --bs-dark: var(--scouting-dark-gray);
   --bs-dark-rgb: var(--scouting-dark-gray-rgb);
-
   --bs-nav-pills-link-active-bg: rgb(var(--scouting-olive-rgb));
   --bs-nav-link-color: var(--scouting-olive-rgb);
 }
@@ -32,7 +31,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   font-weight: 400;
   background-color: var(--body-bg-color);
 }
@@ -58,7 +57,7 @@ h4 {
 }
 
 h6 {
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   font-weight: 500;
 }
 
@@ -76,7 +75,7 @@ main.container {
   flex-grow: 1;
 }
 
-form.is-submitting button[type=submit] {
+form.is-submitting button[type="submit"] {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
@@ -145,7 +144,7 @@ form.is-submitting button[type=submit] {
   padding: 0;
 }
 
-#navbar-logout button[type=submit] {
+#navbar-logout button[type="submit"] {
   text-align: left;
   background-color: transparent;
   border: none;
@@ -209,7 +208,7 @@ form.is-submitting button[type=submit] {
 }
 
 .carousel-item.active {
-  opacity: 100%;
+  opacity: 1;
 }
 
 [data-bs-spy="scroll"] {

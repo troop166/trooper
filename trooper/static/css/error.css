@@ -18,7 +18,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(var(--bs-black-rgb), 0.3);
+  background-color: rgb(var(--bs-black-rgb) 0.3);
 }
 
 main {
