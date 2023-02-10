@@ -15,6 +15,8 @@ from django.views.generic import (
 )
 from django.views.generic.detail import SingleObjectMixin
 
+from django_htmx.http import HttpResponseClientRedirect
+
 from trooper.address_book.forms import AddressForm
 from trooper.address_book.models import Address
 from trooper.members.models import Member
@@ -150,8 +152,7 @@ class AddressDeleteView(LoginRequiredMixin, MemberMixin, DeleteView):
         self.object.delete()
 
         if self.request.htmx:
-            headers = {"HX-Redirect": success_url}
-            return HttpResponse("Success", headers=headers)
+            return HttpResponseClientRedirect(success_url)
 
         return HttpResponseRedirect(success_url)
 
