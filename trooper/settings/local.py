@@ -45,9 +45,11 @@ LOGGING = {
 
 with contextlib.suppress(ImportError):
     INSTALLED_APPS += ["debug_toolbar"]
-    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
     INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
-
+    MIDDLEWARE.insert(
+        MIDDLEWARE.index("django.middleware.common.CommonMiddleware") + 1,
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    )
 
 # Sorl-thumbnail
 # https://sorl-thumbnail.readthedocs.io/en/latest/reference/settings.html
