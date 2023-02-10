@@ -5,5 +5,9 @@
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "htmx.org": "^1.8.4"
+  },
+  "devDependencies": {
+    "stylelint": "^15.0.0",
+    "stylelint-config-standard": "^30.0.1"
   }
 }
