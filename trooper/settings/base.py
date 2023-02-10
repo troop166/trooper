@@ -204,7 +204,8 @@ SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default="root@localhost")
 PHONENUMBER_DEFAULT_REGION = env("PHONENUMBER_DEFAULT_REGION", default="US")
 
 
-# Easy-thumbnails
-# https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/
+# sorl-thumbnail
+# https://sorl-thumbnail.readthedocs.io/en/latest/reference/settings.html
 
-THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [2, 3]
+THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [2]
+THUMBNAIL_PRESERVE_FORMAT = True
