@@ -11,6 +11,8 @@
     <meta name="description" content="{{ website.description }}">
   {% endblock meta %}
   <meta name="theme-color" content="{{ website.navbar_bg }}">
+  <meta property="og:site_name" content="{{ website.name }}">
+  <meta property="og:url" content="{{ request.build_absolute_url }}">
   {% block css %}
     <!-- Begin CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
@@ -48,7 +50,7 @@
   {% block navbar %}{% navbar %}{% endblock navbar %}
 
   {% block messages %}
-    <aside role="alert">
+    <aside>
       {% include 'partials/messages.html' %}
     </aside>
   {% endblock messages %}
