@@ -70,7 +70,7 @@ class MemberAdmin(UserAdmin):
                     "last_name",
                     "suffix",
                     "nickname",
-                    ("avatar", "preview"),
+                    ("photo", "preview"),
                 )
             },
         ),
@@ -132,4 +132,4 @@ class MemberAdmin(UserAdmin):
     @staticmethod
     @admin.display(description=_("current"))
     def preview(obj):
-        return image_preview(obj.avatar.url)
+        return image_preview(obj.photo.url)

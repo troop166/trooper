@@ -24,7 +24,7 @@ def calculate_age(date_of_birth, on_date=None):
     return on_date.year - date_of_birth.year - birthday_upcoming
 
 
-def get_avatar_upload_to(instance, filename):
+def get_member_photo_upload_to(instance, filename):
     """Sort member photos into folders based on their username."""
     return _("members/%(username)s/%(filename)s") % {
         "username": instance.username,

@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from trooper.address_book.models import Address, Email, Phone
 from trooper.members.managers import FamilyQuerySet, MemberManager
-from trooper.members.utils import calculate_age, get_avatar_upload_to
+from trooper.members.utils import calculate_age, get_member_photo_upload_to
 from trooper.members.validators import date_of_birth_validator, date_of_death_validator
 
 
@@ -47,9 +47,9 @@ class Member(AbstractUser):
         blank=True,
         help_text=_("The name this member prefers to be known by."),
     )
-    avatar = models.ImageField(
+    photo = models.ImageField(
         _("profile picture"),
-        upload_to=get_avatar_upload_to,
+        upload_to=get_member_photo_upload_to,
         blank=True,
         null=True,
         help_text=_(

@@ -52,7 +52,7 @@
                data-bs-toggle="dropdown"
                aria-expanded="false"
             >
-              {% thumbnail request.user.avatar "32x32" crop="center" format="PNG" as img %}
+              {% thumbnail request.user.photo "32x32" crop="center" format="PNG" as img %}
                 <img src="{{ img.url }}"
                      srcset="{{ img.url }} 1x, {{ img.url|resolution:'2x' }} 2x"
                      class="rounded-circle"
