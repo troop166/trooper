@@ -10,6 +10,9 @@
     {% else %}
       <i class="bi bi-telephone"></i>
     {% endif %}
+    {% if not phone.is_published %}
+      <i class="bi bi-eye-slash"></i>
+    {% endif %}
   </span>
   <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">{{ phone }}</a>
 </div>

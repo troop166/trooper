@@ -8,6 +8,9 @@
     {% else %}
       <i class="bi bi-envelope"></i>
     {% endif %}
+    {% if not email.is_published %}
+      <i class="bi bi-eye-slash"></i>
+    {% endif %}
   </span>
   <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20"
      class="card-link text-decoration-none">

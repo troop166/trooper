@@ -12,3 +12,12 @@
     <p><span class="badge rounded-pill text-bg-secondary">{{ member.age }}</span></p>
   </div>
 </a>
+  {% if member.published_addresses %}
+    {% include 'address_book/partials/address_list.html' with address_list=member.published_addresses links=False %}
+  {% endif %}
+  {% if member.published_email_addresses %}
+    {% include 'address_book/partials/email_address_list.html' with email_addresses=member.published_email_addresses links=False %}
+  {% endif %}
+  {% if member.published_phone_numbers %}
+    {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.published_phone_numbers links=False %}
+  {% endif %}
