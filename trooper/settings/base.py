@@ -98,8 +98,8 @@ WSGI_APPLICATION = "trooper.wsgi.application"
 DATABASES = {
     "default": env.db(default="sqlite:///db.sqlite3"),
 }
-if env("DATABASE_OPTIONS", default=None):
-    DATABASES["default"]["OPTIONS"] = env.dict("DATABASE_OPTIONS", default=None)
+if env("DATABASE_INIT_COMMAND", default=None):
+    DATABASES["default"]["OPTIONS"] = {"init_command": env.str("DATABASE_INIT_COMMAND")}
 
 # Cache
 # https://docs.djangoproject.com/en/stable/ref/setting/#caches
