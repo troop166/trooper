@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import password_validation
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordResetForm,
@@ -6,6 +7,7 @@ from django.contrib.auth.forms import (
     UserCreationForm,
 )
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 
 from trooper.members.models import Member
 
@@ -13,7 +15,7 @@ from trooper.members.models import Member
 class MemberCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Member
-        fields = ("first_name", "last_name", "date_of_birth")
+        fields = ("first_name", "last_name", "date_of_birth", "gender")
 
 
 class MemberChangeForm(UserChangeForm):
