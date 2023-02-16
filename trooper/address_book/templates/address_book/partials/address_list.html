@@ -1,13 +1,13 @@
 {% load i18n %}
 {% if members_are_related or addresses|length %}
   <div class="d-flex justify-content-between align-items-center" id="address-list-container" hx-swap-oob="true">
-    <h3 class="card-title fs-6">
+    <p class="card-title fs-6">
       {% blocktrans count counter=addresses|length %}
         Address
       {% plural %}
         Addresses
       {% endblocktrans %}
-    </h3>
+    </p>
     {% if members_are_related %}
       <button class="btn btn-link btn-sm mb-3"
               hx-get="{% url 'address_book:address_create' member.username %}"

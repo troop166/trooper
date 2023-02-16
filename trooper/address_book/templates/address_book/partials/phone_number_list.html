@@ -1,13 +1,13 @@
 {% load i18n %}
 {% if members_are_related or phone_numbers|length %}
   <div class="d-flex justify-content-between align-items-center">
-    <h3 class="card-title fs-6">
-      {% blocktranslate count counter=phone_numbers|length %}
+    <p class="card-title fs-6">
+      {% blocktrans count counter=phone_numbers|length %}
         Phone Number
-        {% plural %}
+      {% plural %}
         Phone Numbers
-      {% endblocktranslate %}
-    </h3>
+      {% endblocktrans %}
+    </p>
     {% if members_are_related %}
       <button class="btn btn-link btn-sm me-2" aria-label="{% translate 'add' %}">
         <i class="bi bi-plus-circle-fill"></i>
