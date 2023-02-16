@@ -1,0 +1,33 @@
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row mb-5 mb-lg-0">
+          <div class="col-lg">
+            {% include 'members/partials/member_list_entry_profile_picture.html' %}
+            <div class="d-flex flex-column">
+              <h1 class="card-title">{{ member.get_full_name }}</h1>
+              <h2 class="card-subtitle fs-5 text-muted">{{ member.username }}</h2>
+              {% if member.age < 18 %}
+              <p class="card-text"><i class="bi bi-calendar-heart"></i> {{ member.date_of_birth }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% if not summary %}
+          <div class="col-lg-5">
+            {% if members_are_related %}
+              <address class="card-text">
+                {% include 'address_book/partials/address_list.html' with address_list=member.addresses.all %}
+                {% include 'address_book/partials/email_address_list.html' with email_addresses=member.email_addresses.all %}
+                {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.phone_numbers.all %}
+              </address>
+            {% elif member.published_addresses or member.published_email_addresses or member.published_phone_numbers %}
+              <address class="card-text">
+                {% include 'address_book/partials/address_list.html' with address_list=member.published_addresses %}
+                {% include 'address_book/partials/email_address_list.html' with email_addresses=member.published_email_addresses %}
+                {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.published_phone_numbers %}
+              </address>
+            {% endif %}
+          </div>
+        {% endif %}
+        </div>
+      </div>
+    </div>
