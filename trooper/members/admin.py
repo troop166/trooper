@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from trooper.address_book.admin import AddressInline, EmailInline, PhoneInline
