@@ -65,7 +65,7 @@ class CommitteeMember(models.Model):
     end = models.DateField(_("until"), blank=True, null=True)
 
     class Meta:
-        db_table = "committee_member"
+        db_table = "assignments_committee_member"
         ordering = ["-end", "member"]
         verbose_name = _("Committee Member")
         verbose_name_plural = _("Committee Members")
@@ -112,7 +112,7 @@ class PatrolMember(models.Model):
     end = models.DateField(_("until"), blank=True, null=True)
 
     class Meta:
-        db_table = "patrol_member"
+        db_table = "assignments_patrol_member"
         ordering = ["-end", "member"]
         verbose_name = _("Patrol Member")
         verbose_name_plural = _("Patrol Members")

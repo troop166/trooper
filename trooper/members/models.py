@@ -197,7 +197,7 @@ class FamilyMember(models.Model):
     role = models.CharField(_("role"), max_length=1, choices=Role.choices)
 
     class Meta:
-        db_table = "family_member"
+        db_table = "members_family_member"
         verbose_name = _("Family Member")
         verbose_name_plural = _("Family Members")
 
