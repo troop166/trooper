@@ -141,15 +141,8 @@ class MemberAdmin(UserAdmin):
     readonly_fields = ("age", "last_login", "preview")
     search_fields = ("first_name", "last_name", "nickname")
 
-    def get_queryset(self, request):
-        return super().get_queryset(request).with_name()
-
     def get_inlines(self, request, obj):
         return super().get_inlines(request, obj) if obj else []
-
-    @admin.display(description=_("name"), ordering="short_name")
-    def short_name(self, obj):
-        return obj.short_name
 
     @staticmethod
     @admin.display(description=_("current"))
