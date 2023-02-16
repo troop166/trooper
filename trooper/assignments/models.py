@@ -75,7 +75,7 @@ class CommitteeMember(models.Model):
             "committee": self.committee,
             "member": self.member,
             "start": self.start.year,
-            "end": self.end.year or "",
+            "end": self.end.year if self.end else "",
         }
 
 
@@ -122,5 +122,5 @@ class PatrolMember(models.Model):
             "patrol": self.patrol,
             "member": self.member,
             "start": self.start.year,
-            "end": self.end.year or "",
+            "end": self.end.year if self.end else "",
         }
