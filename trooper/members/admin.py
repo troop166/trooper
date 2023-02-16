@@ -11,6 +11,23 @@ from trooper.members.forms import MemberChangeForm, MemberCreationForm
 from trooper.members.models import Family, FamilyMember, Member
 
 
+class MemberAgeRangeFilter(admin.SimpleListFilter):
+    title = _("Age Range")
+    parameter_name = "range"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("adults", _("Adults")),
+            ("youths", _("Youths")),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "adults":
+            return queryset.adults()
+        if self.value() == "youths":
+            return queryset.youths()
+
+
 class FamilyMemberInline(admin.TabularInline):
     model = FamilyMember
     fields = ["role", "family"]
@@ -115,6 +132,7 @@ class MemberAdmin(UserAdmin):
     )
     list_display = ("first_name", "middle_name", "last_name", "suffix", "is_staff")
     list_display_links = ("first_name", "last_name")
+    list_filter = (MemberAgeRangeFilter, "is_staff", "is_superuser", "is_active")
     inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
     readonly_fields = ("age", "last_login", "preview")
     search_fields = ("first_name", "last_name", "nickname")
