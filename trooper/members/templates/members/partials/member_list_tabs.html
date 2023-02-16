@@ -1,51 +1,45 @@
 {% load i18n %}
-<ul class="nav nav-tabs card-header-tabs">
-  <li class="nav-item">
-    <a href="{% url 'members:list' %}{% if q %}?q={{ q }}{% endif %}"
-      {% if not filter %}
-       class="nav-link active"
-       aria-current="true"
-      {% else %}
-       class="nav-link"
-      {% endif %}
-       hx-get="{% url 'members:list' %}{% if q %}?q={{ q }}{% endif %}"
-       hx-push-url="true"
-       hx-swap="outerHTML"
-       hx-target="#member-list"
-    >
-      {% translate 'All Members' %}
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="{% url 'members:list_filtered' filter='adults' %}{% if q %}?q={{ q }}{% endif %}"
-      {% if filter == "adults" %}
-       class="nav-link active"
-       aria-current="true"
-      {% else %}
-       class="nav-link"
-      {% endif %}
-       hx-get="{% url 'members:list_filtered' filter='adults' %}{% if q %}?q={{ q }}{% endif %}"
-       hx-push-url="true"
-       hx-swap="outerHTML"
-       hx-target="#member-list"
-    >
-      {% translate 'Adults' %}
-    </a>
-  </li>
-  <li class="nav-item">
-    <a href="{% url 'members:list_filtered' filter='youths' %}{% if q %}?q={{ q }}{% endif %}"
-      {% if filter == "youths" %}
-       class="nav-link active"
-       aria-current="true"
-      {% else %}
-       class="nav-link"
-      {% endif %}
-       hx-get="{% url 'members:list_filtered' filter='youths' %}{% if q %}?q={{ q }}{% endif %}"
-       hx-push-url="true"
-       hx-swap="outerHTML"
-       hx-target="#member-list"
-    >
-      {% translate 'Youths' %}
-    </a>
-  </li>
-</ul>
+<nav class="nav nav-tabs card-header-tabs">
+  <a href="{% url 'members:list' %}{% if q %}?q={{ q }}{% endif %}"
+    {% if not filter %}
+     class="nav-link active"
+     aria-current="true"
+    {% else %}
+     class="nav-link"
+    {% endif %}
+     hx-get="{% url 'members:list' %}{% if q %}?q={{ q }}{% endif %}"
+     hx-push-url="true"
+     hx-swap="outerHTML"
+     hx-target="#member-list"
+  >
+    {% translate 'All Members' %}
+  </a>
+  <a href="{% url 'members:list_filtered' filter='adults' %}{% if q %}?q={{ q }}{% endif %}"
+    {% if filter == "adults" %}
+     class="nav-link active"
+     aria-current="true"
+    {% else %}
+     class="nav-link"
+    {% endif %}
+     hx-get="{% url 'members:list_filtered' filter='adults' %}{% if q %}?q={{ q }}{% endif %}"
+     hx-push-url="true"
+     hx-swap="outerHTML"
+     hx-target="#member-list"
+  >
+    {% translate 'Adults' %}
+  </a>
+  <a href="{% url 'members:list_filtered' filter='youths' %}{% if q %}?q={{ q }}{% endif %}"
+    {% if filter == "youths" %}
+     class="nav-link active"
+     aria-current="true"
+    {% else %}
+     class="nav-link"
+    {% endif %}
+     hx-get="{% url 'members:list_filtered' filter='youths' %}{% if q %}?q={{ q }}{% endif %}"
+     hx-push-url="true"
+     hx-swap="outerHTML"
+     hx-target="#member-list"
+  >
+    {% translate 'Youths' %}
+  </a>
+</nav>
