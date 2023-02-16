@@ -117,6 +117,49 @@ class Member(AbstractUser):
         """
         return reverse("members:detail", kwargs={"username": self.username})
 
+    def get_family_members(self, families=None):
+        if not families:
+            families = self.families.all()
+        return (
+            self._meta.model.objects.filter(families__in=families)
+            .exclude(pk=self.pk)
+            .distinct()
+        )
+
+    def adult_families(self):
+        return self.families.filter(
+            family_member__role=self.families.through.Role.PARENT
+        )
+
+    def youth_families(self):
+        return self.families.filter(
+            family_member__role=self.families.through.Role.CHILD
+        )
+
+    @property
+    def children(self):
+        return self.get_family_members(families=self.adult_families()).filter(
+            family_member__role=self.families.through.Role.CHILD
+        )
+
+    @property
+    def parents(self):
+        return self.get_family_members().filter(
+            family_member__role=self.families.through.Role.PARENT
+        )
+
+    @property
+    def partners(self):
+        return self.get_family_members(families=self.adult_families()).filter(
+            family_member__role=self.families.through.Role.PARENT
+        )
+
+    @property
+    def siblings(self):
+        return self.get_family_members(families=self.youth_families()).filter(
+            family_member__role=self.families.through.Role.CHILD
+        )
+
     def is_related_to(self, member):
         """Returns a boolean of whether two members share a family."""
         if member == self:
@@ -133,6 +176,10 @@ class Member(AbstractUser):
     def normalize_username(cls, username):
         """Ensure username is conformant and lower case."""
         return super().normalize_username(username.lower())
+
+    @property
+    def short_name(self):
+        return self.get_short_name()
 
     @property
     def age(self):
