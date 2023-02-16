@@ -28,8 +28,8 @@
        hx-confirm=""
        hx-target="#phone-{{ phone.pk }}"
        hx-swap="outerHTML"
-      {% translate 'delete' %}>
-      <i class="bi bi-trash"></i>
+       aria-label="{% translate 'delete' %}">
+    <i class="bi bi-trash"></i>
     </a>
   </div>
 {% endif %}
