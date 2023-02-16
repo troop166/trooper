@@ -84,9 +84,11 @@ class MemberAdmin(UserAdmin):
             {
                 "fields": (
                     "first_name",
+                    "middle_name",
                     "last_name",
                     "suffix",
                     "nickname",
+                    "gender",
                     ("photo", "preview"),
                 )
             },
@@ -101,6 +103,7 @@ class MemberAdmin(UserAdmin):
                     "groups",
                     "user_permissions",
                 ),
+                "classes": ("collapse",),
             },
         ),
         (
@@ -112,7 +115,8 @@ class MemberAdmin(UserAdmin):
                     "age",
                     "last_login",
                     "date_joined",
-                )
+                ),
+                "classes": ("collapse",),
             },
         ),
     )
@@ -124,6 +128,7 @@ class MemberAdmin(UserAdmin):
                 "fields": (
                     ("first_name", "last_name", "suffix"),
                     "nickname",
+                    "gender",
                     "date_of_birth",
                     ("password1", "password2"),
                 ),
