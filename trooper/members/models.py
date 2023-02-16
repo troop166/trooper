@@ -193,7 +193,12 @@ class FamilyMember(models.Model):
         related_name="family_members",
         related_query_name="family_member",
     )
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    member = models.ForeignKey(
+        Member,
+        on_delete=models.CASCADE,
+        related_name="family_members",
+        related_query_name="family_member",
+    )
     role = models.CharField(_("role"), max_length=1, choices=Role.choices)
 
     class Meta:
