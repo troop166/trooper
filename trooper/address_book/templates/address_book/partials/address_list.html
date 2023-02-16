@@ -1,5 +1,4 @@
 {% load i18n %}
-{% if messages %}{% include 'partials/messages.html' %}{% endif %}
 {% if members_are_related or addresses|length %}
   <div class="d-flex justify-content-between align-items-center" id="address-list-container" hx-swap-oob="true">
     <h3 class="card-title fs-6">
