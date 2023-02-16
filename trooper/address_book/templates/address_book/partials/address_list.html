@@ -9,7 +9,7 @@
       {% endblocktrans %}
     </p>
     {% if members_are_related %}
-      <button class="btn btn-link btn-sm mb-3"
+      <button class="btn btn-link btn-sm"
               hx-get="{% url 'address_book:address_create' member.username %}"
               hx-target="#address-form"
               aria-label="{% translate 'add' %}">
