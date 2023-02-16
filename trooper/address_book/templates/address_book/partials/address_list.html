@@ -11,19 +11,19 @@
     {% if members_are_related %}
       <button class="btn btn-link btn-sm"
               hx-get="{% url 'address_book:address_create' member.username %}"
-              hx-target="#address-form"
+              hx-target="#{{ member.username }}-address-form"
               aria-label="{% translate 'add' %}">
         <i class="bi bi-plus-circle-fill"></i>
       </button>
     {% endif %}
   </div>
-  <ul class="list-group list-group-flush list-icons mb-4" id="address-list">
+  <ul class="list-group list-group-flush list-icons mb-4" id="{{ member.username }}-address-list">
     {% for address in address_list %}
       <li class="list-group-item {% if not address.is_published %}list-group-item-light{% endif %} d-flex justify-content-between align-items-start"
           id="address-{{ address.pk }}">
         {% include 'address_book/partials/address_list_entry.html' %}
       </li>
     {% endfor %}
-    <li class="list-group-item d-flex justify-content-between align-items-start" id="address-form"></li>
+    <li class="list-group-item d-flex justify-content-between align-items-start" id="{{ member.username }}-address-form"></li>
   </ul>
 {% endif %}

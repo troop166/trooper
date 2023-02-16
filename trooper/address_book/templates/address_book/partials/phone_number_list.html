@@ -14,13 +14,14 @@
       </button>
     {% endif %}
   </div>
-  <div id="phone-number-form"></div>
-  <ul class="list-group list-group-flush list-icons mb-4" id="phone-number-list">
+  <ul class="list-group list-group-flush list-icons mb-4" id="{{ member.username }}-phone-number-list">
     {% for phone in phone_numbers %}
       <li class="list-group-item {% if not phone.is_published %}list-group-item-light{% endif %} d-flex justify-content-between align-items-start"
           id="phone-{{ phone.pk }}">
-      {% include 'address_book/partials/phone_number_list_entry.html' %}
+        {% include 'address_book/partials/phone_number_list_entry.html' %}
       </li>
     {% endfor %}
+    <li class="list-group-item d-flex justify-content-between align-items-start" id="{{ member.username }}-phone-number-form"></li>
+
   </ul>
 {% endif %}
