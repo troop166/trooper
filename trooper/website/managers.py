@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.db import models
-from django.db.models import Prefetch, Q
+from django.db.models import Prefetch
 
 
 class ContentQuerySet(models.QuerySet):
