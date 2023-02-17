@@ -198,21 +198,21 @@ django-recurrence==1.11.1 ; python_full_version >= "3.8.1" and python_full_versi
 django-widget-tweaks==1.4.12 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:9bfc5c705684754a83cc81da328b39ad1b80f32bd0f4340e2a810cbab4b0c00e \
     --hash=sha256:fe6b17d5d595c63331f300917980db2afcf71f240ab9341b954aea8f45d25b9a
-django==3.2.17 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
-    --hash=sha256:59c39fc342b242fb42b6b040ad8b1b4c15df438706c1d970d416d63cdd73e7fd \
-    --hash=sha256:644288341f06ebe4938eec6801b6bd59a6534a78e4aedde2a153075d11143894
-django[argon2]==3.2.17 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
-    --hash=sha256:59c39fc342b242fb42b6b040ad8b1b4c15df438706c1d970d416d63cdd73e7fd \
-    --hash=sha256:644288341f06ebe4938eec6801b6bd59a6534a78e4aedde2a153075d11143894
+django==3.2.18 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:08208dfe892eb64fff073ca743b3b952311104f939e7f6dae954fe72dcc533ba \
+    --hash=sha256:4d492d9024c7b3dfababf49f94511ab6a58e2c9c3c7207786f1ba4eb77750706
+django[argon2]==3.2.18 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:08208dfe892eb64fff073ca743b3b952311104f939e7f6dae954fe72dcc533ba \
+    --hash=sha256:4d492d9024c7b3dfababf49f94511ab6a58e2c9c3c7207786f1ba4eb77750706
 docutils==0.19 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:33995a6753c30b7f577febfc2c50411fec6aac7f7ffeb7c4cfe5991072dcf9e6 \
     --hash=sha256:5e1de4d849fee02c63b040a4a3fd567f4ab104defd8a5511fbbc24a8a017efbc
 icalendar==5.0.4 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:3e759f9c3875e037c90e1c2f4aff0f6123f4435af6152b80a70b8d6a5529cb1b \
     --hash=sha256:f0aa86d6f5bc110ed3b91e96c48c70351d7a09fbed25366f673dc0b799c83975
-phonenumberslite==8.13.5 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
-    --hash=sha256:57a6825d729ec2ee28eb7d3a171837adad386defb6ad10593a2ddd405afe569c \
-    --hash=sha256:f143456744422398a26537b8815fb9650f187420a346f4198b2bf1ed6019e8ac
+phonenumberslite==8.13.6 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:61a9fcf4ce688fabcce8f566fe160dc2984299112ceaa306a18922e4e4d94745 \
+    --hash=sha256:bceb85adeb84eb71bb3bd1afa5163633d513b9e836b486b86fd40df17dc3b074
 pillow==9.4.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:0845adc64fe9886db00f5ab68c4a8cd933ab749a87747555cec1c95acea64b0b \
     --hash=sha256:0884ba7b515163a1a05440a138adeb722b8a6ae2c2b33aea93ea3118dd3a899e \
@@ -299,9 +299,9 @@ python-stdnum==1.18 ; python_full_version >= "3.8.1" and python_full_version < "
 pytz==2022.7.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:01a0681c4b9684a28304615eba55d1ab31ae00bf68ec157ec3708a8182dbbcd0 \
     --hash=sha256:78f4f37d8198e0627c5f1143240bb0206b8691d8d7ac6d78fee88b78733f8c4a
-sentry-sdk==1.14.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
-    --hash=sha256:273fe05adf052b40fd19f6d4b9a5556316807246bd817e5e3482930730726bb0 \
-    --hash=sha256:72c00322217d813cf493fe76590b23a757e063ff62fec59299f4af7201dd4448
+sentry-sdk==1.15.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:69ecbb2e1ff4db02a06c4f20f6f69cb5dfe3ebfbc06d023e40d77cf78e9c37e7 \
+    --hash=sha256:7ad4d37dd093f4a7cb5ad804c6efe9e8fab8873f7ffc06042dc3f3fd700a93ec
 setuptools==65.7.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:4d3c92fac8f1118bb77a22181355e29c239cabfe2b9effdaa665c66b711136d7 \
     --hash=sha256:8ab4f1dbf2b4a65f7eec5ad0c620e84c34111a68d3349833494b9088212214dd
