@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
+from trooper.assignments.managers import CommitteeQuerySet, PatrolQuerySet
 from trooper.members.models import Member
 
 
@@ -36,6 +37,8 @@ class Committee(models.Model):
     members = models.ManyToManyField(
         Member, through="CommitteeMember", related_name="committees", blank=True
     )
+
+    objects = CommitteeQuerySet.as_manager()
 
     class Meta:
         ordering = ["name"]
@@ -84,6 +87,8 @@ class Patrol(models.Model):
     members = models.ManyToManyField(
         Member, through="PatrolMember", related_name="patrols", blank=True
     )
+
+    objects = PatrolQuerySet.as_manager()
 
     class Meta:
         ordering = ["name"]
