@@ -5,7 +5,7 @@ from trooper.assignments.managers import CommitteeQuerySet, PatrolQuerySet
 from trooper.members.models import Member
 
 
-class Leadership(models.Model):
+class Leader(models.Model):
     class Role(models.IntegerChoices):
         MASTER = 1, _("Scoutmaster")
         ASSISTANT = 2, _("Assistant Scoutmaster")
@@ -19,15 +19,15 @@ class Leadership(models.Model):
 
     class Meta:
         ordering = ["-start", "-role", "member"]
-        verbose_name = _("Leadership")
-        verbose_name_plural = _("Leadership")
+        verbose_name = _("Leader")
+        verbose_name_plural = _("Leaders")
 
     def __str__(self):
         return _("%(role)s: %(member)s (%(start)d–%(end)s)") % {
             "role": self.get_role_display(),
             "member": self.member,
             "start": self.start.year,
-            "end": self.end.year or "",
+            "end": self.end.year if self.end else "",
         }
 
 

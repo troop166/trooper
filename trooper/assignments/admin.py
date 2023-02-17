@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from trooper.assignments.models import (
     Committee,
     CommitteeMember,
-    Leadership,
+    Leader,
     Patrol,
     PatrolMember,
 )
@@ -22,7 +22,7 @@ class PatrolMemberInline(admin.TabularInline):
     autocomplete_fields = ("member",)
 
 
-@admin.register(Leadership)
+@admin.register(Leader)
 class LeadershipAdmin(admin.ModelAdmin):
     pass
 
