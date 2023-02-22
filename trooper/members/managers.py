@@ -5,8 +5,7 @@ from django.apps import apps
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager
 from django.db import models
-from django.db.models import Case, Count, Prefetch, Q, When
-from django.db.models.functions import Coalesce
+from django.db.models import Count, Prefetch, Q
 from django.utils import timezone
 
 from trooper.members.utils import eighteen_years_from
@@ -37,18 +36,6 @@ class MemberQuerySet(models.QuerySet):
         for word in query_words:
             lookups.extend(Q(**{f"{field}__icontains": word}) for field in fields)
         return self.filter(reduce(operator.or_, lookups)).distinct()
-
-    def with_name(self):
-        return self.annotate(
-            short_name=Coalesce(
-                Case(
-                    When(nickname="", then=None),
-                    default="nickname",
-                    output_field=models.CharField(),
-                ),
-                "first_name",
-            )
-        )
 
     def with_published_contact_info(self):
         return self.prefetch_related(
@@ -118,9 +105,6 @@ class MemberManager(UserManager):
 
     def search(self, query):
         return self.get_queryset().search(query)
-
-    def with_name(self):
-        return self.get_queryset().with_name()
 
     def with_published_contact_info(self):
         return self.get_queryset().with_published_contact_info()
