@@ -4,8 +4,14 @@
           <div class="col-lg">
             {% include 'members/partials/member_list_entry_profile_picture.html' %}
             <div class="d-flex flex-column">
-              <h1 class="card-title">{{ member.get_full_name }}</h1>
-              <h2 class="card-subtitle fs-5 text-muted">{{ member.username }}</h2>
+              <h2 class="card-title">
+                {% if request.path == member.get_absolute_url %}
+                  {{ member.get_full_name }}
+                {% else %}
+                  <a class="stretched-link text-decoration-none" href="{{ member.get_absolute_url }}">{{ member.get_full_name }}</a>
+                {% endif %}
+              </h2>
+              <h3 class="card-subtitle fs-5 text-muted">{{ member.username }}</h3>
               {% if tag %}<p class="card-text"><span class="badge rounded-pill text-bg-secondary">{{ tag }}</span></p>{% endif %}
               {% if member.age < 18 %}
                 <p class="card-text"><i class="bi bi-gift"></i> {{ member.date_of_birth }}</p>
