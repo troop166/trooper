@@ -8,26 +8,30 @@
   <main class="container">
     {% include 'members/partials/members_header.html' %}
     {% include 'members/partials/member_detail.html' %}
-    {% if member.adult_families.exists or member.youth_families.exists %}
+    {% if member.adult_families.exists or member.childhood_families.exists %}
       <h3>{% translate 'Family' %}</h3>
     {% endif %}
     {% if member.adult_families.exists %}
-      <div class="card-group">
-        {% for partner in member.partners.all %}
-          {% include 'members/partials/member_detail.html' with member=partner summary=True %}
+      <div class="card-group" id="partners-and-children">
+        {% translate 'spouse' as partner_tag %}
+        {% translate 'child' as child_tag %}
+        {% for partner in member.partners %}
+          {% include 'members/partials/member_detail.html' with member=partner summary=True tag=partner_tag %}
         {% endfor %}
-        {% for child in member.children.all %}
-          {% include 'members/partials/member_detail.html' with member=child summary=True %}
+        {% for child in member.children %}
+          {% include 'members/partials/member_detail.html' with member=child summary=True tag=child_tag %}
         {% endfor %}
       </div>
     {% endif %}
-    {% if member.youth_families.exists %}
-      <div class="card-group">
-        {% for parent in member.parents.all %}
-          {% include 'members/partials/member_detail.html' with member=parent summary=True %}
+    {% if member.childhood_families.exists %}
+      <div class="card-group" id="parents-and-siblings">
+        {% translate 'parent' as parent_tag %}
+        {% translate 'sibling' as sibling_tag %}
+        {% for parent in member.parents %}
+          {% include 'members/partials/member_detail.html' with member=parent summary=True tag=parent_tag %}
         {% endfor %}
-        {% for sibling in member.siblings.all %}
-          {% include 'members/partials/member_detail.html' with member=sibling summary=True %}
+        {% for sibling in member.siblings %}
+          {% include 'members/partials/member_detail.html' with member=sibling summary=True tag=sibling_tag %}
         {% endfor %}
       </div>
     {% endif %}
