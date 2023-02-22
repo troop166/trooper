@@ -117,47 +117,58 @@ class Member(AbstractUser):
         """
         return reverse("members:detail", kwargs={"username": self.username})
 
-    def get_family_members(self, families=None):
-        if not families:
+    def get_family_members(self, families=None, filter=None):
+        if families is None:
             families = self.families.all()
-        return (
-            self._meta.model.objects.filter(families__in=families)
-            .exclude(pk=self.pk)
-            .distinct()
-        )
+
+        members = self._meta.model.objects.none()
+        for family in families:
+            family_members = self._meta.model.objects.filter(
+                families=family, **filter
+            ).exclude(pk=self.pk)
+            members = members.union(family_members)
+        return members
 
     def adult_families(self):
         return self.families.filter(
             family_member__role=self.families.through.Role.PARENT
         )
 
-    def youth_families(self):
+    def childhood_families(self):
         return self.families.filter(
             family_member__role=self.families.through.Role.CHILD
         )
 
     @property
     def children(self):
-        return self.get_family_members(families=self.adult_families()).filter(
-            family_member__role=self.families.through.Role.CHILD
+        """Returns a queryset containing member's children."""
+        return self.get_family_members(
+            families=self.adult_families(),
+            filter={"family_member__role": self.families.through.Role.CHILD},
         )
 
     @property
     def parents(self):
-        return self.get_family_members().filter(
-            family_member__role=self.families.through.Role.PARENT
+        """Returns a queryset containing member's parents."""
+        return self.get_family_members(
+            families=self.childhood_families(),
+            filter={"family_member__role": self.families.through.Role.PARENT},
         )
 
     @property
     def partners(self):
-        return self.get_family_members(families=self.adult_families()).filter(
-            family_member__role=self.families.through.Role.PARENT
+        """Returns a queryset containing member's spouses or partners."""
+        return self.get_family_members(
+            families=self.adult_families(),
+            filter={"family_member__role": self.families.through.Role.PARENT},
         )
 
     @property
     def siblings(self):
-        return self.get_family_members(families=self.youth_families()).filter(
-            family_member__role=self.families.through.Role.CHILD
+        """Returns a queryset containing member's siblings."""
+        return self.get_family_members(
+            families=self.childhood_families(),
+            filter={"family_member__role": self.families.through.Role.CHILD},
         )
 
     def is_related_to(self, member):
