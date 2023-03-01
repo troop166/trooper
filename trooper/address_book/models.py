@@ -37,7 +37,7 @@ class Address(models.Model):
     )
     city = models.CharField(_("city"), max_length=50)
     state = USStateField(_("state"))
-    zipcode = USZipCodeField(_("ZIP code"))
+    zip_code = USZipCodeField(_("ZIP code"))
     is_published = models.BooleanField(
         _("published in the directory"),
         default=True,
@@ -64,7 +64,7 @@ class Address(models.Model):
 
     @cached_property
     def as_single_line(self):
-        fields = [self.street, self.street2, self.city, self.state, self.zipcode]
+        fields = [self.street, self.street2, self.city, self.state, self.zip_code]
         return ", ".join(field.strip() for field in fields if field)
 
     @cached_property
@@ -76,11 +76,11 @@ class Address(models.Model):
                 self.street2,
                 self.city,
                 self.state,
-                self.zipcode,
+                self.zip_code,
             )
         else:
             return format_html(
-                "{}<br> {}, {} {}", self.street, self.city, self.state, self.zipcode
+                "{}<br> {}, {} {}", self.street, self.city, self.state, self.zip_code
             )
 
 
