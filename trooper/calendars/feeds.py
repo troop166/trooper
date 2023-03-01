@@ -17,7 +17,7 @@ class EventFeed(ICalFeed):
     description = _("A calendar of events crafted specifically for you")
 
     def get_object(self, request, *args, **kwargs):
-        self.website = request.META["HTTP_HOST"]
+        self.website = request.headers["host"]
         return super().get_object(request, *args, **kwargs)
 
     def items(self):
