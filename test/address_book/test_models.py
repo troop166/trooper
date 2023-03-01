@@ -24,7 +24,7 @@ class AddressCase(TestCase):
         self.assertEqual(address.street2, "")
         self.assertEqual(address.city, "Seattle")
         self.assertEqual(address.state, "WA")
-        self.assertEqual(address.zipcode, "98101")
+        self.assertEqual(address.zip_code, "98101")
         self.assertEqual(str(address), "123 Main St., Seattle, WA, 98101")
         self.assertTrue(address.is_published)
 
@@ -44,7 +44,7 @@ class AddressCase(TestCase):
         self.assertEqual(address.street2, "Suite 1000")
         self.assertEqual(address.city, "Seattle")
         self.assertEqual(address.state, "WA")
-        self.assertEqual(address.zipcode, "98101-1010")
+        self.assertEqual(address.zip_code, "98101-1010")
         self.assertEqual(
             str(address), "321 Any Avenue, Suite 1000, Seattle, WA, 98101-1010"
         )

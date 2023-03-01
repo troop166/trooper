@@ -15,7 +15,7 @@ class AddressInline(GenericStackedInline):
                     "label",
                     "street",
                     "street2",
-                    ("city", "state", "zipcode"),
+                    ("city", "state", "zip_code"),
                     "is_published",
                 )
             },

@@ -14,7 +14,7 @@ class AddressForm(forms.ModelForm):
             "street2",
             "city",
             "state",
-            "zipcode",
+            "zip_code",
             "is_published",
         )
         widgets = {
@@ -31,7 +31,7 @@ class AddressForm(forms.ModelForm):
             "state": forms.Select(
                 attrs={"autocomplete": "address-level1", "class": "form-select"}
             ),
-            "zipcode": forms.TextInput(
+            "zip_code": forms.TextInput(
                 attrs={"autocomplete": "postal-code", "class": "form-control"}
             ),
             "is_published": forms.CheckboxInput(attrs={"class": "form-check-input"}),
