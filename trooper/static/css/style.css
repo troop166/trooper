@@ -20,12 +20,6 @@
   --bs-nav-link-color: var(--scouting-olive-rgb);
 }
 
-html { /* body won't work ¯\_(ツ)_/¯ */
-  scroll-behavior: smooth;
-  scroll-padding-top: 0.75em;
-  scroll-snap-type: y proximity;
-}
-
 body {
   min-height: 100vh;
   width: 100%;
