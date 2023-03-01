@@ -16,7 +16,7 @@ class AddressCase(TestCase):
             street="123 Main St.",
             city="Seattle",
             state="WA",
-            zipcode="98101",
+            zip_code="98101",
             content_object=self.member,
         )
 
@@ -34,7 +34,7 @@ class AddressCase(TestCase):
             street2="Suite 1000",
             city="Seattle",
             state="WA",
-            zipcode="98101-1010",
+            zip_code="98101-1010",
             is_published=False,
             label="W",
             content_object=self.member,
