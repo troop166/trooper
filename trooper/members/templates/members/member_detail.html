@@ -9,7 +9,7 @@
     {% include 'members/partials/members_header.html' %}
     {% include 'members/partials/member_detail.html' %}
     {% if member.adult_families.exists or member.childhood_families.exists %}
-      <h3>{% translate 'Family' %}</h3>
+      <h3 class="pt-5">{% blocktranslate with member=member.short_name %}{{ member }}'s Family{% endblocktranslate %}</h3>
     {% endif %}
     {% if member.adult_families.exists %}
       <div class="card-group" id="partners-and-children">
