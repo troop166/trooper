@@ -32,7 +32,6 @@ class Leader(models.Model):
 
 
 class Committee(models.Model):
-
     name = models.CharField(_("name"), max_length=100)
     members = models.ManyToManyField(
         Member, through="CommitteeMember", related_name="committees", blank=True
@@ -50,7 +49,6 @@ class Committee(models.Model):
 
 
 class CommitteeMember(models.Model):
-
     committee = models.ForeignKey(
         Committee,
         on_delete=models.CASCADE,

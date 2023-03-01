@@ -14,7 +14,6 @@ from trooper.website.managers import ContentManager, PageQuerySet
 
 
 class Configuration(models.Model):
-
     PRIMARY_PALETTE = [
         ("#ce1126", _("Scouting Red")),
         ("#003f87", _("Scouting Blue")),

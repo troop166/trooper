@@ -23,7 +23,6 @@ def favicon(request):
 @require_GET
 @cache_control(max_age=60 * 68 * 24, immutable=True, public=True)
 def color_css(request):
-
     return render(request, "website/css/colors.txt", content_type="text/css")
 
 
