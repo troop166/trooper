@@ -117,24 +117,26 @@ class Member(AbstractUser):
         """
         return reverse("members:detail", kwargs={"username": self.username})
 
-    def get_family_members(self, families=None, filter=None):
+    def get_family_members(self, families=None, filters=None):
         if families is None:
             families = self.families.all()
 
         members = self._meta.model.objects.none()
         for family in families:
             family_members = self._meta.model.objects.filter(
-                families=family, **filter
+                families=family, **filters
             ).exclude(pk=self.pk)
             members = members.union(family_members)
         return members
 
     def adult_families(self):
+        """Returns a Family QuerySet where member's role is `PARENT`."""
         return self.families.filter(
             family_member__role=self.families.through.Role.PARENT
         )
 
     def childhood_families(self):
+        """Returns a Family QuerySet where member's role is `CHILD`."""
         return self.families.filter(
             family_member__role=self.families.through.Role.CHILD
         )
@@ -144,7 +146,7 @@ class Member(AbstractUser):
         """Returns a queryset containing member's children."""
         return self.get_family_members(
             families=self.adult_families(),
-            filter={"family_member__role": self.families.through.Role.CHILD},
+            filters={"family_member__role": self.families.through.Role.CHILD},
         )
 
     @property
@@ -152,7 +154,7 @@ class Member(AbstractUser):
         """Returns a queryset containing member's parents."""
         return self.get_family_members(
             families=self.childhood_families(),
-            filter={"family_member__role": self.families.through.Role.PARENT},
+            filters={"family_member__role": self.families.through.Role.PARENT},
         )
 
     @property
@@ -160,7 +162,7 @@ class Member(AbstractUser):
         """Returns a queryset containing member's spouses or partners."""
         return self.get_family_members(
             families=self.adult_families(),
-            filter={"family_member__role": self.families.through.Role.PARENT},
+            filters={"family_member__role": self.families.through.Role.PARENT},
         )
 
     @property
@@ -168,7 +170,7 @@ class Member(AbstractUser):
         """Returns a queryset containing member's siblings."""
         return self.get_family_members(
             families=self.childhood_families(),
-            filter={"family_member__role": self.families.through.Role.CHILD},
+            filters={"family_member__role": self.families.through.Role.CHILD},
         )
 
     def is_related_to(self, member):
