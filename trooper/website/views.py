@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 @require_GET
 @cache_control(max_age=60 * 60 * 24, immutable=True, public=True)
 def favicon(request):
-    file = finders.find("img/favicon.ico")
+    file = finders.find("favicon.ico")
     return FileResponse(open(file, "rb"))
 
 
