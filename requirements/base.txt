@@ -317,6 +317,8 @@ sqlparse==0.4.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.
 urllib3==1.26.14 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72 \
     --hash=sha256:75edcdc2f7d85b137124a6c3c9fc3933cdeaa12ecb9a6a959f22797a0feca7e1
+vobject==0.9.6.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:96512aec74b90abb71f6b53898dd7fe47300cc940104c4f79148f0671f790101
 whitenoise[brotli]==6.4.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:599dc6ca57e48929dfeffb2e8e187879bfe2aed0d49ca419577005b7f2cc930b \
     --hash=sha256:a02d6660ad161ff17e3042653c8e3f5ecbb2a2481a006bde125b9efb9a30113a

@@ -19,14 +19,13 @@ class AddressBookQuerySet(models.QuerySet):
 
 class Address(models.Model):
     class Label(models.TextChoices):
-        HOME = "H", _("Home")
-        SCHOOL = "S", _("School")
-        WORK = "W", _("Work")
-        PO_BOX = "B", _("P.O. Box")
-        OTHER = "O", _("Other")
+        HOME = "HOME", _("Home")
+        WORK = "WORK", _("Work")
+        SCHOOL = "SCHOOL", _("School")
+        PO_BOX = "POB", _("P.O. Box")
 
     label = models.CharField(
-        _("label"), max_length=1, choices=Label.choices, blank=True
+        _("label"), max_length=6, choices=Label.choices, blank=True
     )
     street = models.CharField(_("street"), max_length=150)
     street2 = models.CharField(
@@ -86,13 +85,12 @@ class Address(models.Model):
 
 class Email(models.Model):
     class Label(models.TextChoices):
-        HOME = "H", _("Home")
-        SCHOOL = "S", _("School")
-        WORK = "W", _("Work")
-        OTHER = "O", _("Other")
+        HOME = "HOME", _("Home")
+        SCHOOL = "SCHOOL", _("School")
+        WORK = "WORK", _("Work")
 
     label = models.CharField(
-        _("label"), max_length=1, choices=Label.choices, blank=True
+        _("label"), max_length=6, choices=Label.choices, blank=True
     )
     address = models.EmailField(_("email address"), unique=True)
     is_published = models.BooleanField(
@@ -127,14 +125,15 @@ class Email(models.Model):
 
 class Phone(models.Model):
     class Label(models.TextChoices):
-        HOME = "H", _("Home")
-        MOBILE = "M", _("Mobile")
-        SCHOOL = "S", _("School")
-        WORK = "W", _("Work")
-        OTHER = "O", _("Other")
+        """A subset of phone types from RFC 2426."""
+
+        HOME = "HOME", _("Home")
+        MOBILE = "CELL", _("Mobile")
+        FAX = "FAX", _("Fax")
+        WORK = "WORK", _("Work")
 
     label = models.CharField(
-        _("label"), max_length=1, choices=Label.choices, blank=True
+        _("label"), max_length=4, choices=Label.choices, blank=True
     )
     number = PhoneNumberField(_("phone number"))
     is_published = models.BooleanField(

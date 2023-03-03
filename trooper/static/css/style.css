@@ -84,6 +84,14 @@ form.is-submitting button[type="submit"] {
   width: 56px;
 }
 
+.bi {
+  display: inline-block;
+  vertical-align: -.125em;
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
 .message {
   border-radius: 0;
   margin-bottom: 0;

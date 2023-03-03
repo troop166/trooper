@@ -450,6 +450,8 @@ urllib3==1.26.14 ; python_full_version >= "3.8.1" and python_full_version < "4.0
 virtualenv==20.20.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:3c22fa5a7c7aa106ced59934d2c20a2ecb7f49b4130b8bf444178a16b880fa45 \
     --hash=sha256:a8a4b8ca1e28f864b7514a253f98c1d62b64e31e77325ba279248c65fb4fcef4
+vobject==0.9.6.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
+    --hash=sha256:96512aec74b90abb71f6b53898dd7fe47300cc940104c4f79148f0671f790101
 whitenoise[brotli]==6.4.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" \
     --hash=sha256:599dc6ca57e48929dfeffb2e8e187879bfe2aed0d49ca419577005b7f2cc930b \
     --hash=sha256:a02d6660ad161ff17e3042653c8e3f5ecbb2a2481a006bde125b9efb9a30113a

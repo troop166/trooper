@@ -13,4 +13,5 @@ urlpatterns = [
     path("<slug:username>/", views.MemberDetailView.as_view(), name="detail"),
     path("<slug:username>/edit/", views.MemberUpdateView.as_view(), name="update"),
     path("<slug:username>/delete/", views.MemberDeleteView.as_view(), name="delete"),
+    path("<slug:username>/vcard/", views.member_vcard_view, name="vcard"),
 ]

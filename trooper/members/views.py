@@ -3,13 +3,15 @@ import logging
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from trooper.members.forms import MemberChangeForm, MemberSignupForm
 from trooper.members.models import Member
+from trooper.members.utils import member_vcard
 
 logger = logging.getLogger(__name__)
 
@@ -107,3 +109,12 @@ class MemberDeleteView(LoginRequiredMixin, DeleteView):
         messages.warning(request, success_message)
         logger.info(_("%s was deleted by %s") % (self.object, request.user))
         return HttpResponseRedirect(success_url)
+
+
+def member_vcard_view(request, username):
+    member = get_object_or_404(Member, username=username)
+    card = member_vcard(member)
+    filename = f"{member.get_full_name()}.vcf"
+    response = HttpResponse(card.serialize(), content_type="text/x-vcard")
+    response["Content-Disposition"] = f"attachment; filename={filename}"
+    return response
