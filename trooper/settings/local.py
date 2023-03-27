@@ -1,4 +1,4 @@
-import contextlib
+import importlib.util
 
 from .base import *
 
@@ -43,13 +43,15 @@ LOGGING = {
 # Django Debug Toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/
 
-with contextlib.suppress(ImportError):
+# https://docs.python.org/3/library/importlib.html#checking-if-a-module-can-be-imported
+if importlib.util.find_spec("debug_toolbar") is not None:
     INSTALLED_APPS += ["debug_toolbar"]
     INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
     MIDDLEWARE.insert(
         MIDDLEWARE.index("django.middleware.common.CommonMiddleware") + 1,
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     )
+
 
 # Sorl-thumbnail
 # https://sorl-thumbnail.readthedocs.io/en/latest/reference/settings.html
