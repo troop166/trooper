@@ -39,7 +39,7 @@ class PatrolAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        return qs.count_members()
+        return qs.with_member_count()
 
     @admin.display(description=_("Member count"), ordering="member_count")
     def _member_count(self, obj):
