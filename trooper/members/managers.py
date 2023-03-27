@@ -12,8 +12,8 @@ from trooper.members.utils import eighteen_years_from
 
 
 class FamilyQuerySet(models.QuerySet):
-    def count_members(self):
-        return self.annotate(Count("members"))
+    def with_member_count(self):
+        return self.annotate(member_count=Count("members"))
 
 
 class MemberQuerySet(models.QuerySet):
