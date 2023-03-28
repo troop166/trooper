@@ -12,10 +12,13 @@
       <i class="bi bi-eye-slash"></i>
     {% endif %}
   </span>
-  <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20"
-     class="card-link text-decoration-none">
+{% if request.resolver_match.url_name == 'detail' %}
+  <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20" class="card-link text-decoration-none">
+{% endif %}
     {{ email }}
+{% if request.resolver_match.url_name == 'detail' %}
   </a>
+{% endif %}
 </div>
 {% if members_are_related %}
   <div class="btn-group" role="group" aria-label="{% translate 'Address editing buttons' %}">
