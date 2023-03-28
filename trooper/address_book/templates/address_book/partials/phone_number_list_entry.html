@@ -14,7 +14,14 @@
       <i class="bi bi-eye-slash"></i>
     {% endif %}
   </span>
-  <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">{{ phone }}</a>
+
+{% if request.resolver_match.url_name == 'detail' %}
+  <a href="tel:{{ phone.number.as_e164 }}" class="card-link text-decoration-none">
+{% endif %}
+  {{ phone }}
+{% if request.resolver_match.url_name == 'detail' %}
+  </a>
+{% endif %}
 </div>
 {% if members_are_related %}
   <div class="btn-group" role="group" aria-label="{% translate 'Phone number editing buttons' %}">

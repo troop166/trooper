@@ -7,11 +7,11 @@
   {% endif %}
 >
   {% include 'members/partials/member_list_entry_profile_picture.html' %}
-  <div>
+  <div class="member-name">
     <h2>{{ member.get_full_name }}</h2>
     <p><span class="badge rounded-pill text-bg-secondary">{{ member.age }}</span></p>
   </div>
-</a>
+  <div class="member-addresses">
   {% if member.published_addresses %}
     {% include 'address_book/partials/address_list.html' with address_list=member.published_addresses links=False %}
   {% endif %}
@@ -21,3 +21,5 @@
   {% if member.published_phone_numbers %}
     {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.published_phone_numbers links=False %}
   {% endif %}
+  </div>
+</a>

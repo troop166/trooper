@@ -9,7 +9,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 from trooper.address_book.models import Address, Email, Phone
-from trooper.members.managers import FamilyQuerySet, MemberManager
+from trooper.members.managers import FamilyMemberQuerySet, FamilyQuerySet, MemberManager
 from trooper.members.utils import calculate_age, get_member_photo_upload_to
 from trooper.members.validators import date_of_birth_validator, date_of_death_validator
 
@@ -261,8 +261,16 @@ class FamilyMember(models.Model):
     )
     role = models.CharField(_("role"), max_length=1, choices=Role.choices)
 
+    objects = FamilyMemberQuerySet.as_manager()
+
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("family", "member"), name="unique_family_member"
+            ),
+        ]
         db_table = "members_family_member"
+        ordering = ("-role", "member__date_of_birth")
         verbose_name = _("Family Member")
         verbose_name_plural = _("Family Members")
 

@@ -16,6 +16,14 @@ class FamilyQuerySet(models.QuerySet):
         return self.annotate(member_count=Count("members"))
 
 
+class FamilyMemberQuerySet(models.QuerySet):
+    def children(self):
+        return self.filter(role=self.model.Role.CHILD)
+
+    def parents(self):
+        return self.filter(role=self.model.Role.PARENT)
+
+
 class MemberQuerySet(models.QuerySet):
     FILTERS_AVAILABLE = ("adults", "youths")
 

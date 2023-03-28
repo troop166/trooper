@@ -38,12 +38,12 @@ class FamilyMemberInline(admin.TabularInline):
 
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "_member_count")
+    list_display = ("__str__", "member_count")
     search_fields = ("members__first_name", "members__nickname", "members__last_name")
     readonly_fields = ("family_members",)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).with_member_count()
+        return super().get_queryset(request).count_members()
 
     @admin.display(description=_("Family Members"))
     def family_members(self, instance):
@@ -67,9 +67,9 @@ class FamilyAdmin(admin.ModelAdmin):
             ),
         )
 
-    @admin.display(description=_("Members"), ordering="member_count")
-    def _member_count(self, obj):
-        return obj.member_count
+    @admin.display(description=_("Members"), ordering="member__count")
+    def member_count(self, obj):
+        return obj.members__count
 
 
 @admin.register(Member)
