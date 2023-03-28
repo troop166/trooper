@@ -28,7 +28,7 @@ class SignupView(SuccessMessageMixin, CreateView):
 class MemberListView(LoginRequiredMixin, ListView):
     model = Member
     template_name = "members/member_list.html"
-    paginate_by = 25
+    paginate_by = 10
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
