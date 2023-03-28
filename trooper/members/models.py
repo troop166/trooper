@@ -264,6 +264,11 @@ class FamilyMember(models.Model):
     objects = FamilyMemberQuerySet.as_manager()
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("family", "member"), name="unique_family_member"
+            ),
+        ]
         db_table = "members_family_member"
         verbose_name = _("Family Member")
         verbose_name_plural = _("Family Members")
