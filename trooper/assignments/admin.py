@@ -24,7 +24,9 @@ class PatrolMemberInline(admin.TabularInline):
 
 @admin.register(Leader)
 class LeadershipAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("member", "role", "start", "end")
+    autocomplete_fields = ("member",)
+    list_filter = ("role",)
 
 
 @admin.register(Committee)
