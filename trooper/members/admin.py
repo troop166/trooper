@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.urls import reverse
-from django.utils.html import format_html, format_html_join
+from django.utils.html import format_html
 from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 
 from trooper.address_book.admin import AddressInline, EmailInline, PhoneInline
 from trooper.core.admin.utils import image_preview
@@ -27,7 +27,7 @@ class MemberAgeRangeFilter(admin.SimpleListFilter):
             return queryset.youths()
 
 
-class FamilyMemberInline(admin.TabularInline):
+class MemberFamiliesInline(admin.TabularInline):
     model = FamilyMember
     fields = ["role", "family"]
     autocomplete_fields = ("family",)
@@ -36,40 +36,41 @@ class FamilyMemberInline(admin.TabularInline):
     verbose_name_plural = _("Families")
 
 
+class FamilyMembersInline(admin.TabularInline):
+    model = FamilyMember
+    fields = ["role", "member"]
+    autocomplete_fields = ("member",)
+    extra = 0
+    verbose_name = _("Member")
+    verbose_name_plural = _("Members")
+
+
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "member_count")
+    list_display = ("__str__", "family_members")
     search_fields = ("members__first_name", "members__nickname", "members__last_name")
-    readonly_fields = ("family_members",)
+    inlines = [FamilyMembersInline]
 
     def get_queryset(self, request):
-        return super().get_queryset(request).count_members()
+        return super().get_queryset(request)
 
-    @admin.display(description=_("Family Members"))
+    @admin.display(description=_("Members"))
     def family_members(self, instance):
-        member_set = instance.family_members.all()
+        parents = instance.family_members.parents()
+        children = instance.family_members.children()
         return format_html(
-            "<ul{}>\n{}\n</ul>",
-            " style=margin-left:1.5em;",
-            format_html_join(
-                "\n",
-                "<li><a href={}>{}</a></li>",
-                (
-                    (
-                        reverse(
-                            f"admin:{fm.member._meta.app_label}_{fm.member._meta.model_name}_change",  # noqa: E501
-                            args=(fm.member_id,),
-                        ),
-                        fm.member.get_full_name(),
-                    )
-                    for fm in member_set
-                ),
+            "<ul>\n<li>{}</li>\n<li>{}</li>\n</ul>",
+            format_html(
+                "<strong>{}:</strong> {}",
+                ngettext("Parent", "Parents", parents.count()),
+                ", ".join(p.member.short_name for p in parents),
+            ),
+            format_html(
+                "<strong>{} :</strong> {}",
+                ngettext("Child", "Children", children.count()),
+                ", ".join(c.member.short_name for c in children),
             ),
         )
-
-    @admin.display(description=_("Members"), ordering="member__count")
-    def member_count(self, obj):
-        return obj.members__count
 
 
 @admin.register(Member)
@@ -137,7 +138,7 @@ class MemberAdmin(UserAdmin):
     list_display = ("first_name", "middle_name", "last_name", "suffix", "is_staff")
     list_display_links = ("first_name", "last_name")
     list_filter = (MemberAgeRangeFilter, "is_staff", "is_superuser", "is_active")
-    inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
+    inlines = [MemberFamiliesInline, AddressInline, EmailInline, PhoneInline]
     readonly_fields = ("age", "last_login", "preview")
     search_fields = ("first_name", "last_name", "nickname")
 
