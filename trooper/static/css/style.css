@@ -223,3 +223,21 @@ form .helptext {
   font-size: 0.875em;
   color: var(--bs-secondary);
 }
+
+.htmx-indicator {
+  display: none;
+}
+
+.htmx-request .htmx-indicator {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.htmx-request.htmx-indicator {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
