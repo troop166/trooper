@@ -270,6 +270,7 @@ class FamilyMember(models.Model):
             ),
         ]
         db_table = "members_family_member"
+        ordering = ("-role", "member__date_of_birth")
         verbose_name = _("Family Member")
         verbose_name_plural = _("Family Members")
 
