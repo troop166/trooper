@@ -32,6 +32,15 @@ class LeadershipAdmin(admin.ModelAdmin):
 @admin.register(Committee)
 class CommitteeAdmin(admin.ModelAdmin):
     inlines = [CommitteeMemberInline]
+    list_display = ["name", "_member_count"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.with_member_count()
+
+    @admin.display(description=_("Member count"), ordering="member_count")
+    def _member_count(self, obj):
+        return obj._member_count
 
 
 @admin.register(Patrol)
