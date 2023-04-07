@@ -36,7 +36,7 @@ class HomePageView(TemplateView):
         except Page.DoesNotExist:
             page = Page()
             page.title = _("Home")
-            logger.warning(
+            logger.info(
                 _("Home page was requested but does not exist in the database!")
             )
 
