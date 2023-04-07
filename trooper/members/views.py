@@ -65,13 +65,13 @@ class MemberDetailView(LoginRequiredMixin, UpdateView):
     slug_url_kwarg = "username"
     template_name = "members/member_detail.html"
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.with_published_contact_info()
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.with_published_contact_info()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["members_are_related"] = self.object.is_related_to(self.request.user)
+        context["object"]["is_related"] = self.object.is_related_to(self.request.user)
         return context
 
 

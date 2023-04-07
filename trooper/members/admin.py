@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
-from trooper.address_book.admin import AddressInline, EmailInline, PhoneInline
 from trooper.core.admin.utils import image_preview
 from trooper.members.forms import MemberChangeForm, MemberCreationForm
 from trooper.members.models import Family, FamilyMember, Member
@@ -25,6 +24,21 @@ class MemberAgeRangeFilter(admin.SimpleListFilter):
             return queryset.adults()
         if self.value() == "youths":
             return queryset.youths()
+
+
+class MemberAddressInline(admin.StackedInline):
+    model = Member.addresses.through
+    extra = 0
+
+
+class MemberEmailInline(admin.TabularInline):
+    model = Member.email_addresses.through
+    extra = 0
+
+
+class MemberPhoneInline(admin.TabularInline):
+    model = Member.phone_numbers.through
+    extra = 0
 
 
 class FamilyMemberInline(admin.TabularInline):
@@ -137,7 +151,17 @@ class MemberAdmin(UserAdmin):
     list_display = ("first_name", "middle_name", "last_name", "suffix", "is_staff")
     list_display_links = ("first_name", "last_name")
     list_filter = (MemberAgeRangeFilter, "is_staff", "is_superuser", "is_active")
-    inlines = [FamilyMemberInline, AddressInline, EmailInline, PhoneInline]
+    inlines = [
+        FamilyMemberInline,
+        MemberAddressInline,
+        MemberEmailInline,
+        MemberPhoneInline,
+    ]
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+        "addresses",
+    )
     readonly_fields = ("age", "last_login", "preview")
     search_fields = ("first_name", "last_name", "nickname")
 
@@ -145,6 +169,6 @@ class MemberAdmin(UserAdmin):
         return super().get_inlines(request, obj) if obj else []
 
     @staticmethod
-    @admin.display(description=_("current"))
+    @admin.display(description=_("current photo"))
     def preview(obj):
         return image_preview(obj.photo.url)

@@ -9,6 +9,7 @@ from django.contrib.auth.forms import (
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
+from trooper.address_book.models import Address
 from trooper.members.models import Member
 
 
