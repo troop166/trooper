@@ -1,13 +1,13 @@
 {% load i18n %}
 {% if members_are_related or email_addresses|length %}
   <div class="d-flex justify-content-between align-items-center">
-    <p class="card-title fs-6">
+    <h3 class="card-title fs-6">
       {% blocktrans count counter=email_addresses|length %}
         Email Address
       {% plural %}
         Email Addresses
       {% endblocktrans %}
-    </p>
+    </h3>
     {% if members_are_related %}
       <button class="btn btn-link btn-sm" aria-label="{% translate 'add' %}">
         <i class="bi bi-plus-circle-fill"></i>
