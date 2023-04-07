@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}{% static 'img/bootstrap-icons.svg' as icons %}
 {% if members_are_related or email_addresses|length %}
   <div class="d-flex justify-content-between align-items-center">
     <p class="card-title fs-6">
@@ -10,7 +10,9 @@
     </p>
     {% if members_are_related %}
       <button class="btn btn-link btn-sm" aria-label="{% translate 'add' %}">
-        <i class="bi bi-plus-circle-fill"></i>
+        <svg class="bi">
+          <use href="{{ icons }}#plus-circle-fill"></use>
+        </svg>
       </button>
     {% endif %}
   </div>

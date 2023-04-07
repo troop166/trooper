@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}{% static 'img/bootstrap-icons.svg' as icons %}
 {% if members_are_related or addresses|length %}
   <div class="d-flex justify-content-between align-items-center" id="address-list-container" hx-swap-oob="true">
     <p class="card-title fs-6">
@@ -13,7 +13,9 @@
               hx-get="{% url 'address_book:address_create' member.username %}"
               hx-target="#{{ member.username }}-address-form"
               aria-label="{% translate 'add' %}">
-        <i class="bi bi-plus-circle-fill"></i>
+        <svg class="bi">
+          <use href="{{ icons }}#plus-circle-fill"></use>
+        </svg>
       </button>
     {% endif %}
   </div>
@@ -24,6 +26,7 @@
         {% include 'address_book/partials/address_list_entry.html' %}
       </li>
     {% endfor %}
-    <li class="list-group-item d-flex justify-content-between align-items-start" id="{{ member.username }}-address-form"></li>
+    <li class="list-group-item d-flex justify-content-between align-items-start"
+        id="{{ member.username }}-address-form"></li>
   </ul>
 {% endif %}

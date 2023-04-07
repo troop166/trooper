@@ -12,10 +12,15 @@
 {# Delete the navbar #}
 {% block navbar %}{% endblock navbar %}
 
-{% block content %}
+{% block content %}{% static 'img/bootstrap-icons.svg' as icons %}
   <div id="wrapper">
     <main class="container">
-      <h1 class="text-danger"><i class="bi bi-x-circle-fill"></i> {% translate 'Oops!!! 500' %}</h1>
+      <h1 class="text-danger">
+        <svg class="bi">
+          <use href="{{ icons }}#x-circle-fill"></use>
+        </svg>
+        {% translate 'Oops!!! 500' %}
+      </h1>
 
       <h2>{% translate 'Looks like something went wrong!' %}</h2>
 

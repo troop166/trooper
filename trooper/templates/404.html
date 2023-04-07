@@ -9,10 +9,15 @@
   <link rel="stylesheet" href="{% static 'css/error.css' %}">
 {% endblock css %}
 
-{% block content %}
+{% block content %}{% static 'img/bootstrap-icons.svg' as icons %}
   <div id="wrapper">
     <main class="container">
-      <h1><i class="bi bi-question-circle-fill"></i> {% translate 'Page not found' %}</h1>
+      <h1>
+        <svg class="bi">
+          <use href="{{ icons }}#question-circle-fill"></use>
+        </svg>
+        {% translate 'Page not found' %}
+      </h1>
       <p>
         {% if exception %}
           {{ exception }}

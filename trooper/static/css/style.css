@@ -21,9 +21,9 @@
 }
 
 body {
-  min-height: 100vh;
-  width: 100%;
   display: flex;
+  width: 100%;
+  min-height: 100vh;
   flex-direction: column;
   font-family: Roboto, sans-serif;
 }
@@ -54,30 +54,30 @@ h6 {
 }
 
 .footer {
-  background-color: var(--bs-dark);
-  color: var(--bs-light);
-  margin-top: 3rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
+  margin-top: 3rem;
+  background-color: var(--bs-dark);
+  color: var(--bs-light);
 }
 
 main.container {
+  flex-grow: 1;
   margin-top: 3rem;
   margin-bottom: 3rem;
-  flex-grow: 1;
 }
 
 form.is-submitting button[type="submit"] {
-  color: var(--bs-btn-disabled-color);
-  pointer-events: none;
-  background-color: var(--bs-btn-disabled-bg);
   border-color: var(--bs-btn-disabled-border-color);
+  background-color: var(--bs-btn-disabled-bg);
+  color: var(--bs-btn-disabled-color);
   opacity: var(--bs-btn-disabled-opacity);
+  pointer-events: none;
 }
 
 #site-navbar {
-  scroll-snap-align: start;
   background-color: var(--nav-color);
+  scroll-snap-align: start;
 }
 
 #site-navbar .navbar-toggler-offset {
@@ -86,17 +86,17 @@ form.is-submitting button[type="submit"] {
 
 .bi {
   display: inline-block;
-  vertical-align: -.125em;
-  fill: currentColor;
   width: 1em;
   height: 1em;
+  fill: currentcolor;
+  vertical-align: -.125em;
 }
 
 .message {
+  padding-right: 0;
+  padding-left: 0;
   border-radius: 0;
   margin-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .login-form {
@@ -122,9 +122,9 @@ form.is-submitting button[type="submit"] {
 }
 
 #navbar-signin {
-  color: var(--bs-gray-500);
   min-width: 32ch;
   padding: 1rem 1.5rem;
+  color: var(--bs-gray-500);
 }
 
 .logout-form {
@@ -133,11 +133,11 @@ form.is-submitting button[type="submit"] {
 
 .logout-form button {
   display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
   width: 100%;
+  align-items: center;
   padding: 1rem 0.25rem;
+  border: none;
+  background-color: transparent;
 }
 
 #navbar-logout {
@@ -145,11 +145,11 @@ form.is-submitting button[type="submit"] {
 }
 
 #navbar-logout button[type="submit"] {
-  text-align: left;
-  background-color: transparent;
-  border: none;
   width: 100%;
   padding: 0.25rem 1rem;
+  border: none;
+  background-color: transparent;
+  text-align: left;
 }
 
 .navbar-brand {
@@ -165,9 +165,9 @@ form.is-submitting button[type="submit"] {
 }
 
 .list-icons {
-  list-style-type: none;
-  margin-left: 2.5em;
   padding-left: 0;
+  margin-left: 2.5em;
+  list-style-type: none;
 }
 
 .list-icons > li {
@@ -175,12 +175,12 @@ form.is-submitting button[type="submit"] {
 }
 
 .list-icons-icon {
-  left: calc(2em * -1);
   position: absolute;
-  text-align: center;
+  left: calc(2em * -1);
   width: 2em;
-  line-height: inherit;
   color: var(--bs-primary);
+  line-height: inherit;
+  text-align: center;
 }
 
 .sticky-aside {
@@ -197,8 +197,8 @@ form.is-submitting button[type="submit"] {
 }
 
 .dot-indicators [data-bs-target] {
-  height: 8px;
   width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 
@@ -211,17 +211,14 @@ form.is-submitting button[type="submit"] {
   opacity: 1;
 }
 
-[data-bs-spy="scroll"] {
-}
-
 [data-bs-spy="scroll"] section {
   scroll-snap-align: start;
 }
 
 form .helptext {
   margin-top: 0.25rem;
-  font-size: 0.875em;
   color: var(--bs-secondary);
+  font-size: 0.875em;
 }
 
 .htmx-indicator {
