@@ -19,14 +19,14 @@ SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
 SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
 
 # Logging
-LOGGING["handlers"]["syslog"] = {
-    "formatter": "full",
-    "level": "DEBUG",
-    "class": "logging.handlers.SysLogHandler",
-    "address": "/dev/log",
-    "facility": "local4",
-}
-LOGGING["loggers"]["django.request"]["handlers"].append("syslog")
+# LOGGING["handlers"]["syslog"] = {
+#     "formatter": "full",
+#     "level": "DEBUG",
+#     "class": "logging.handlers.SysLogHandler",
+#     "address": "/dev/log",
+#     "facility": "local4",
+# }
+# LOGGING["loggers"]["django.request"]["handlers"].append("syslog")
 
 
 # Sentry support
