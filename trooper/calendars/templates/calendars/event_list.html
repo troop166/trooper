@@ -10,20 +10,21 @@
   <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
 {% endblock css %}
 
-{% block content %}
+{% block content %}{% static 'img/bootstrap-icons.svg' as icons %}
   <main class="container">
     <div class="d-flex justify-content-between align-items-center">
       <h1>{% translate 'Calendar' %}</h1>
       {% if perms.calendar.add_event %}
-      <span>
+        <span>
         <a class="btn btn-success"
            href="{% url 'calendars:create' %}"
            hx-get="{% url 'calendars:create' %}"
            hx-target="#event-form-modal-container"
            data-bs-toggle="tooltip"
-           data-bs-title="{% translate 'Add a new event' %}"
-        >
-          <i class="bi bi-calendar-plus"></i>
+           data-bs-title="{% translate 'Add a new event' %}">
+          <svg class="bi">
+            <use href="{{ icons }}#calendar-plus"></use>
+          </svg>
         </a>
       </span>
       {% endif %}
@@ -36,7 +37,7 @@
       <li class="nav-item"><a href="{{ next_month }}" class="nav-link">{% translate 'Next month' %}</a></li>
     </nav>
     {% calendar_month month %}
-  <div id="event-form-modal-container"></div>
+    <div id="event-form-modal-container"></div>
   </main>
 {% endblock content %}
 

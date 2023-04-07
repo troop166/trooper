@@ -1,24 +1,33 @@
-{% load i18n %}
+{% load i18n static %}{% static 'img/bootstrap-icons.svg' as icons %}
 <div class="me-auto">
   <span class="list-icons-icon">
     {% if email.label == email.Label.HOME %}
-      <i class="bi bi-house"></i>
+      <svg class="bi">
+        <use href="{{ icons }}#house"></use>
+      </svg>
     {% elif email.label == email.Label.WORK %}
-      <i class="bi bi-briefcase"></i>
+      <svg class="bi">
+        <use href="{{ icons }}#briefcase"></use>
+      </svg>
     {% else %}
-      <i class="bi bi-envelope"></i>
+      <svg class="bi">
+        <use href="{{ icons }}#envelope"></use>
+      </svg>
     {% endif %}
     {% if not email.is_published %}
-      <i class="bi bi-eye-slash"></i>
+      <svg class="bi">
+        <use href="{{ icons }}#eye-slash"></use>
+      </svg>
     {% endif %}
   </span>
-{% if request.resolver_match.url_name == 'detail' %}
-  <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20" class="card-link text-decoration-none">
-{% endif %}
-    {{ email }}
-{% if request.resolver_match.url_name == 'detail' %}
-  </a>
-{% endif %}
+  {% if request.resolver_match.url_name == 'detail' %}
+    <a href="mailto:{{ email.address }}?subject=%5B{{ website.name|urlencode }}%5D%20"
+       class="card-link text-decoration-none">
+  {% endif %}
+  {{ email }}
+  {% if request.resolver_match.url_name == 'detail' %}
+    </a>
+  {% endif %}
 </div>
 {% if members_are_related %}
   <div class="btn-group" role="group" aria-label="{% translate 'Address editing buttons' %}">
@@ -27,7 +36,9 @@
             hx-get=""
             hx-target="#email-{{ email.pk }}"
             aria-label="{% translate 'edit' %}">
-      <i class="bi bi-pencil-square"></i>
+      <svg class="bi">
+        <use href="{{ icons }}#pencil-square"></use>
+      </svg>
     </button>
     <a class="btn btn-outline-danger btn-sm"
        href=""
@@ -36,7 +47,9 @@
        hx-target="#email-{{ email.pk }}"
        hx-swap="outerHTML"
        aria-label="{% translate 'delete' %}">
-      <i class="bi bi-trash"></i>
+      <svg class="bi">
+        <use href="{{ icons }}#trash"></use>
+      </svg>
     </a>
   </div>
 {% endif %}

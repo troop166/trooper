@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}{% static 'img/bootstrap-icons.svg' as icons %}
 <div class="card mb-3">
   <div class="card-body">
     <div class="row mb-5 mb-lg-0">
@@ -8,17 +8,13 @@
           <h2 class="card-title">
             {% if request.path == member.get_absolute_url %}
               {{ member.get_full_name }}
-            <a href="{% url 'members:vcard' username=member.username %}" data-bs-toggle="tooltip" title="{% translate 'Add to your contacts' %}">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                   width="16"
-                   height="16"
-                   fill="currentColor"
-                   class="bi bi-person-vcard"
-                   viewBox="0 0 16 16">
-                <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
-                <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
-              </svg>
-            </a>
+              <a href="{% url 'members:vcard' username=member.username %}"
+                 data-bs-toggle="tooltip"
+                 title="{% translate 'Add to your contacts' %}">
+                <svg class="bi">
+                  <use href="{{ icons }}#person-vcard"></use>
+                </svg>
+              </a>
             {% else %}
               <a class="stretched-link text-decoration-none"
                  href="{{ member.get_absolute_url }}">{{ member.get_full_name }}</a>
@@ -28,25 +24,33 @@
           {% if tag %}
             <p class="card-text"><span class="badge rounded-pill text-bg-secondary">{{ tag }}</span></p>{% endif %}
           {% if member.age < 18 %}
-            <p class="card-text"><i class="bi bi-gift"></i> {{ member.date_of_birth }}</p>
+            <p class="card-text">
+              <svg class="bi">
+                <use href="{{ icons }}#gift"></use>
+              </svg>
+              {{ member.date_of_birth }}
+            </p>
           {% endif %}
         </div>
       </div>
+
+      <div>
+        {% if object.is_related %}
+          <p>Object is related</p>
+        {% endif %}
+        {% if member.is_related %}
+          <p>Member is related</p>
+        {% endif %}
+      </div>
+
+
       {% if not summary %}
         <div class="col-lg-5">
-          {% if members_are_related %}
-            <address class="card-text">
-              {% include 'address_book/partials/address_list.html' with address_list=member.addresses.all %}
-              {% include 'address_book/partials/email_address_list.html' with email_addresses=member.email_addresses.all %}
-              {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.phone_numbers.all %}
-            </address>
-          {% elif member.published_addresses or member.published_email_addresses or member.published_phone_numbers %}
-            <address class="card-text">
-              {% include 'address_book/partials/address_list.html' with address_list=member.published_addresses %}
-              {% include 'address_book/partials/email_address_list.html' with email_addresses=member.published_email_addresses %}
-              {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.published_phone_numbers %}
-            </address>
-          {% endif %}
+          <address class="card-text">
+            {% include 'address_book/partials/address_list.html' with address_list=member.addresses.all %}
+            {% include 'address_book/partials/email_address_list.html' with email_addresses=member.email_addresses.all %}
+            {% include 'address_book/partials/phone_number_list.html' with phone_numbers=member.phone_numbers.all %}
+          </address>
         </div>
       {% endif %}
     </div>

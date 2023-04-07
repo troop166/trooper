@@ -9,16 +9,13 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = (
-            "label",
             "street",
             "street2",
             "city",
             "state",
             "zip_code",
-            "is_published",
         )
         widgets = {
-            "label": forms.Select(attrs={"class": "form-select"}),
             "street": forms.TextInput(
                 attrs={"autocomplete": "address-line1", "class": "form-control"}
             ),
@@ -34,5 +31,28 @@ class AddressForm(forms.ModelForm):
             "zip_code": forms.TextInput(
                 attrs={"autocomplete": "postal-code", "class": "form-control"}
             ),
-            "is_published": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
+
+
+class EmailForm(forms.ModelForm):
+    error_css_class = "is-invalid"
+
+    class Meta:
+        fields = ("address",)
+        widgets = {
+            "address": forms.EmailInput(
+                attrs={"autocomplete": "email", "class": "form-control"}
+            )
+        }
+
+
+class PhoneForm(forms.ModelForm):
+    error_css_class = "is-invalid"
+
+    class Meta:
+        fields = ("number",)
+        widgets = {
+            "number": forms.TextInput(
+                attrs={"autocomplete": "tel", "class": "form-control"}
+            )
         }

@@ -1,4 +1,4 @@
-{% load i18n thumbnail %}
+{% load i18n static thumbnail %}{% static 'img/bootstrap-icons.svg' as icons %}
 <!-- Begin site navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark" id="site-navbar">
   <div class="container">
@@ -61,7 +61,9 @@
                      height="{{ img.height }}"
                 >
               {% empty %}
-                <i class="bi-person-circle fs-5"></i>
+                <svg class="bi fs-5">
+                  <use href="{{ icons }}#person-circle"></use>
+                </svg>
               {% endthumbnail %}
               <span class="visually-hidden">{% translate 'User Menu' %}</span>
             </a>
@@ -69,20 +71,26 @@
               {% if request.user.is_authenticated %}
                 <li>
                   <a href="{{ request.user.get_absolute_url }}" class="dropdown-item">
-                    <i class="bi bi-person-fill"></i>
+                    <svg class="bi">
+                      <use href="{{ icons }}#person-fill"></use>
+                    </svg>
                     <span>{% translate 'My profile' %}</span>
                   </a>
                 </li>
                 <li>
                   <a href="{% url 'auth:password_change' %}" class="dropdown-item">
-                    <i class="bi bi-key-fill"></i>
+                    <svg class="bi">
+                      <use href="{{ icons }}#key-fill"></use>
+                    </svg>
                     <span>{% translate 'Update password' %}</span>
                   </a>
                 </li>
                 {% if request.user.is_staff %}
                   <li>
                     <a href="{% url 'admin:index' %}" class="dropdown-item">
-                      <i class="bi bi-gear-fill"></i>
+                      <svg class="bi">
+                        <use href="{{ icons }}#gear-fill"></use>
+                      </svg>
                       <span>{% translate 'Administration' %}</span>
                     </a>
                   </li>
@@ -93,7 +101,9 @@
                 <li>
                   <form action="{% url 'auth:logout' %}" method="post" class="dropdown-item" id="navbar-logout">
                     <button type="submit" class="text-danger">
-                      <i class="bi bi-box-arrow-right"></i>
+                      <svg class="bi">
+                        <use href="{{ icons }}#box-arrow-right"></use>
+                      </svg>
                       <span>{% translate 'Logout' %}</span>
                     </button>
                     {% csrf_token %}

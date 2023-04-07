@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class CommitteeQuerySet(models.QuerySet):
-    def count_members(self):
+    def with_member_count(self):
         today = timezone.now()
         return self.annotate(
             member_count=Count(
@@ -19,7 +19,7 @@ class CommitteeQuerySet(models.QuerySet):
 
 
 class PatrolQuerySet(models.QuerySet):
-    def count_members(self):
+    def with_member_count(self):
         today = timezone.now()
         return self.annotate(
             member_count=Count(

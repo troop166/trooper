@@ -12,8 +12,8 @@ from trooper.members.utils import eighteen_years_from
 
 
 class FamilyQuerySet(models.QuerySet):
-    def count_members(self):
-        return self.annotate(Count("members"))
+    def with_member_count(self):
+        return self.annotate(member_count=Count("members"))
 
 
 class FamilyMemberQuerySet(models.QuerySet):
@@ -49,18 +49,18 @@ class MemberQuerySet(models.QuerySet):
         return self.prefetch_related(
             Prefetch(
                 "addresses",
-                queryset=self.model.addresses.rel.model.objects.published(),
-                to_attr="published_addresses",
+                queryset=self.model.addresses.through.objects.published(),
+                # to_attr="published_addresses",
             ),
             Prefetch(
                 "email_addresses",
-                queryset=self.model.email_addresses.rel.model.objects.published(),
-                to_attr="published_email_addresses",
+                queryset=self.model.email_addresses.through.objects.published(),
+                # to_attr="published_email_addresses",
             ),
             Prefetch(
                 "phone_numbers",
-                queryset=self.model.phone_numbers.rel.model.objects.published(),
-                to_attr="published_phone_numbers",
+                queryset=self.model.phone_numbers.through.objects.published(),
+                # to_attr="published_phone_numbers",
             ),
         )
 

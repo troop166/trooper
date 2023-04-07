@@ -1,13 +1,33 @@
 {
+  "name": "trooper",
+  "version": "0.1.0",
+  "description": "Simple BSA Troop management application.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": {
+    "name": "John Lawrence",
+    "email": "thirdjal@users.noreply.github.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",
-    "@fontsource/roboto-slab": "^4.5.9",
-    "bootstrap": "^5.2.2",
-    "bootstrap-icons": "^1.9.1",
-    "htmx.org": "^1.8.4"
+    "@fontsource/roboto-slab": "^4.5.11",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "htmx.org": "^1.8.6"
   },
   "devDependencies": {
-    "stylelint": "^15.0.0",
-    "stylelint-config-standard": "^30.0.1"
+    "stylelint": "^15.4.0",
+    "stylelint-config-idiomatic-order": "^9.0.0",
+    "stylelint-config-standard": "^32.0.0"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-idiomatic-order",
+      "stylelint-config-standard"
+    ]
   }
 }

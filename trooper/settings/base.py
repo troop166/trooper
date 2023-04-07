@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "trooper.calendars",
     "trooper.core",
     "trooper.members",
+    "trooper.outings",
     "trooper.website",
 ]
 
@@ -170,11 +171,6 @@ STATIC_HOST = env("DJANGO_STATIC_HOST", default="")
 STATIC_ROOT = env("DJANGO_STATIC_ROOT", default=BASE_DIR / "static_files")
 STATIC_URL = f"{STATIC_HOST}/static/"
 STATICFILES_DIRS = [APP_DIR / "static"]
-
-# Include node packages if folder exists
-NODE_MODULES = BASE_DIR / "node_modules"
-if NODE_MODULES.is_dir():
-    STATICFILES_DIRS.append(NODE_MODULES)
 
 # https://whitenoise.evans.io/en/latest/django.html#add-compression-and-caching-support
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
