@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "trooper.calendars",
     "trooper.core",
     "trooper.members",
+    "trooper.outings",
     "trooper.website",
 ]
 
