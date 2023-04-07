@@ -18,7 +18,7 @@ class Leader(models.Model):
     end = models.DateField(_("until"), blank=True, null=True)
 
     class Meta:
-        ordering = ["-start", "role", "member"]
+        ordering = ["-start", "-role", "member"]
         verbose_name = _("Leader")
         verbose_name_plural = _("Leaders")
 
