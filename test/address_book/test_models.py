@@ -17,7 +17,6 @@ class AddressCase(TestCase):
             city="Seattle",
             state="WA",
             zip_code="98101",
-            content_object=self.member,
         )
 
         self.assertEqual(address.street, "123 Main St.")
@@ -26,7 +25,6 @@ class AddressCase(TestCase):
         self.assertEqual(address.state, "WA")
         self.assertEqual(address.zip_code, "98101")
         self.assertEqual(str(address), "123 Main St., Seattle, WA, 98101")
-        self.assertTrue(address.is_published)
 
     def test_multiline_address(self):
         address = Address.objects.create(
@@ -35,9 +33,6 @@ class AddressCase(TestCase):
             city="Seattle",
             state="WA",
             zip_code="98101-1010",
-            is_published=False,
-            label="W",
-            content_object=self.member,
         )
 
         self.assertEqual(address.street, "321 Any Avenue")
@@ -48,4 +43,3 @@ class AddressCase(TestCase):
         self.assertEqual(
             str(address), "321 Any Avenue, Suite 1000, Seattle, WA, 98101-1010"
         )
-        self.assertFalse(address.is_published)
