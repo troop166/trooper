@@ -14,10 +14,10 @@
     {% if member.adult_families.exists %}
       <div class="card-group" id="partners-and-children">
         {% translate 'spouse' as partner_tag %}
-        {% translate 'child' as child_tag %}
         {% for partner in member.partners %}
           {% include 'members/partials/member_detail.html' with member=partner summary=True tag=partner_tag %}
         {% endfor %}
+        {% translate 'child' as child_tag %}
         {% for child in member.children %}
           {% include 'members/partials/member_detail.html' with member=child summary=True tag=child_tag %}
         {% endfor %}
@@ -26,10 +26,10 @@
     {% if member.childhood_families.exists %}
       <div class="card-group" id="parents-and-siblings">
         {% translate 'parent' as parent_tag %}
-        {% translate 'sibling' as sibling_tag %}
         {% for parent in member.parents %}
           {% include 'members/partials/member_detail.html' with member=parent summary=True tag=parent_tag %}
         {% endfor %}
+        {% translate 'sibling' as sibling_tag %}
         {% for sibling in member.siblings %}
           {% include 'members/partials/member_detail.html' with member=sibling summary=True tag=sibling_tag %}
         {% endfor %}
