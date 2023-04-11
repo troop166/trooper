@@ -57,7 +57,8 @@ class FamilyAdmin(admin.ModelAdmin):
     readonly_fields = ("family_members",)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).count_members()
+        qs = super().get_queryset(request)
+        return qs.with_member_count()
 
     @admin.display(description=_("Family Members"))
     def family_members(self, instance):
@@ -81,9 +82,9 @@ class FamilyAdmin(admin.ModelAdmin):
             ),
         )
 
-    @admin.display(description=_("Members"), ordering="member__count")
+    @admin.display(description=_("Members"), ordering="member_count")
     def member_count(self, obj):
-        return obj.members__count
+        return obj.member_count
 
 
 @admin.register(Member)
