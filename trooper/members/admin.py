@@ -1,10 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.urls import reverse
-from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
-from trooper.core.admin.utils import image_preview
+from trooper.core.admin.utils import change_list, image_preview
 from trooper.members.forms import MemberChangeForm, MemberCreationForm
 from trooper.members.models import Family, FamilyMember, Member
 
@@ -61,26 +59,9 @@ class FamilyAdmin(admin.ModelAdmin):
         return qs.with_member_count()
 
     @admin.display(description=_("Family Members"))
-    def family_members(self, instance):
-        member_set = instance.family_members.all()
-        return format_html(
-            "<ul{}>\n{}\n</ul>",
-            " style=margin-left:1.5em;",
-            format_html_join(
-                "\n",
-                "<li><a href={}>{}</a></li>",
-                (
-                    (
-                        reverse(
-                            f"admin:{fm.member._meta.app_label}_{fm.member._meta.model_name}_change",  # noqa: E501
-                            args=(fm.member_id,),
-                        ),
-                        fm.member.get_full_name(),
-                    )
-                    for fm in member_set
-                ),
-            ),
-        )
+    def family_members(self, obj):
+        members = obj.members.all()
+        return change_list(members) if members else self.get_empty_value_display()
 
     @admin.display(description=_("Members"), ordering="member_count")
     def member_count(self, obj):
