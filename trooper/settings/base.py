@@ -173,7 +173,11 @@ STATIC_URL = f"{STATIC_HOST}/static/"
 STATICFILES_DIRS = [APP_DIR / "static"]
 
 # https://whitenoise.evans.io/en/latest/django.html#add-compression-and-caching-support
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 
 # Media files (user uploaded)

@@ -25,27 +25,27 @@ sections = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
-django = {extras = ["argon2"], version = "^3.2.16"}
-django-environ = "^0.9.0"
-django-ical = "^1.8.3"
+python = "^3.8.16"
+django = {extras = ["argon2"], version = "^4.2"}
+django-environ = "^0.10.0"
+django-ical = "^1.9.0"
 django-localflavor = "^3.1"
-django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.0.1"}
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.0.2"}
 django-recurrence = "^1.11.1"
 django-widget-tweaks = "^1.4.12"
 docutils = "^0.19"
-pillow = "^9.2.0"
+pillow = "^9.5.0"
 pip = "*"
 setuptools = "*"
 sorl-thumbnail = "^12.9.0"
-whitenoise = {extras = ["brotli"], version = "^6.2.0"}
+whitenoise = {extras = ["brotli"], version = "^6.4.0"}
 django-colorfield = "^0.8.0"
-sentry-sdk = "^1.13.0"
-django-htmx = "^1.13.0"
+sentry-sdk = "^1.19.1"
+django-htmx = "^1.14.0"
 vobject = "^0.9.6.1"
 
 [tool.poetry.group.dev.dependencies]
-django-debug-toolbar = "^3.7.0"
+django-debug-toolbar = "^4.0.0"
 django-extensions = "^3.2.1"
 black = "*"
 flake8 = "^6.0.0"
@@ -54,7 +54,7 @@ pre-commit = "*"
 
 
 [tool.poetry.group.production.dependencies]
-psycopg2-binary = "^2.9.5"
+psycopg2-binary = "^2.9.6"
 
 [build-system]
 requires = ["poetry-core"]
