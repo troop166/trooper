@@ -40,7 +40,7 @@ class MemberListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.with_published_contact_info()
+        # qs = qs.with_published_contact_info()
         if "filter" in self.kwargs:
             filter_to = self.kwargs["filter"]
             if filter_to in self.model.objects.FILTERS_AVAILABLE:
