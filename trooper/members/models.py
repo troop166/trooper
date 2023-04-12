@@ -7,8 +7,17 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
-from trooper.address_book.models import Address, Email, Phone
-from trooper.members.managers import FamilyQuerySet, MemberManager
+from trooper.address_book.models import Address as BaseAddress
+from trooper.address_book.models import EmailAddress as BaseEmailAddress
+from trooper.address_book.models import EmailAddressManager
+from trooper.address_book.models import PhoneNumber as BasePhoneNumber
+from trooper.address_book.models import PhoneNumberManager
+from trooper.members.managers import (
+    FamilyQuerySet,
+    MemberManager,
+    PublishedQuerySet,
+    PublishedSubscribedQuerySet,
+)
 from trooper.members.utils import calculate_age, get_member_photo_upload_to
 from trooper.members.validators import date_of_birth_validator, date_of_death_validator
 
@@ -64,15 +73,6 @@ class Member(AbstractUser):
     )
     date_of_death = models.DateField(
         _("date of death"), validators=[date_of_death_validator], blank=True, null=True
-    )
-    addresses = models.ManyToManyField(
-        Address, related_name="members", through="MemberAddress"
-    )
-    email_addresses = models.ManyToManyField(
-        Email, related_query_name="member", through="MemberEmail"
-    )
-    phone_numbers = models.ManyToManyField(
-        Phone, related_query_name="member", through="MemberPhone"
     )
 
     objects = MemberManager()
@@ -273,3 +273,78 @@ class FamilyMember(models.Model):
 
     def __str__(self):
         return self.member.__str__()
+
+
+class Address(BaseAddress):
+    class Label(models.TextChoices):
+        HOME = "HOME", _("Home")
+        WORK = "WORK", _("Work")
+        SCHOOL = "SCHOOL", _("School")
+        PO_BOX = "POB", _("P.O. Box")
+
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, related_name="addresses"
+    )
+    label = models.CharField(
+        _("label"), max_length=6, choices=Label.choices, blank=True
+    )
+    is_published = models.BooleanField(
+        _("published in directory"),
+        default=True,
+        help_text=_("Allow others to see this address in the member directory."),
+    )
+
+    objects = PublishedQuerySet.as_manager()
+
+
+class EmailAddress(BaseEmailAddress):
+    class Label(models.TextChoices):
+        HOME = "HOME", _("Home")
+        SCHOOL = "SCHOOL", _("School")
+        WORK = "WORK", _("Work")
+
+    member = models.ForeignKey(
+        Member,
+        on_delete=models.CASCADE,
+        related_name="email_addresses",
+        related_query_name="email_address",
+    )
+    label = models.CharField(
+        _("label"), max_length=6, choices=Label.choices, blank=True
+    )
+    is_published = models.BooleanField(
+        _("published in directory"),
+        default=True,
+        help_text=_("Allow others to see this address in the member directory."),
+    )
+    is_subscribed = models.BooleanField(
+        _("subscribed to mailing lists"),
+        default=True,
+        help_text=_("Receive periodic email communications at this address."),
+    )
+
+    objects = EmailAddressManager.from_queryset(PublishedSubscribedQuerySet)()
+
+
+class PhoneNumber(BasePhoneNumber):
+    class Label(models.TextChoices):
+        """A subset of phone types from RFC 2426."""
+
+        HOME = "HOME", _("Home")
+        MOBILE = "CELL", _("Mobile")
+        FAX = "FAX", _("Fax")
+        WORK = "WORK", _("Work")
+
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, related_name="phone_numbers"
+    )
+    label = models.CharField(
+        _("label"), max_length=4, choices=Label.choices, blank=True
+    )
+    is_published = models.BooleanField(
+        _("published in directory"),
+        default=True,
+        help_text=_("Allow other members to see this number in the member directory."),
+    )
+
+    objects = PhoneNumberManager.from_queryset(PublishedQuerySet)()

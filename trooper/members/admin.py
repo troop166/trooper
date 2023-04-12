@@ -4,7 +4,14 @@ from django.utils.translation import gettext as _
 
 from trooper.core.admin.utils import change_list, image_preview
 from trooper.members.forms import MemberChangeForm, MemberCreationForm
-from trooper.members.models import Family, FamilyMember, Member
+from trooper.members.models import (
+    Address,
+    EmailAddress,
+    Family,
+    FamilyMember,
+    Member,
+    PhoneNumber,
+)
 
 
 class MemberAgeRangeFilter(admin.SimpleListFilter):
@@ -24,18 +31,31 @@ class MemberAgeRangeFilter(admin.SimpleListFilter):
             return queryset.youths()
 
 
-class MemberAddressInline(admin.StackedInline):
-    model = Member.addresses.through
+class AddressInline(admin.StackedInline):
+    model = Address
+    extra = 0
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "label",
+                    ("street", "street2"),
+                    ("city", "state", "zip_code"),
+                    "is_published",
+                )
+            },
+        ),
+    )
+
+
+class EmailAddressInline(admin.TabularInline):
+    model = EmailAddress
     extra = 0
 
 
-class MemberEmailInline(admin.TabularInline):
-    model = Member.email_addresses.through
-    extra = 0
-
-
-class MemberPhoneInline(admin.TabularInline):
-    model = Member.phone_numbers.through
+class PhoneNumberInline(admin.TabularInline):
+    model = PhoneNumber
     extra = 0
 
 
@@ -135,14 +155,13 @@ class MemberAdmin(UserAdmin):
     list_filter = (MemberAgeRangeFilter, "is_staff", "is_superuser", "is_active")
     inlines = [
         FamilyMemberInline,
-        MemberAddressInline,
-        MemberEmailInline,
-        MemberPhoneInline,
+        AddressInline,
+        EmailAddressInline,
+        PhoneNumberInline,
     ]
     filter_horizontal = (
         "groups",
         "user_permissions",
-        "addresses",
     )
     readonly_fields = ("age", "last_login", "preview")
     search_fields = ("first_name", "last_name", "nickname")

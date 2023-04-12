@@ -118,7 +118,7 @@ class MemberManager(UserManager):
         return self.get_queryset().with_published_contact_info()
 
     def get_by_natural_key(self, username):
-        fields = ["email_addresses__address", "username"]
+        fields = ["email_address__address", "username"]
         lookups = [Q(**{f"{field}__iexact": username}) for field in fields]
         return (
             self.get_queryset().filter(reduce(operator.or_, lookups)).distinct().get()
@@ -129,3 +129,13 @@ class MemberManager(UserManager):
 
     def youths(self):
         return self.get_queryset().youths()
+
+
+class PublishedQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(is_published=True)
+
+
+class PublishedSubscribedQuerySet(PublishedQuerySet):
+    def subscribed(self):
+        return self.filter(is_subscribed=True)
