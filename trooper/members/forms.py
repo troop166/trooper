@@ -9,8 +9,7 @@ from django.contrib.auth.forms import (
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
-from trooper.address_book.models import Address
-from trooper.members.models import Member
+from trooper.members.models import Address, EmailAddress, Member, PhoneNumber
 
 
 class MemberCreationForm(UserCreationForm):
@@ -72,3 +71,29 @@ class MemberInvitationForm(PasswordResetForm):
     """
 
     pass
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = (
+            "label",
+            "street",
+            "street2",
+            "city",
+            "state",
+            "zip_code",
+            "is_published",
+        )
+
+
+class EmailAddressForm(forms.ModelForm):
+    class Meta:
+        model = EmailAddress
+        fields = ("label", "address", "is_published", "is_subscribed")
+
+
+class PhoneNumberForm(forms.ModelForm):
+    class Meta:
+        model = PhoneNumber
+        fields = ("label", "number", "is_published")
