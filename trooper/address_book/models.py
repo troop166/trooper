@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.functions import Lower
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
@@ -44,23 +45,47 @@ class Address(models.Model):
             )
         else:
             return format_html(
-                "{}<br> {}, {} {}", self.street, self.city, self.state, self.zip_code
+                "{}<br> {}, {} {}",
+                self.street,
+                self.city,
+                self.state,
+                self.zip_code,
             )
 
 
-class Email(models.Model):
+class EmailAddressManager(models.Manager):
+    def get_by_natural_key(self, address):
+        return self.get(address__iexact=address)
+
+
+class EmailAddress(models.Model):
     address = models.EmailField(_("email address"), unique=True)
 
+    objects = EmailAddressManager()
+
     class Meta:
+        constraints = [
+            models.UniqueConstraint(Lower("address"), name="unique_email_address"),
+        ]
         verbose_name = _("Email Address")
         verbose_name_plural = _("Email Addresses")
 
     def __str__(self):
         return self.address
 
+    def natural_key(self):
+        return (self.address.lower(),)
 
-class Phone(models.Model):
-    number = PhoneNumberField(_("phone number"))
+
+class PhoneNumberManager(models.Manager):
+    def get_by_natural_key(self, number):
+        return self.get(number=number)
+
+
+class PhoneNumber(models.Model):
+    number = PhoneNumberField(_("phone number"), unique=True)
+
+    objects = PhoneNumberManager()
 
     class Meta:
         verbose_name = _("Phone Number")
@@ -68,6 +93,9 @@ class Phone(models.Model):
 
     def __str__(self):
         return self.number.as_national
+
+    def natural_key(self):
+        return (self.number.as_e164,)
 
 
 class Location(models.Model):
