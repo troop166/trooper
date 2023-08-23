@@ -245,8 +245,8 @@ EMAIL_CONFIG = env.email_url("EMAIL_URL", default="consolemail://")
 vars().update(EMAIL_CONFIG)
 ADMINS = getaddresses([env("DJANGO_ADMINS", default="")])
 MANAGERS = getaddresses([env("DJANGO_MANAGERS", default="")])
-DEFAULT_FROM_EMAIL = env("DJANGO_FROM_EMAIL", default="webmaster@localhost")
-SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default="root@localhost")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="webmaster@localhost")
+SERVER_EMAIL = env("SERVER_EMAIL", default="root@localhost")
 
 
 # Django-phonenumber-field
