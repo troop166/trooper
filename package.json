@@ -13,20 +13,20 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@fontsource/roboto": "^4.5.8",
-    "@fontsource/roboto-slab": "^4.5.11",
-    "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.3",
-    "htmx.org": "^1.8.6"
+    "@fontsource/roboto": "^5.0.8",
+    "@fontsource/roboto-slab": "^5.0.9",
+    "bootstrap": "^5.3.1",
+    "bootstrap-icons": "^1.10.5",
+    "htmx.org": "^1.9.4"
   },
   "devDependencies": {
-    "stylelint": "^15.4.0",
-    "stylelint-config-idiomatic-order": "^9.0.0",
-    "stylelint-config-standard": "^32.0.0"
+    "stylelint": "^15.10.3",
+    "stylelint-config-recess-order": "^4.3.0",
+    "stylelint-config-standard": "34.0.0"
   },
   "stylelint": {
     "extends": [
-      "stylelint-config-idiomatic-order",
+      "stylelint-config-recess-order",
       "stylelint-config-standard"
     ]
   }
