@@ -20,12 +20,12 @@ repos:
         args: [ "--django" ]
       - id: trailing-whitespace
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.1
+    rev: v3.10.1
     hooks:
       - id: pyupgrade
         args: [ "--py36-plus", "--py37-plus", "--py38-plus", "--py39-plus" ]
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.13.0
+    rev: 1.14.1
     hooks:
       - id: django-upgrade
         args: [ --target-version, "4.2" ]
@@ -35,7 +35,7 @@ repos:
       - id: bandit
         args: ['-iii', '-ll']
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
         exclude: migrations/
@@ -46,12 +46,12 @@ repos:
       - id: isort
         exclude: migrations/
   - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
+    rev: 6.1.0
     hooks:
       - id: flake8
         exclude: migrations/
         args: [ --extend-ignore, "F401"]
   - repo: https://github.com/standard/standard
-    rev: v17.0.0
+    rev: v17.1.0
     hooks:
       - id: standard
