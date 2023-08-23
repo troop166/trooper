@@ -22,9 +22,9 @@
 
 body {
   display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  flex-direction: column;
   font-family: Roboto, sans-serif;
 }
 
@@ -57,8 +57,8 @@ h6 {
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 3rem;
-  background-color: var(--bs-dark);
   color: var(--bs-light);
+  background-color: var(--bs-dark);
 }
 
 main.container {
@@ -68,11 +68,11 @@ main.container {
 }
 
 form.is-submitting button[type="submit"] {
-  border-color: var(--bs-btn-disabled-border-color);
-  background-color: var(--bs-btn-disabled-bg);
   color: var(--bs-btn-disabled-color);
-  opacity: var(--bs-btn-disabled-opacity);
   pointer-events: none;
+  background-color: var(--bs-btn-disabled-bg);
+  border-color: var(--bs-btn-disabled-border-color);
+  opacity: var(--bs-btn-disabled-opacity);
 }
 
 #site-navbar {
@@ -88,15 +88,15 @@ form.is-submitting button[type="submit"] {
   display: inline-block;
   width: 1em;
   height: 1em;
-  fill: currentcolor;
   vertical-align: -.125em;
+  fill: currentcolor;
 }
 
 .message {
   padding-right: 0;
   padding-left: 0;
-  border-radius: 0;
   margin-bottom: 0;
+  border-radius: 0;
 }
 
 .login-form {
@@ -111,8 +111,8 @@ form.is-submitting button[type="submit"] {
 
 .login-form input[autocomplete="username"] {
   margin-bottom: -1px;
-  border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .login-form input[autocomplete="current-password"] {
@@ -133,11 +133,11 @@ form.is-submitting button[type="submit"] {
 
 .logout-form button {
   display: flex;
-  width: 100%;
   align-items: center;
+  width: 100%;
   padding: 1rem 0.25rem;
-  border: none;
   background-color: transparent;
+  border: none;
 }
 
 #navbar-logout {
@@ -147,9 +147,9 @@ form.is-submitting button[type="submit"] {
 #navbar-logout button[type="submit"] {
   width: 100%;
   padding: 0.25rem 1rem;
-  border: none;
-  background-color: transparent;
   text-align: left;
+  background-color: transparent;
+  border: none;
 }
 
 .navbar-brand {
@@ -178,8 +178,8 @@ form.is-submitting button[type="submit"] {
   position: absolute;
   left: calc(2em * -1);
   width: 2em;
-  color: var(--bs-primary);
   line-height: inherit;
+  color: var(--bs-primary);
   text-align: center;
 }
 
@@ -217,8 +217,8 @@ form.is-submitting button[type="submit"] {
 
 form .helptext {
   margin-top: 0.25rem;
-  color: var(--bs-secondary);
   font-size: 0.875em;
+  color: var(--bs-secondary);
 }
 
 .htmx-indicator {
