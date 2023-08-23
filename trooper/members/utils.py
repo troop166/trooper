@@ -1,19 +1,46 @@
+from datetime import date
+
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
 import vobject
 
 
-def eighteen_years_from(date=None):
-    if not date:
-        date = timezone.now()
-    return date.replace(year=date.year - 18)
+def eighteen_years_from(day: date) -> date:
+    """Given a day, returns the date eighteen years earlier. If no starting
+    date is provided, will calculate eighteen years before today.
 
+    Parameters
+    ----------
+    day : date, optional
+        The starting day to calculate from (default is today)
 
-def calculate_age(date_of_birth, on_date=None):
+    Returns
+    -------
+    date
+        The original date minus eighteen years
     """
-    Calculate a Member's age on given date. If no date is provided,
+    if not day:
+        day = timezone.now()
+    return day.replace(year=day.year - 18)
+
+
+def calculate_age(date_of_birth: date, on_date: date) -> int:
+    """Calculate a Member's age on given date. If no date is provided,
     defaults to today.
+
+    Parameters
+    ----------
+    date_of_birth : date
+        The date a person was born.
+    on_date : date, optional
+        Calculate the person's age on a specific date. If no date is
+        provided, calculate for the current date.
+
+    Returns
+    -------
+    age : int
+        The person's age for the specified date.
     """
     if not on_date:
         on_date = timezone.now().date()
@@ -26,7 +53,7 @@ def calculate_age(date_of_birth, on_date=None):
     return on_date.year - date_of_birth.year - birthday_upcoming
 
 
-def get_member_photo_upload_to(instance, filename):
+def get_member_photo_upload_to(instance, filename: str) -> str:
     """Sort member photos into folders based on their username."""
     return _("members/%(username)s/%(filename)s") % {
         "username": instance.username,
@@ -34,7 +61,10 @@ def get_member_photo_upload_to(instance, filename):
     }
 
 
-def member_vcard(member):
+def member_vcard(member) -> vobject.vCard:
+    """Craft an object, compliant with vCard 3.0 standard using
+    the published details of a Member
+    """
     vcard = vobject.vCard()
 
     vcard.add("fn")
