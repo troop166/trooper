@@ -9,8 +9,8 @@ main {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: var(--scouting-light-tan);
   text-align: center;
+  background-color: var(--scouting-light-tan);
 }
 
 .form-signin {
@@ -24,8 +24,8 @@ main {
 
 .form-signin input[autocomplete="username"] {
   margin-bottom: -1px;
-  border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .form-signin input[autocomplete="current-password"] {
