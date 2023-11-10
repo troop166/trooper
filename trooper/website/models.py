@@ -169,6 +169,10 @@ class Page(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, **kwargs):
+        self.clean()
+        super().save(**kwargs)
+
     def clean(self):
         if self.is_builtin == self.BuiltIn.HOME:
             self.slug = ""
@@ -193,6 +197,10 @@ class Image(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, **kwargs):
+        self.clean()
+        super().save(**kwargs)
 
     def clean(self):
         if not self.title:
