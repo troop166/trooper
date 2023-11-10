@@ -201,6 +201,16 @@ class Image(models.Model):
 
 class Content(models.Model):
     class Visibility(models.TextChoices):
+        """
+        Enum representing the visibility options for content.
+
+        Attributes:
+            ANONYMOUS (str): Visibility option for anonymous/guest users.
+            PUBLIC (str): Visibility option for everyone.
+            MEMBERS (str): Visibility option for members only.
+
+        """
+
         ANONYMOUS = "ANONYMOUS", _("Anonymous/Guests")
         PUBLIC = "PUBLIC", _("Everyone")
         MEMBERS = "MEMBERS", _("Members Only")
